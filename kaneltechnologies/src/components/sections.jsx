@@ -4,6 +4,10 @@ import US from '../assets/images/team.jpeg';
 import HeroCom from '../assets/images/company.jpg';
 import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { Link as RouterLink } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
+import emailjs from '@emailjs/browser';
+import { blogPosts } from '../data/blogPosts';
 
 // Helper component for animation when scrolling
 const AnimatedSection = ({ children, className, id }) => {
@@ -287,9 +291,10 @@ export const Team = () => {
       className="py-32 px-8 md:px-16 bg-gradient-to-b from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto text-center mb-24">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          initial={{ y: 90 }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className="relative inline-block mb-6">
           <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 opacity-30 blur-lg"></span>
           <span className="relative text-sm uppercase tracking-widest font-bold text-blue-600 px-4 py-2 bg-white rounded-full shadow-sm">
@@ -298,9 +303,10 @@ export const Team = () => {
         </motion.div>
 
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ y: 100 }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{ duration: 0.75, ease: 'easeOut' }}
           className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 font-lato">
           Meet Our{' '}
           <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
@@ -309,18 +315,20 @@ export const Team = () => {
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          initial={{ y: 85 }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{ delay: 0.1, duration: 0.75, ease: 'easeOut' }}
           className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
           Our talented professionals bring years of industry experience and a
           passion for technology-driven solutions that transform businesses.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, width: 0 }}
-          whileInView={{ opacity: 1, width: '80px' }}
-          transition={{ delay: 0.5, duration: 0.8 }}
+          initial={{ y: 80, width: 0 }}
+          whileInView={{ y: 0, width: '80px' }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
           className="h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-8 rounded-full"></motion.div>
       </div>
 
@@ -329,17 +337,17 @@ export const Team = () => {
           <motion.div
             key={i}
             className="group perspective-[1000px] bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer border border-gray-100"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ y: 100, scale: 0.98 }}
+            whileInView={{ y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.35 }}
             whileHover={{
               scale: 1.03,
               rotateY: 5,
               boxShadow: '0 25px 50px rgba(0,0,0,0.2)',
             }}
             transition={{
-              type: 'spring',
-              stiffness: 300,
-              damping: 20,
+              duration: 0.7,
+              ease: 'easeOut',
               delay: i * 0.15,
             }}>
             {/* Image with overlay */}
@@ -410,15 +418,19 @@ export const Team = () => {
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.6 }}
+        initial={{ y: 90 }}
+        whileInView={{ y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
         className="text-center mt-20 max-w-3xl mx-auto">
-        <a
-          href="#contact"
+        <ScrollLink
+          to="contact"
+          smooth={true}
+          duration={500}
+          offset={-90}
           className="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
           Connect With Our Team
-        </a>
+        </ScrollLink>
         <p className="text-gray-500 mt-4">
           Ready to transform your business with our expertise?
         </p>
@@ -501,9 +513,8 @@ export const Projects = () => {
 
   // Animation variants
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
         staggerChildren: 0.2,
       },
@@ -511,25 +522,23 @@ export const Projects = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { y: 95 },
     visible: {
-      opacity: 1,
       y: 0,
       transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 12,
+        duration: 0.75,
+        ease: 'easeOut',
       },
     },
   };
 
   const headerVariants = {
-    hidden: { opacity: 0, y: -20 },
+    hidden: { y: 90 },
     visible: {
-      opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.75,
+        ease: 'easeOut',
       },
     },
   };
@@ -549,7 +558,7 @@ export const Projects = () => {
           className="text-center mb-16"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.45 }}
           variants={containerVariants}>
           <motion.span
             variants={headerVariants}
@@ -583,7 +592,7 @@ export const Projects = () => {
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.35 }}
           variants={containerVariants}>
           {projects.map((project, index) => {
             const colors = colorMap[project.color];
@@ -599,12 +608,13 @@ export const Projects = () => {
                 <div
                   className={`relative h-48 ${colors.bg} flex items-center justify-center overflow-hidden`}>
                   <motion.div
-                    initial={{ y: 30, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
+                    initial={{ y: 80 }}
+                    whileInView={{ y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
                     transition={{
-                      delay: 0.3 + index * 0.1,
-                      duration: 0.5,
-                      type: 'spring',
+                      delay: 0.1 + index * 0.1,
+                      duration: 0.7,
+                      ease: 'easeOut',
                     }}
                     className={`${colors.text} ${
                       hoveredIndex === index ? 'scale-125' : 'scale-100'
@@ -630,9 +640,14 @@ export const Projects = () => {
                 <div className="p-6">
                   <motion.span
                     className={`inline-block px-3 py-1 ${colors.badge} ${colors.text} text-sm font-medium rounded-full mb-4`}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 + index * 0.1 }}>
+                    initial={{ y: 55 }}
+                    whileInView={{ y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{
+                      delay: 0.15 + index * 0.08,
+                      duration: 0.65,
+                      ease: 'easeOut',
+                    }}>
                     {project.category}
                   </motion.span>
 
@@ -675,10 +690,10 @@ export const Projects = () => {
 
         <motion.div
           className="mt-16 text-center"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8, type: 'spring', stiffness: 50 }}>
+          initial={{ y: 90 }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ delay: 0.2, duration: 0.75, ease: 'easeOut' }}>
           <motion.button
             className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-300"
             whileHover={{
@@ -776,31 +791,6 @@ export const Testimonials = () => {
 };
 
 export const Blog = () => {
-  const blogPosts = [
-    {
-      title: '5 Ways Cloud Computing Can Transform Your Business',
-      category: 'Cloud Services',
-      date: 'April 15, 2025',
-      excerpt:
-        'Discover how cloud computing solutions can drive efficiency and growth for businesses of all sizes.',
-    },
-    {
-      title: "The Importance of Cybersecurity in Today's Digital Landscape",
-      category: 'Security',
-      date: 'April 8, 2025',
-      excerpt:
-        'Learn about the latest threats and how to protect your business from potential cybersecurity risks.',
-    },
-    {
-      title:
-        'Microsoft wins appeal in FTC challenge to $69 bln Activision Blizzard deal',
-      category: 'Innovation',
-      date: 'March 27, 2025',
-      excerpt: `Explore practical applications of artificial intelligence to improve your IT infrastructure and operatioMay 7 (Reuters) - A federal appeals court on Wednesday rejected a legal challenge by the Federal Trade Commission to Microsoft.The San Francisco-based 9th U.S. Circuit Court of Appeals upheld a lower judge's order that said the FTC was not entitled to a preliminary injunction blocking the deal, which closed in 2023.`,
-      image:"/kanelblack.png"
-    },
-  ];
-
   return (
     <AnimatedSection id="blog" className="py-24 px-6 md:px-12 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -817,11 +807,13 @@ export const Blog = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {blogPosts.map((post, index) => (
             <div
-              key={index}
+              key={post.id}
               className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-              <div className="h-48 bg-blue-200 flex items-center justify-center">
-                <span className="text-blue-600 font-semibold">Blog Image</span>
-              </div>
+              <img
+                src={post.image}
+                alt={post.title}
+                className="h-48 w-full object-cover"
+              />
               <div className="p-6">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-sm text-blue-600 font-medium">
@@ -833,8 +825,10 @@ export const Blog = () => {
                   {post.title}
                 </h3>
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                <button className="text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-800 transition-colors">
-                  <span>Read More</span>
+                <RouterLink
+                  to="/blog-news"
+                  className="text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-800 transition-colors">
+                  <span>View Article</span>
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -847,16 +841,18 @@ export const Blog = () => {
                       d="M14 5l7 7m0 0l-7 7m7-7H3"
                     />
                   </svg>
-                </button>
+                </RouterLink>
               </div>
             </div>
           ))}
         </div>
 
         <div className="mt-16 text-center">
-          <button className="px-6 py-3 border-2 border-blue-600 text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-colors duration-300">
+          <RouterLink
+            to="/blog-news"
+            className="inline-flex px-6 py-3 border-2 border-blue-600 text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-colors duration-300">
             View All Articles
-          </button>
+          </RouterLink>
         </div>
       </div>
     </AnimatedSection>
@@ -884,24 +880,57 @@ export const Contact = () => {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus({ isSubmitting: true, isSubmitted: false, error: null });
 
-    // Simulate form submission
-    setTimeout(() => {
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setFormStatus({
+        isSubmitting: false,
+        isSubmitted: false,
+        error:
+          'Email service is not configured yet. Add EmailJS keys to your .env file.',
+      });
+      return;
+    }
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        {
+          publicKey,
+        }
+      );
+
       setFormStatus({
         isSubmitting: false,
         isSubmitted: true,
         error: null,
       });
+      setFormData({ name: '', email: '', subject: '', message: '' });
 
-      // Reset form after 3 seconds
       setTimeout(() => {
-        setFormStatus((prev) => ({ ...prev, isSubmitted: false }));
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormStatus((prev) => ({ ...prev, isSubmitted: false, error: null }));
       }, 3000);
-    }, 1500);
+    } catch (error) {
+      setFormStatus({
+        isSubmitting: false,
+        isSubmitted: false,
+        error:
+          'Message failed to send. Please check your EmailJS template settings and try again.',
+      });
+    }
   };
 
   // Social media data with actual links
@@ -1228,6 +1257,9 @@ export const Contact = () => {
                     transition={{ duration: 0.4 }}
                   />
                 </motion.button>
+                {formStatus.error && (
+                  <p className="mt-3 text-sm text-red-600">{formStatus.error}</p>
+                )}
               </motion.div>
             </motion.form>
           </motion.div>
