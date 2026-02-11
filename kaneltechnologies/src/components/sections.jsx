@@ -238,11 +238,13 @@ export const About = () => {
 };
 
 export const Team = () => {
+  const publicBase = import.meta.env.BASE_URL;
+
   const teamMembers = [
     {
       name: "Wisdom Kara",
       position: "IT Consultant",
-      image: "/kaneltechnologies/wizzyaspect.png",
+      image: `${publicBase}wizzyaspect.png`,
       bio: "Expert in IT infrastructure and cloud solutions with over 8 years of experience.",
       social: {
         facebook: "https://www.facebook.com/profile.php?id=61557241627798",
@@ -254,7 +256,7 @@ export const Team = () => {
     {
       name: "Nelson John",
       position: "Data Analyst",
-      image: "/kaneltechnologies/nelson.jpg",
+      image: `${publicBase}nelson.jpg`,
       bio: "Data visualization specialist focused on transforming complex datasets into actionable insights.",
       social: {
         facebook: "https://facebook.com/nelsonjohn",
@@ -266,7 +268,7 @@ export const Team = () => {
     {
       name: "Precious Emeruwa",
       position: "Networking Manager",
-      image: "/kaneltechnologies/precious.jpeg",
+      image: `${publicBase}precious.jpeg`,
       bio: "Network security professional with expertise in designing robust network architectures.",
       social: {
         facebook: "https://facebook.com/preciousemeruwa",
@@ -278,7 +280,7 @@ export const Team = () => {
     {
       name: "James Okorie",
       position: "System Engineer",
-      image: "20.jpg",
+      image: `${publicBase}20.jpg`,
       bio: "System optimization specialist with a passion for automating complex IT operations.",
       social: {
         facebook: "https://facebook.com/jamesokorie",
