@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import HeroImage from '../assets/images/Business-growth.jpeg';
-import US from '../assets/images/team.jpeg';
-import HeroCom from '../assets/images/company.jpg';
-import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import { Link as RouterLink } from 'react-router-dom';
-import { Link as ScrollLink } from 'react-scroll';
-import emailjs from '@emailjs/browser';
-import { blogPosts } from '../data/blogPosts';
+import React, { useState, useEffect } from "react";
+import HeroImage from "../assets/images/Business-growth.jpeg";
+import US from "../assets/images/team.jpeg";
+import HeroCom from "../assets/images/company.jpg";
+import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { Link as RouterLink } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
+import emailjs from "@emailjs/browser";
+import { blogPosts } from "../data/blogPosts";
 
 // Helper component for animation when scrolling
 const AnimatedSection = ({ children, className, id }) => {
@@ -33,8 +33,9 @@ const AnimatedSection = ({ children, className, id }) => {
       id={id}
       ref={domRef}
       className={`${className} transition-opacity duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-      }`}>
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      }`}
+    >
       {children}
     </section>
   );
@@ -43,21 +44,22 @@ const AnimatedSection = ({ children, className, id }) => {
 export const Home = () => (
   <AnimatedSection
     id="home"
-    className="bg-gradient-to-b from-blue-600 via-blue-50 to-gray-50 py-16 px-9 md:px-12 pt-36 pb-28">
+    className="bg-gradient-to-b from-blue-600 via-blue-50 to-gray-50 py-16 px-9 md:px-12 pt-36 pb-28"
+  >
     <div className="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto gap-12">
       {/* Text Content */}
       <div className="w-full md:w-1/2 space-y-6">
         <h1 className="text-4xl sm:text-5xl lg:text-5xl font-extrabold text-gray-900 leading-tight font-lato  m-10">
           Comprehensive Managed IT Services
-          <br className="hidden sm:block" />{' '}
+          <br className="hidden sm:block" />{" "}
           <span className="text-blue-700 font-lato">
-            for the Modern{' '}
+            for the Modern{" "}
             <span className="text-blue-500 font-lato">Business Landscape</span>
           </span>
         </h1>
 
         <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-lato">
-          At{' '}
+          At{" "}
           <span className="font-semibold text-blue-600 font-lato ">
             Kanel Technologies
           </span>
@@ -92,23 +94,23 @@ export const Home = () => (
 
 // about section
 export const About = () => {
-  const [activeTab, setActiveTab] = useState('mission');
+  const [activeTab, setActiveTab] = useState("mission");
 
   const tabContent = {
     mission: {
-      title: 'Our Mission',
+      title: "Our Mission",
       content:
-        'To empower businesses with technology solutions that drive growth, efficiency, and competitive advantage in an ever-evolving digital landscape.',
+        "To empower businesses with technology solutions that drive growth, efficiency, and competitive advantage in an ever-evolving digital landscape.",
     },
     vision: {
-      title: 'Our Vision',
+      title: "Our Vision",
       content:
-        'To be the premier technology partner for businesses seeking innovative IT solutions that transform operations and enable sustainable success.',
+        "To be the premier technology partner for businesses seeking innovative IT solutions that transform operations and enable sustainable success.",
     },
     values: {
-      title: 'Our Values',
+      title: "Our Values",
       content:
-        'Excellence, Integrity, Innovation, Partnership, and Customer-Centricity guide everything we do at Kanel Technologies.',
+        "Excellence, Integrity, Innovation, Partnership, and Customer-Centricity guide everything we do at Kanel Technologies.",
     },
   };
 
@@ -180,9 +182,10 @@ export const About = () => {
                   onClick={() => setActiveTab(tab)}
                   className={`py-3 px-6 font-medium  font-lato text-sm transition-all duration-200 ${
                     activeTab === tab
-                      ? 'text-blue-600 border-b-2 border-blue-600 font-lato'
-                      : 'text-gray-500 hover:text-blue-500 font-lato'
-                  }`}>
+                      ? "text-blue-600 border-b-2 border-blue-600 font-lato"
+                      : "text-gray-500 hover:text-blue-500 font-lato"
+                  }`}
+                >
                   {tabContent[tab].title}
                 </button>
               ))}
@@ -204,7 +207,8 @@ export const About = () => {
                       <svg
                         className="w-4 h-4 text-blue-600"
                         fill="currentColor"
-                        viewBox="0 0 20 20">
+                        viewBox="0 0 20 20"
+                      >
                         <path
                           fillRule="evenodd"
                           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -213,7 +217,7 @@ export const About = () => {
                       </svg>
                     </div>
                     <p className="text-gray-600 font-lato">
-                      Key point about{' '}
+                      Key point about{" "}
                       {tabContent[activeTab].title.toLowerCase()} at Kanel
                       Technologies. We prioritize excellence in every aspect of
                       our operations.
@@ -236,51 +240,51 @@ export const About = () => {
 export const Team = () => {
   const teamMembers = [
     {
-      name: 'Wisdom Kara',
-      position: 'IT Consultant',
-      image: '/kaneltechnologies/wizzyaspect.jpg',
-      bio: 'Expert in IT infrastructure and cloud solutions with over 8 years of experience.',
+      name: "Wisdom Kara",
+      position: "IT Consultant",
+      image: "/kaneltechnologies/wizzyaspect.png",
+      bio: "Expert in IT infrastructure and cloud solutions with over 8 years of experience.",
       social: {
-        facebook: 'https://www.facebook.com/profile.php?id=61557241627798',
-        twitter: 'https://twitter.com/wisdomkara',
-        email: 'mailto:kaneltechnology@gmail.com',
-        linkedin: 'https://linkedin.com/in/wisdomkara',
+        facebook: "https://www.facebook.com/profile.php?id=61557241627798",
+        twitter: "https://twitter.com/wisdomkara",
+        email: "mailto:kaneltechacademy@gmail.com",
+        linkedin: "https://linkedin.com/in/wisdomkara",
       },
     },
     {
-      name: 'Nelson John',
-      position: 'Data Analyst',
-      image: '/kaneltechnologies/nelson.jpg',
-      bio: 'Data visualization specialist focused on transforming complex datasets into actionable insights.',
+      name: "Nelson John",
+      position: "Data Analyst",
+      image: "/kaneltechnologies/nelson.jpg",
+      bio: "Data visualization specialist focused on transforming complex datasets into actionable insights.",
       social: {
-        facebook: 'https://facebook.com/nelsonjohn',
-        twitter: 'https://twitter.com/nelsonjohn',
-        email: 'mailto:nelson@example.com',
-        linkedin: 'https://linkedin.com/in/nelsonjohn',
+        facebook: "https://facebook.com/nelsonjohn",
+        twitter: "https://twitter.com/nelsonjohn",
+        email: "mailto:nelson@example.com",
+        linkedin: "https://linkedin.com/in/nelsonjohn",
       },
     },
     {
-      name: 'Precious Emeruwa',
-      position: 'Networking Manager',
-      image: '/kaneltechnologies/precious.jpeg',
-      bio: 'Network security professional with expertise in designing robust network architectures.',
+      name: "Precious Emeruwa",
+      position: "Networking Manager",
+      image: "/kaneltechnologies/precious.jpeg",
+      bio: "Network security professional with expertise in designing robust network architectures.",
       social: {
-        facebook: 'https://facebook.com/preciousemeruwa',
-        twitter: 'https://twitter.com/preciousemeruwa',
-        email: 'mailto:precious@example.com',
-        linkedin: 'https://linkedin.com/in/preciousemeruwa',
+        facebook: "https://facebook.com/preciousemeruwa",
+        twitter: "https://twitter.com/preciousemeruwa",
+        email: "mailto:precious@example.com",
+        linkedin: "https://linkedin.com/in/preciousemeruwa",
       },
     },
     {
-      name: 'James Okorie',
-      position: 'System Engineer',
-      image: '20.jpg',
-      bio: 'System optimization specialist with a passion for automating complex IT operations.',
+      name: "James Okorie",
+      position: "System Engineer",
+      image: "20.jpg",
+      bio: "System optimization specialist with a passion for automating complex IT operations.",
       social: {
-        facebook: 'https://facebook.com/jamesokorie',
-        twitter: 'https://twitter.com/jamesokorie',
-        email: 'mailto:james@example.com',
-        linkedin: 'https://linkedin.com/in/jamesokorie',
+        facebook: "https://facebook.com/jamesokorie",
+        twitter: "https://twitter.com/jamesokorie",
+        email: "mailto:james@example.com",
+        linkedin: "https://linkedin.com/in/jamesokorie",
       },
     },
   ];
@@ -288,14 +292,16 @@ export const Team = () => {
   return (
     <section
       id="team"
-      className="py-32 px-8 md:px-16 bg-gradient-to-b from-gray-50 to-gray-100">
+      className="py-32 px-8 md:px-16 bg-gradient-to-b from-gray-50 to-gray-100"
+    >
       <div className="max-w-7xl mx-auto text-center mb-24">
         <motion.div
           initial={{ y: 90 }}
           whileInView={{ y: 0 }}
           viewport={{ once: true, amount: 0.45 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="relative inline-block mb-6">
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative inline-block mb-6"
+        >
           <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 opacity-30 blur-lg"></span>
           <span className="relative text-sm uppercase tracking-widest font-bold text-blue-600 px-4 py-2 bg-white rounded-full shadow-sm">
             Our Professionals
@@ -306,9 +312,10 @@ export const Team = () => {
           initial={{ y: 100 }}
           whileInView={{ y: 0 }}
           viewport={{ once: true, amount: 0.45 }}
-          transition={{ duration: 0.75, ease: 'easeOut' }}
-          className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 font-lato">
-          Meet Our{' '}
+          transition={{ duration: 0.75, ease: "easeOut" }}
+          className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 font-lato"
+        >
+          Meet Our{" "}
           <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
             Expert Team
           </span>
@@ -318,44 +325,47 @@ export const Team = () => {
           initial={{ y: 85 }}
           whileInView={{ y: 0 }}
           viewport={{ once: true, amount: 0.45 }}
-          transition={{ delay: 0.1, duration: 0.75, ease: 'easeOut' }}
-          className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          transition={{ delay: 0.1, duration: 0.75, ease: "easeOut" }}
+          className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+        >
           Our talented professionals bring years of industry experience and a
           passion for technology-driven solutions that transform businesses.
         </motion.p>
 
         <motion.div
           initial={{ y: 80, width: 0 }}
-          whileInView={{ y: 0, width: '80px' }}
+          whileInView={{ y: 0, width: "80px" }}
           viewport={{ once: true, amount: 0.45 }}
-          transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
-          className="h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-8 rounded-full"></motion.div>
+          transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+          className="h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-8 rounded-full"
+        ></motion.div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
         {teamMembers.map((member, i) => (
           <motion.div
             key={i}
-            className="group perspective-[1000px] bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer border border-gray-100"
+            className="group perspective-[1000px] bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer border border-gray-100 max-w-[260px] mx-auto"
             initial={{ y: 100, scale: 0.98 }}
             whileInView={{ y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.35 }}
             whileHover={{
               scale: 1.03,
               rotateY: 5,
-              boxShadow: '0 25px 50px rgba(0,0,0,0.2)',
+              boxShadow: "0 25px 50px rgba(0,0,0,0.2)",
             }}
             transition={{
               duration: 0.7,
-              ease: 'easeOut',
+              ease: "easeOut",
               delay: i * 0.15,
-            }}>
+            }}
+          >
             {/* Image with overlay */}
-            <div className="relative h-64 w-full overflow-hidden">
+            <div className="relative h-52 w-full overflow-hidden">
               <img
                 src={member.image}
                 alt={member.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-80 object-center transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <div className="absolute bottom-4 left-4 opacity-0 transition-all duration-500 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-4">
@@ -366,7 +376,7 @@ export const Team = () => {
             </div>
 
             {/* Content */}
-            <div className="p-8">
+            <div className="p-6">
               <h3 className="text-2xl font-bold text-gray-800 mb-2">
                 {member.name}
               </h3>
@@ -381,7 +391,8 @@ export const Team = () => {
                   rel="noopener noreferrer"
                   aria-label={`${member.name}'s Facebook`}
                   className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center shadow-md hover:bg-blue-50 transition-colors duration-300"
-                  style={{ color: '#1877F2' }}>
+                  style={{ color: "#1877F2" }}
+                >
                   <FaFacebook className="text-lg" />
                 </a>
                 <a
@@ -390,7 +401,8 @@ export const Team = () => {
                   rel="noopener noreferrer"
                   aria-label={`${member.name}'s Twitter`}
                   className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center shadow-md hover:bg-blue-50 transition-colors duration-300"
-                  style={{ color: '#1DA1F2' }}>
+                  style={{ color: "#1DA1F2" }}
+                >
                   <FaTwitter className="text-lg" />
                 </a>
                 <a
@@ -399,14 +411,16 @@ export const Team = () => {
                   rel="noopener noreferrer"
                   aria-label={`${member.name}'s LinkedIn`}
                   className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center shadow-md hover:bg-blue-50 transition-colors duration-300"
-                  style={{ color: '#0A66C2' }}>
+                  style={{ color: "#0A66C2" }}
+                >
                   <FaLinkedin className="text-lg" />
                 </a>
                 <a
                   href={member.social.email}
                   aria-label={`Email ${member.name}`}
                   className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center shadow-md hover:bg-red-50 transition-colors duration-300"
-                  style={{ color: '#EA4335' }}>
+                  style={{ color: "#EA4335" }}
+                >
                   <FaEnvelope className="text-lg" />
                 </a>
               </div>
@@ -421,14 +435,16 @@ export const Team = () => {
         initial={{ y: 90 }}
         whileInView={{ y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
-        transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
-        className="text-center mt-20 max-w-3xl mx-auto">
+        transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+        className="text-center mt-20 max-w-3xl mx-auto"
+      >
         <ScrollLink
           to="contact"
           smooth={true}
           duration={500}
           offset={-90}
-          className="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          className="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+        >
           Connect With Our Team
         </ScrollLink>
         <p className="text-gray-500 mt-4">
@@ -439,42 +455,42 @@ export const Team = () => {
   );
 };
 
-import { FaGlobe, FaLock, FaNetworkWired, FaLaptopCode } from 'react-icons/fa';
+import { FaGlobe, FaLock, FaNetworkWired, FaLaptopCode } from "react-icons/fa";
 
 export const Projects = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const projects = [
     {
-      title: 'Web Application Development',
-      category: 'Web Services',
+      title: "Web Application Development",
+      category: "Web Services",
       description:
-        'Completed the building of a web application for the organisation.',
-      color: 'blue',
+        "Completed the building of a web application for the organisation.",
+      color: "blue",
       icon: FaGlobe,
     },
     {
-      title: 'Cybersecurity Enhancement',
-      category: 'Security',
+      title: "Cybersecurity Enhancement",
+      category: "Security",
       description:
-        'Implementation of comprehensive security protocols for a financial institution.',
-      color: 'red',
+        "Implementation of comprehensive security protocols for a financial institution.",
+      color: "red",
       icon: FaLock,
     },
     {
-      title: 'Network Infrastructure Upgrade',
-      category: 'Networking',
+      title: "Network Infrastructure Upgrade",
+      category: "Networking",
       description:
-        'Complete overhaul of networking systems for improved performance and reliability.',
-      color: 'green',
+        "Complete overhaul of networking systems for improved performance and reliability.",
+      color: "green",
       icon: FaNetworkWired,
     },
     {
-      title: 'Custom Software Development',
-      category: 'Development',
+      title: "Custom Software Development",
+      category: "Development",
       description:
-        'Custom application designed to streamline business operations and increase efficiency.',
-      color: 'purple',
+        "Custom application designed to streamline business operations and increase efficiency.",
+      color: "purple",
       icon: FaLaptopCode,
     },
   ];
@@ -482,32 +498,32 @@ export const Projects = () => {
   // Map color names to actual tailwind classes
   const colorMap = {
     blue: {
-      bg: 'bg-blue-200',
-      text: 'text-blue-600',
-      badge: 'bg-blue-100',
-      hover: 'hover:text-blue-800',
-      gradient: 'from-white to-blue-50',
+      bg: "bg-blue-200",
+      text: "text-blue-600",
+      badge: "bg-blue-100",
+      hover: "hover:text-blue-800",
+      gradient: "from-white to-blue-50",
     },
     red: {
-      bg: 'bg-red-200',
-      text: 'text-red-600',
-      badge: 'bg-red-100',
-      hover: 'hover:text-red-800',
-      gradient: 'from-white to-red-50',
+      bg: "bg-red-200",
+      text: "text-red-600",
+      badge: "bg-red-100",
+      hover: "hover:text-red-800",
+      gradient: "from-white to-red-50",
     },
     green: {
-      bg: 'bg-green-200',
-      text: 'text-green-600',
-      badge: 'bg-green-100',
-      hover: 'hover:text-green-800',
-      gradient: 'from-white to-green-50',
+      bg: "bg-green-200",
+      text: "text-green-600",
+      badge: "bg-green-100",
+      hover: "hover:text-green-800",
+      gradient: "from-white to-green-50",
     },
     purple: {
-      bg: 'bg-purple-200',
-      text: 'text-purple-600',
-      badge: 'bg-purple-100',
-      hover: 'hover:text-purple-800',
-      gradient: 'from-white to-purple-50',
+      bg: "bg-purple-200",
+      text: "text-purple-600",
+      badge: "bg-purple-100",
+      hover: "hover:text-purple-800",
+      gradient: "from-white to-purple-50",
     },
   };
 
@@ -527,7 +543,7 @@ export const Projects = () => {
       y: 0,
       transition: {
         duration: 0.75,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
@@ -538,7 +554,7 @@ export const Projects = () => {
       y: 0,
       transition: {
         duration: 0.75,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
@@ -552,24 +568,28 @@ export const Projects = () => {
   return (
     <section
       id="projects"
-      className="py-24 px-6 md:px-12 bg-white overflow-hidden">
+      className="py-24 px-6 md:px-12 bg-white overflow-hidden"
+    >
       <div className="max-w-6xl mx-auto">
         <motion.div
           className="text-center mb-16"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.45 }}
-          variants={containerVariants}>
+          variants={containerVariants}
+        >
           <motion.span
             variants={headerVariants}
-            className="inline-block px-4 py-2 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-4">
+            className="inline-block px-4 py-2 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-4"
+          >
             Our Portfolio
           </motion.span>
 
           <motion.h2
             variants={headerVariants}
-            className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 font-lato">
-            Our Recent{' '}
+            className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 font-lato"
+          >
+            Our Recent{" "}
             <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
               Projects
             </span>
@@ -577,7 +597,8 @@ export const Projects = () => {
 
           <motion.p
             variants={headerVariants}
-            className="text-lg text-gray-600 max-w-3xl mx-auto font-lato">
+            className="text-lg text-gray-600 max-w-3xl mx-auto font-lato"
+          >
             Explore some of our recent work delivering innovative IT solutions
             for businesses across industries.
           </motion.p>
@@ -593,7 +614,8 @@ export const Projects = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.35 }}
-          variants={containerVariants}>
+          variants={containerVariants}
+        >
           {projects.map((project, index) => {
             const colors = colorMap[project.color];
 
@@ -604,9 +626,11 @@ export const Projects = () => {
                 className={`bg-gradient-to-br ${colors.gradient} rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                whileHover={{ y: -5, transition: { duration: 0.3 } }}>
+                whileHover={{ y: -5, transition: { duration: 0.3 } }}
+              >
                 <div
-                  className={`relative h-48 ${colors.bg} flex items-center justify-center overflow-hidden`}>
+                  className={`relative h-48 ${colors.bg} flex items-center justify-center overflow-hidden`}
+                >
                   <motion.div
                     initial={{ y: 80 }}
                     whileInView={{ y: 0 }}
@@ -614,11 +638,12 @@ export const Projects = () => {
                     transition={{
                       delay: 0.1 + index * 0.1,
                       duration: 0.7,
-                      ease: 'easeOut',
+                      ease: "easeOut",
                     }}
                     className={`${colors.text} ${
-                      hoveredIndex === index ? 'scale-125' : 'scale-100'
-                    } transition-transform duration-500`}>
+                      hoveredIndex === index ? "scale-125" : "scale-100"
+                    } transition-transform duration-500`}
+                  >
                     <project.icon size={64} />
                   </motion.div>
 
@@ -646,15 +671,17 @@ export const Projects = () => {
                     transition={{
                       delay: 0.15 + index * 0.08,
                       duration: 0.65,
-                      ease: 'easeOut',
-                    }}>
+                      ease: "easeOut",
+                    }}
+                  >
                     {project.category}
                   </motion.span>
 
                   <h3
                     className={`text-xl font-bold text-gray-800 mb-2 ${
-                      hoveredIndex === index ? colors.text : ''
-                    } transition-colors duration-300`}>
+                      hoveredIndex === index ? colors.text : ""
+                    } transition-colors duration-300`}
+                  >
                     {project.title}
                   </h3>
 
@@ -665,7 +692,8 @@ export const Projects = () => {
                     variants={buttonVariants}
                     initial="rest"
                     whileHover="hover"
-                    whileTap="tap">
+                    whileTap="tap"
+                  >
                     <span>View Case Study</span>
                     <motion.svg
                       className="w-4 h-4"
@@ -673,7 +701,8 @@ export const Projects = () => {
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                       animate={{ x: hoveredIndex === index ? 5 : 0 }}
-                      transition={{ duration: 0.3 }}>
+                      transition={{ duration: 0.3 }}
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -693,14 +722,16 @@ export const Projects = () => {
           initial={{ y: 90 }}
           whileInView={{ y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ delay: 0.2, duration: 0.75, ease: 'easeOut' }}>
+          transition={{ delay: 0.2, duration: 0.75, ease: "easeOut" }}
+        >
           <motion.button
             className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-300"
             whileHover={{
               scale: 1.05,
-              boxShadow: '0 10px 25px -5px rgba(59, 130, 246, 0.5)',
+              boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)",
             }}
-            whileTap={{ scale: 0.98 }}>
+            whileTap={{ scale: 0.98 }}
+          >
             View All Projects
           </motion.button>
         </motion.div>
@@ -712,29 +743,30 @@ export const Projects = () => {
 export const Testimonials = () => {
   const testimonials = [
     {
-      name: 'AG Grace Chapel',
-      company: 'AG Grace Chapel',
+      name: "AG Grace Chapel",
+      company: "AG Grace Chapel",
       quote:
         "Kanel Technologies Gave our organization the exposure it deserve with their web solution and SEO optimization.",
     },
     {
-      name: 'Emily Wilson',
-      company: 'Solo Enterprise',
+      name: "Emily Wilson",
+      company: "Solo Enterprise",
       quote:
-        'Working with Kanel has been a game-changer for our business. Their proactive approach to IT management has prevented numerous issues and their support team is always responsive.',
+        "Working with Kanel has been a game-changer for our business. Their proactive approach to IT management has prevented numerous issues and their support team is always responsive.",
     },
     {
-      name: 'David Lee',
-      company: 'The Right Way Transport',
+      name: "David Lee",
+      company: "The Right Way Transport",
       quote:
-        'Kanel Tech gave us an edge in the road transport by introducing us to the world of buusiness with web solution.',
+        "Kanel Tech gave us an edge in the road transport by introducing us to the world of buusiness with web solution.",
     },
   ];
 
   return (
     <AnimatedSection
       id="testimonials"
-      className="py-24 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-gray-100">
+      className="py-24 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-gray-100"
+    >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -750,13 +782,15 @@ export const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 flex flex-col">
+              className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 flex flex-col"
+            >
               <div className="mb-6">
                 {/* Quote icon */}
                 <svg
                   className="w-10 h-10 text-blue-200"
                   fill="currentColor"
-                  viewBox="0 0 32 32">
+                  viewBox="0 0 32 32"
+                >
                   <path d="M10 8v6c0 2.2-1.8 4-4 4H4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2c4.4 0 8-3.6 8-8v-8c0-1.1-.9-2-2-2zm18 0v6c0 2.2-1.8 4-4 4h-2c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2c4.4 0 8-3.6 8-8v-8c0-1.1-.9-2-2-2z" />
                 </svg>
               </div>
@@ -808,7 +842,8 @@ export const Blog = () => {
           {blogPosts.map((post, index) => (
             <div
               key={post.id}
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            >
               <img
                 src={post.image}
                 alt={post.title}
@@ -827,13 +862,15 @@ export const Blog = () => {
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
                 <RouterLink
                   to="/blog-news"
-                  className="text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-800 transition-colors">
+                  className="text-blue-600 font-medium flex items-center space-x-1 hover:text-blue-800 transition-colors"
+                >
                   <span>View Article</span>
                   <svg
                     className="w-4 h-4"
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24">
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -850,7 +887,8 @@ export const Blog = () => {
         <div className="mt-16 text-center">
           <RouterLink
             to="/blog-news"
-            className="inline-flex px-6 py-3 border-2 border-blue-600 text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-colors duration-300">
+            className="inline-flex px-6 py-3 border-2 border-blue-600 text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-colors duration-300"
+          >
             View All Articles
           </RouterLink>
         </div>
@@ -859,14 +897,14 @@ export const Blog = () => {
   );
 };
 
-import { FaInstagram, FaPhone, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaInstagram, FaPhone, FaClock, FaMapMarkerAlt } from "react-icons/fa";
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const [formStatus, setFormStatus] = useState({
@@ -893,7 +931,7 @@ export const Contact = () => {
         isSubmitting: false,
         isSubmitted: false,
         error:
-          'Email service is not configured yet. Add EmailJS keys to your .env file.',
+          "Email service is not configured yet. Add EmailJS keys to your .env file.",
       });
       return;
     }
@@ -910,7 +948,7 @@ export const Contact = () => {
         },
         {
           publicKey,
-        }
+        },
       );
 
       setFormStatus({
@@ -918,7 +956,7 @@ export const Contact = () => {
         isSubmitted: true,
         error: null,
       });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: "", email: "", subject: "", message: "" });
 
       setTimeout(() => {
         setFormStatus((prev) => ({ ...prev, isSubmitted: false, error: null }));
@@ -928,7 +966,7 @@ export const Contact = () => {
         isSubmitting: false,
         isSubmitted: false,
         error:
-          'Message failed to send. Please check your EmailJS template settings and try again.',
+          "Message failed to send. Please check your EmailJS template settings and try again.",
       });
     }
   };
@@ -936,56 +974,56 @@ export const Contact = () => {
   // Social media data with actual links
   const socialLinks = [
     {
-      name: 'Facebook',
+      name: "Facebook",
       icon: FaFacebook,
-      color: '#1877F2',
-      url: 'https://www.facebook.com/profile.php?id=61557241627798',
+      color: "#1877F2",
+      url: "https://www.facebook.com/profile.php?id=61557241627798",
     },
     {
-      name: 'Twitter',
+      name: "Twitter",
       icon: FaTwitter,
-      color: '#1DA1F2',
-      url: 'https://twitter.com/wisdomkara',
+      color: "#1DA1F2",
+      url: "https://twitter.com/wisdomkara",
     },
     {
-      name: 'LinkedIn',
+      name: "LinkedIn",
       icon: FaLinkedin,
-      color: '#0A66C2',
-      url: 'https://linkedin.com/company/kaneltechnology',
+      color: "#0A66C2",
+      url: "https://linkedin.com/company/kaneltechnology",
     },
     {
-      name: 'Instagram',
+      name: "Instagram",
       icon: FaInstagram,
-      color: '#E4405F',
-      url: 'https://instagram.com/kaneltechnology',
+      color: "#E4405F",
+      url: "https://instagram.com/kaneltechnology",
     },
   ];
 
   // Contact info cards
   const contactInfo = [
     {
-      title: 'Phone',
+      title: "Phone",
       icon: FaPhone,
-      content: ['+2347084153584', '08152282324'],
-      color: 'blue',
+      content: ["+2347084153584", "08152282324"],
+      color: "blue",
     },
     {
-      title: 'Email',
+      title: "Email",
       icon: FaEnvelope,
-      content: ['kaneltechnology@gmail.com'],
-      color: 'green',
+      content: ["kaneltechnology@gmail.com"],
+      color: "green",
     },
     {
-      title: 'Availability',
+      title: "Availability",
       icon: FaClock,
-      content: ['24/7 Support'],
-      color: 'purple',
+      content: ["24/7 Support"],
+      color: "purple",
     },
     {
-      title: 'Office',
+      title: "Office",
       icon: FaMapMarkerAlt,
-      content: ['Lagos, Nigeria'],
-      color: 'blue',
+      content: ["Lagos, Nigeria"],
+      color: "blue",
     },
   ];
 
@@ -1006,7 +1044,7 @@ export const Contact = () => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: 'spring', stiffness: 100, damping: 10 },
+      transition: { type: "spring", stiffness: 100, damping: 10 },
     },
   };
 
@@ -1016,7 +1054,7 @@ export const Contact = () => {
       y: 0,
       opacity: 1,
       transition: {
-        type: 'spring',
+        type: "spring",
         stiffness: 100,
         damping: 10,
         delay: i * 0.1 + 0.3,
@@ -1029,12 +1067,12 @@ export const Contact = () => {
     visible: (i) => ({
       scale: 1,
       opacity: 1,
-      transition: { delay: i * 0.1 + 0.8, type: 'spring', stiffness: 200 },
+      transition: { delay: i * 0.1 + 0.8, type: "spring", stiffness: 200 },
     }),
     hover: {
       scale: 1.15,
-      boxShadow: '0px 5px 10px rgba(0,0,0,0.2)',
-      transition: { type: 'spring', stiffness: 300, damping: 10 },
+      boxShadow: "0px 5px 10px rgba(0,0,0,0.2)",
+      transition: { type: "spring", stiffness: 300, damping: 10 },
     },
     tap: { scale: 0.95 },
   };
@@ -1042,50 +1080,53 @@ export const Contact = () => {
   // Color variants
   const colorMap = {
     blue: {
-      bg: 'bg-blue-100',
-      text: 'text-blue-600',
-      gradient: 'from-blue-500 to-blue-600',
+      bg: "bg-blue-100",
+      text: "text-blue-600",
+      gradient: "from-blue-500 to-blue-600",
     },
     green: {
-      bg: 'bg-green-100',
-      text: 'text-green-600',
-      gradient: 'from-green-500 to-green-600',
+      bg: "bg-green-100",
+      text: "text-green-600",
+      gradient: "from-green-500 to-green-600",
     },
     purple: {
-      bg: 'bg-purple-100',
-      text: 'text-purple-600',
-      gradient: 'from-purple-500 to-purple-600',
+      bg: "bg-purple-100",
+      text: "text-purple-600",
+      gradient: "from-purple-500 to-purple-600",
     },
     red: {
-      bg: 'bg-red-100',
-      text: 'text-red-600',
-      gradient: 'from-red-500 to-red-600',
+      bg: "bg-red-100",
+      text: "text-red-600",
+      gradient: "from-red-500 to-red-600",
     },
   };
 
   return (
     <section
       id="contact"
-      className="py-24 px-6 md:px-12 bg-gradient-to-b from-gray-100 to-gray-50 overflow-hidden">
+      className="py-24 px-6 md:px-12 bg-gradient-to-b from-gray-100 to-gray-50 overflow-hidden"
+    >
       <div className="max-w-6xl mx-auto">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}>
+          transition={{ duration: 0.6 }}
+        >
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="inline-block px-4 py-2 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-4">
+            className="inline-block px-4 py-2 bg-blue-50 text-blue-600 text-sm font-medium rounded-full mb-4"
+          >
             Contact Us
           </motion.div>
 
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Get In{' '}
+            Get In{" "}
             <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
               Touch
             </span>
@@ -1096,7 +1137,8 @@ export const Contact = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4 }}>
+            transition={{ delay: 0.4 }}
+          >
             Have questions about our IT services or want to discuss your
             project? Reach out to us today and one of our experts will get back
             to you promptly.
@@ -1104,7 +1146,7 @@ export const Contact = () => {
 
           <motion.div
             initial={{ width: 0, opacity: 0 }}
-            whileInView={{ width: '80px', opacity: 1 }}
+            whileInView={{ width: "80px", opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.8 }}
             className="h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mt-6 rounded-full"
@@ -1118,17 +1160,18 @@ export const Contact = () => {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 50, damping: 15 }}
+            transition={{ type: "spring", stiffness: 50, damping: 15 }}
             whileHover={{
-              boxShadow: '0 10px 25px -5px rgba(59, 130, 246, 0.5)',
-            }}>
+              boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)",
+            }}
+          >
             <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
               <span className="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mr-2">
                 Send Us a Message
               </span>
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 2, ease: 'linear', repeat: Infinity }}
+                transition={{ duration: 2, ease: "linear", repeat: Infinity }}
                 className="w-5 h-5 rounded-full border-2 border-transparent border-t-blue-600 border-l-blue-600"
               />
             </h3>
@@ -1139,12 +1182,14 @@ export const Contact = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              onSubmit={handleSubmit}>
+              onSubmit={handleSubmit}
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-1">
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Name
                   </label>
                   <input
@@ -1160,7 +1205,8 @@ export const Contact = () => {
                 <motion.div variants={itemVariants}>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-1">
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
                     Email
                   </label>
                   <input
@@ -1178,7 +1224,8 @@ export const Contact = () => {
               <motion.div variants={itemVariants}>
                 <label
                   htmlFor="subject"
-                  className="block text-sm font-medium text-gray-700 mb-1">
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Subject
                 </label>
                 <input
@@ -1195,7 +1242,8 @@ export const Contact = () => {
               <motion.div variants={itemVariants}>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 mb-1">
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Message
                 </label>
                 <textarea
@@ -1205,7 +1253,8 @@ export const Contact = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
                   placeholder="Your Message"
-                  required></textarea>
+                  required
+                ></textarea>
               </motion.div>
 
               <motion.div variants={itemVariants}>
@@ -1214,11 +1263,12 @@ export const Contact = () => {
                   disabled={formStatus.isSubmitting || formStatus.isSubmitted}
                   className={`relative w-full px-6 py-4 text-white font-medium rounded-xl transition-all duration-300 overflow-hidden ${
                     formStatus.isSubmitted
-                      ? 'bg-green-600'
-                      : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg'
+                      ? "bg-green-600"
+                      : "bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg"
                   }`}
                   whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}>
+                  whileTap={{ scale: 0.98 }}
+                >
                   {formStatus.isSubmitting ? (
                     <span className="flex items-center justify-center">
                       <motion.span
@@ -1227,7 +1277,7 @@ export const Contact = () => {
                         transition={{
                           duration: 1,
                           repeat: Infinity,
-                          ease: 'linear',
+                          ease: "linear",
                         }}
                       />
                       Sending...
@@ -1237,7 +1287,8 @@ export const Contact = () => {
                       <svg
                         className="w-5 h-5 mr-2"
                         fill="currentColor"
-                        viewBox="0 0 20 20">
+                        viewBox="0 0 20 20"
+                      >
                         <path
                           fillRule="evenodd"
                           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -1258,7 +1309,9 @@ export const Contact = () => {
                   />
                 </motion.button>
                 {formStatus.error && (
-                  <p className="mt-3 text-sm text-red-600">{formStatus.error}</p>
+                  <p className="mt-3 text-sm text-red-600">
+                    {formStatus.error}
+                  </p>
                 )}
               </motion.div>
             </motion.form>
@@ -1271,11 +1324,12 @@ export const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{
-              type: 'spring',
+              type: "spring",
               stiffness: 50,
               damping: 15,
               delay: 0.2,
-            }}>
+            }}
+          >
             {contactInfo.map((info, index) => {
               const colors = colorMap[info.color];
 
@@ -1289,11 +1343,13 @@ export const Contact = () => {
                   viewport={{ once: true }}
                   whileHover={{
                     y: -5,
-                    boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
+                    boxShadow: "0 15px 30px rgba(0,0,0,0.1)",
                   }}
-                  className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 transform">
+                  className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 transform"
+                >
                   <div
-                    className={`w-14 h-14 rounded-full ${colors.bg} flex items-center justify-center mb-4`}>
+                    className={`w-14 h-14 rounded-full ${colors.bg} flex items-center justify-center mb-4`}
+                  >
                     <info.icon className={`w-6 h-6 ${colors.text}`} />
                   </div>
                   <h4 className="text-lg font-bold text-gray-800 mb-2">
@@ -1307,7 +1363,7 @@ export const Contact = () => {
                   <motion.div
                     className={`h-1 w-12 rounded-full mt-4 bg-gradient-to-r ${colors.gradient}`}
                     initial={{ width: 0 }}
-                    whileInView={{ width: '3rem' }}
+                    whileInView={{ width: "3rem" }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5 + index * 0.1 }}
                   />
@@ -1336,7 +1392,8 @@ export const Contact = () => {
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow transition-all duration-300"
                     style={{ backgroundColor: `${social.color}15` }}
-                    aria-label={`Connect on ${social.name}`}>
+                    aria-label={`Connect on ${social.name}`}
+                  >
                     <social.icon
                       className="w-5 h-5"
                       style={{ color: social.color }}
