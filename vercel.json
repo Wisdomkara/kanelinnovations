@@ -1,7 +1,7 @@
 {
-  "installCommand": "cd kaneltechnologies && npm install",
-  "buildCommand": "cd kaneltechnologies && npm run build",
-  "outputDirectory": "kaneltechnologies/dist",
+  "installCommand": "cd kanelinnovations && npm install",
+  "buildCommand": "cd kanelinnovations && npm run build",
+  "outputDirectory": "kanelinnovations/dist",
   "rewrites": [
     {
       "source": "/(.*)",
