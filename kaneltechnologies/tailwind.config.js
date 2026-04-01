@@ -1,14 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   plugins: [],
   theme: {
     extend: {
       fontFamily: {
-        lato: ['Lato', 'sans-serif'], // Add Lato as a custom font
+        sans: ['Manrope', 'sans-serif'],
+        display: ['Space Grotesk', 'sans-serif'],
       },
     },
   },
 };
-// tailwind.config.js
 

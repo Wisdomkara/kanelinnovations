@@ -1,210 +1,122 @@
-// src/components/Navbar.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-scroll';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 
 const links = [
   { name: 'Home', to: 'home' },
   { name: 'About', to: 'about' },
-  { name: 'Team', to: 'team' }, // Changed "Teams" to "Team" to match section ID
-  { name: 'Projects', to: 'projects' },
-  { name: 'Blog', to: 'blog' },
-  { name: 'Testimonials', to: 'testimonials' },
-  { name: 'Contact Us', to: 'contact', isButton: true },
+  { name: 'Services', to: 'team' },
+  { name: 'Work', to: 'projects' },
+  { name: 'Process', to: 'testimonials' },
+  { name: 'Insights', to: 'blog' },
+  { name: 'Contact', to: 'contact', isButton: true },
 ];
 
-export default function Navbar() {
-  // State to control mobile menu visibility
+export default function Navbar({ theme, onToggleTheme }) {
   const [isOpen, setIsOpen] = useState(false);
-  // State to track scroll position for navbar background change
   const [scrolled, setScrolled] = useState(false);
-  // State to track the active section
   const [activeSection, setActiveSection] = useState('home');
 
-  // Handle scroll events for navbar styling and active section tracking
   useEffect(() => {
     const handleScroll = () => {
-      // Change navbar style after scrolling 50px
-      setScrolled(window.scrollY > 50);
-
-      // Determine active section based on scroll position
+      setScrolled(window.scrollY > 40);
       const sections = document.querySelectorAll('section[id]');
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionHeight = section.offsetHeight;
-        if (
-          window.scrollY >= sectionTop &&
-          window.scrollY < sectionTop + sectionHeight
-        ) {
+        const top = section.offsetTop - 120;
+        const height = section.offsetHeight;
+        if (window.scrollY >= top && window.scrollY < top + height) {
           setActiveSection(section.getAttribute('id'));
         }
       });
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        isOpen &&
-        !event.target.closest('.mobile-menu-container') &&
-        !event.target.closest('.hamburger-button')
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen]);
-
-  // Close menu when link is clicked
-  const handleLinkClick = () => {
-    setIsOpen(false);
-  };
+  const linkClass = (to) =>
+    activeSection === to
+      ? 'text-blue-700 dark:text-blue-200'
+      : 'text-slate-700 hover:text-blue-700 dark:text-slate-200 dark:hover:text-blue-200';
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 py-4 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-lg' : 'bg-white/80 backdrop-blur-sm'
-      }`}>
-      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        {/* Header on the Left */}
-        <div className="flex flex-col items-start">
-          <Link
-            to="home"
-            smooth={true}
-            duration={500}
-            className="text-3xl font-bold text-gray-800 cursor-pointer hover:text-blue-700 transition-colors duration-300 ">
-            Kanel{' '}
-            <span className="text-blue-600 font-lato font-bold">
-              {' '}
-              Technologies
-            </span>
-          </Link>
+    <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-8">
+      <div
+        className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-5 py-3 transition-all duration-300 ${
+          scrolled
+            ? 'border-white/60 bg-white/88 shadow-xl shadow-blue-100/50 backdrop-blur dark:border-white/10 dark:bg-slate-950/85 dark:shadow-none'
+            : 'border-white/60 bg-white/72 backdrop-blur dark:border-white/10 dark:bg-slate-950/70'
+        }`}>
+        <Link
+          to="home"
+          smooth={true}
+          duration={500}
+          className="cursor-pointer text-xl font-black tracking-tight text-slate-950 dark:text-white md:text-2xl">
+          Kanel <span className="text-blue-600 dark:text-blue-300">Technologies</span>
+        </Link>
+
+        <div className="hidden items-center gap-6 lg:flex">
+          {links.map(({ name, to, isButton }) => (
+            <Link
+              key={to}
+              to={to}
+              spy={true}
+              smooth={true}
+              duration={500}
+              offset={-90}
+              className={`cursor-pointer text-sm font-semibold transition ${
+                isButton
+                  ? 'rounded-full bg-blue-600 px-5 py-3 text-white hover:bg-blue-700'
+                  : linkClass(to)
+              }`}>
+              {name}
+            </Link>
+          ))}
         </div>
 
-        {/* Desktop Navbar Links */}
-        <div className="hidden md:flex space-x-2">
-          {links.map(({ name, to, isButton }) =>
-            isButton ? (
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-blue-200 hover:text-blue-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-blue-400/30 dark:hover:text-blue-200"
+            aria-label="Toggle light and dark mode">
+            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsOpen((prev) => !prev)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 lg:hidden dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+            aria-label="Toggle menu">
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className="mx-auto mt-3 max-w-7xl rounded-[2rem] border border-white/60 bg-white/95 p-5 shadow-2xl shadow-blue-100/50 backdrop-blur dark:border-white/10 dark:bg-slate-950/95 dark:shadow-none lg:hidden">
+          <div className="flex flex-col gap-3">
+            {links.map(({ name, to, isButton }) => (
               <Link
                 key={to}
                 to={to}
                 spy={true}
                 smooth={true}
                 duration={500}
-                className={`ml-4 px-4 py-2 bg-blue-600 text-white rounded-full cursor-pointer hover:bg-blue-700 transition-all duration-300 ${
-                  activeSection === to ? 'ring-2 ring-blue-300' : ''
+                offset={-90}
+                onClick={() => setIsOpen(false)}
+                className={`cursor-pointer rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+                  isButton
+                    ? 'bg-blue-600 text-white'
+                    : `${linkClass(to)} bg-slate-50 dark:bg-white/5`
                 }`}>
                 {name}
               </Link>
-            ) : (
-              <Link
-                key={to}
-                to={to}
-                spy={true}
-                smooth={true}
-                duration={400}
-                className={`text-gray-700 hover:text-blue-600 cursor-pointer hover:bg-blue-50 hover:rounded-xl duration-300 px-3 py-2 transition-all ${
-                  activeSection === to
-                    ? 'text-blue-600 font-medium bg-blue-50 rounded-xl'
-                    : ''
-                }`}>
-                {name}
-              </Link>
-            )
-          )}
-        </div>
-
-        {/* Hamburger Button - Visible only on mobile */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="hamburger-button md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-full bg-blue-50 hover:bg-blue-100 transition-colors duration-300"
-          aria-label="Toggle navigation menu">
-          <span
-            className={`block w-5 h-0.5 bg-blue-600 transition-all duration-300 ease-in-out ${
-              isOpen ? 'rotate-45 translate-y-1' : '-translate-y-1'
-            }`}></span>
-          <span
-            className={`block w-5 h-0.5 bg-blue-600 transition-all duration-300 ease-in-out ${
-              isOpen ? 'opacity-0' : 'opacity-100'
-            }`}></span>
-          <span
-            className={`block w-5 h-0.5 bg-blue-600 transition-all duration-300 ease-in-out ${
-              isOpen ? '-rotate-45 -translate-y-1' : 'translate-y-1'
-            }`}></span>
-        </button>
-
-        {/* Mobile Menu - Slides in from right */}
-        <div
-          className={`mobile-menu-container md:hidden fixed top-0 right-0 h-screen bg-white w-64 shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
-            isOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}>
-          <div className="flex flex-col h-full">
-            <div className="p-5 border-b">
-              <div className="flex justify-between items-center">
-                <h3 className="text-xl font-bold text-blue-600">Menu</h3>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="text-gray-500 hover:text-gray-700 transition-colors"
-                  aria-label="Close menu">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <div className="flex flex-col p-4 space-y-3 mt-4">
-              {links.map(({ name, to, isButton }) => (
-                <Link
-                  key={to}
-                  to={to}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                  onClick={handleLinkClick}
-                  className={`px-4 py-3 ${
-                    isButton
-                      ? 'bg-blue-600 text-white rounded-lg hover:bg-blue-700'
-                      : `${
-                          activeSection === to
-                            ? 'bg-blue-50 text-blue-600'
-                            : 'text-gray-700'
-                        } hover:bg-blue-50 hover:text-blue-600 rounded-lg`
-                  } transition-all duration-300 text-left`}>
-                  {name}
-                </Link>
-              ))}
-            </div>
-
-            <div className="mt-auto p-4 border-t">
-              <div className="text-sm text-gray-500">
-                © 2025 Kanel Technologies
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-
-        {/* Overlay for mobile menu */}
-        {isOpen && (
-          <div
-            className="md:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
-            onClick={() => setIsOpen(false)}></div>
-        )}
-      </div>
+      )}
     </nav>
   );
 }

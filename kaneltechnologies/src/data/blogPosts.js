@@ -38,11 +38,11 @@ export const blogPosts = [
     category: 'Industry News',
     date: 'May 7, 2025',
     excerpt:
-      'A U.S. appeals court rejected the FTC challenge, upholding the lower-court order tied to Microsoft’s acquisition of Activision Blizzard.',
+      "A U.S. appeals court rejected the FTC challenge, upholding the lower-court order tied to Microsoft's acquisition of Activision Blizzard.",
     image:
       'https://images.unsplash.com/photo-1605901309584-818e25960a8f?auto=format&fit=crop&w=1400&q=80',
     content: [
-      'A federal appeals court in the United States rejected the Federal Trade Commission challenge connected to Microsoft’s acquisition of Activision Blizzard. The ruling upheld an earlier district-court decision related to a preliminary injunction request.',
+      "A federal appeals court in the United States rejected the Federal Trade Commission challenge connected to Microsoft's acquisition of Activision Blizzard. The ruling upheld an earlier district-court decision related to a preliminary injunction request.",
       'The case has remained a closely watched reference point in technology and antitrust discussions because it involves platform scale, gaming ecosystems, and distribution control across multiple channels.',
       'For businesses, this type of regulatory outcome highlights how strategic acquisitions can still proceed under scrutiny when legal arguments and market evidence satisfy court standards.',
       'Technology leaders should continue to monitor major antitrust decisions because they can influence merger strategy, product partnerships, and long-term investment planning across the digital economy.',
