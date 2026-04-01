@@ -104,8 +104,8 @@ export const Home = () => (
     id="home"
     className="relative overflow-hidden px-6 pt-20 pb-12 md:px-12 lg:px-16 lg:pt-24 lg:pb-16 min-h-[calc(100vh-6rem)]">
     <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.35),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(147,197,253,0.32),_transparent_30%),linear-gradient(180deg,var(--bg-primary),var(--bg-secondary))]" />
-    <div className="absolute right-[-8rem] top-24 -z-10 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
-    <div className="absolute left-[-6rem] bottom-6 -z-10 h-72 w-72 rounded-full bg-sky-300/20 blur-3xl" />
+    <div className="hidden lg:block absolute right-[-8rem] top-24 -z-10 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
+    <div className="hidden lg:block absolute left-[-6rem] bottom-6 -z-10 h-72 w-72 rounded-full bg-sky-300/20 blur-3xl" />
 
     <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
       <Motion.div
@@ -177,11 +177,11 @@ export const Home = () => (
         transition={{ delay: 0.15, duration: 0.7, ease: 'easeOut' }}
         className="relative">
         <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-white p-4 shadow-[0_40px_120px_-40px_rgba(37,99,235,0.65)] dark:border-white/10 dark:bg-slate-900/80">
-          <img
-            src={HeroCom}
-            alt="Kanel innovations digital services"
-            className="w-full rounded-[1.5rem] object-cover h-[420px] sm:h-[520px] md:h-[640px] lg:h-[calc(100vh-6rem)]"
-          />
+              <img
+                src={HeroCom}
+                alt="Kanel innovations digital services"
+                className="w-full rounded-[1.5rem] object-cover h-[300px] sm:h-[420px] md:h-[520px] lg:h-[calc(100vh-6rem)]"
+              />
           <div className="absolute inset-x-8 bottom-8 rounded-[1.75rem] border border-white/60 bg-slate-950/85 p-6 text-white shadow-xl backdrop-blur">
             <div className="flex items-center justify-between gap-4">
               <div>
@@ -230,11 +230,11 @@ export const About = () => (
       <div className="relative">
         <div className="absolute -left-4 -top-4 h-40 w-40 rounded-full bg-blue-200/40 blur-3xl dark:bg-blue-500/20" />
         <div className="relative overflow-hidden rounded-[2rem] border border-white/50 bg-white p-4 shadow-2xl shadow-blue-100/60 dark:border-white/10 dark:bg-slate-900">
-          <img
-            src={TeamImage}
-            alt="Kanel innovations team"
-            className="w-full rounded-[1.5rem] object-cover h-[360px] sm:h-[420px] md:h-[520px] lg:h-[480px]"
-          />
+            <img
+              src={TeamImage}
+              alt="Kanel innovations team"
+              className="w-full rounded-[1.5rem] object-cover h-[260px] sm:h-[360px] md:h-[420px] lg:h-[480px]"
+            />
         </div>
       </div>
 
