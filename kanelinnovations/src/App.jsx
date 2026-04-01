@@ -30,7 +30,7 @@ function HomePage({ theme, onToggleTheme }) {
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-300">
-              Kanel Technologies
+              Kanel innovations
             </p>
             <h3 className="mt-4 max-w-xl text-3xl font-black">
               Modern websites, apps, funnels, SEO, and digital growth systems in one team.
@@ -66,7 +66,7 @@ function HomePage({ theme, onToggleTheme }) {
         </div>
 
         <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 pt-6 text-sm text-slate-400">
-          (c) 2026 Kanel Technologies. All rights reserved.
+          (c) 2026 Kanel innovations. All rights reserved.
         </div>
       </footer>
     </>
@@ -95,7 +95,7 @@ function App() {
           <div className="flex flex-col items-center">
             <div className="h-16 w-16 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600" />
             <h2 className="mt-5 text-2xl font-black text-blue-700 dark:text-blue-300">
-              Kanel Technologies
+              Kanel innovations
             </h2>
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
               Building premium digital experiences...

@@ -53,7 +53,7 @@ export default function Navbar({ theme, onToggleTheme }) {
           smooth={true}
           duration={500}
           className="cursor-pointer text-xl font-black tracking-tight text-slate-950 dark:text-white md:text-2xl">
-          Kanel <span className="text-blue-600 dark:text-blue-300">Technologies</span>
+          Kanel <span className="text-blue-600 dark:text-blue-300">innovations</span>
         </Link>
 
         <div className="hidden items-center gap-6 lg:flex">

@@ -51,7 +51,7 @@ const AnimatedSection = ({ children, className = '', id }) => {
     <section
       id={id}
       ref={sectionRef}
-      className={`${className} transition-all duration-700 ${
+      className={`${className} scroll-mt-28 transition-all duration-700 ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}>
       {children}
@@ -102,7 +102,7 @@ const inquiryServices = [
 export const Home = () => (
   <AnimatedSection
     id="home"
-    className="relative overflow-hidden px-6 pb-24 pt-36 md:px-12 lg:px-16">
+    className="relative overflow-hidden px-6 pt-20 pb-12 md:px-12 lg:px-16 lg:pt-24 lg:pb-16 min-h-[calc(100vh-6rem)]">
     <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.35),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(147,197,253,0.32),_transparent_30%),linear-gradient(180deg,var(--bg-primary),var(--bg-secondary))]" />
     <div className="absolute right-[-8rem] top-24 -z-10 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
     <div className="absolute left-[-6rem] bottom-6 -z-10 h-72 w-72 rounded-full bg-sky-300/20 blur-3xl" />
@@ -113,18 +113,18 @@ export const Home = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="space-y-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-4 py-2 text-sm font-semibold text-blue-800 shadow-lg shadow-blue-200/30 backdrop-blur dark:border-white/10 dark:bg-white/10 dark:text-blue-100">
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-3 py-2 text-sm font-semibold text-blue-800 shadow-lg shadow-blue-200/30 backdrop-blur dark:border-white/10 dark:bg-white/10 dark:text-blue-100 ">
           <ShieldCheck className="h-4 w-4" />
           Modern digital services provider for ambitious brands
         </div>
 
         <div className="space-y-5">
-          <h1 className="max-w-3xl text-5xl font-black leading-[1.02] text-slate-950 dark:text-white md:text-6xl xl:text-7xl">
+          <h1 className="max-w-3xl text-4xl font-black leading-[1.02] text-slate-950 dark:text-white md:text-5xl lg:text-6xl">
             We build the websites, apps, funnels, and digital growth systems
             that make brands impossible to ignore.
           </h1>
-          <p className="max-w-2xl text-lg leading-8 text-slate-700 dark:text-slate-300">
-            Kanel Technologies combines design, development, funnel strategy,
+          <p className="max-w-2xl text-base md:text-lg leading-7 text-slate-700 dark:text-slate-300">
+            Kanel innovations combines design, development, funnel strategy,
             SEO, awareness campaigns, and optimisation into one brilliant
             delivery team. We help businesses launch sharper, look more
             premium, and turn attention into real inquiries.
@@ -179,15 +179,15 @@ export const Home = () => (
         <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-white p-4 shadow-[0_40px_120px_-40px_rgba(37,99,235,0.65)] dark:border-white/10 dark:bg-slate-900/80">
           <img
             src={HeroCom}
-            alt="Kanel Technologies digital services"
-            className="h-[420px] w-full rounded-[1.5rem] object-cover"
+            alt="Kanel innovations digital services"
+            className="w-full rounded-[1.5rem] object-cover h-[420px] sm:h-[520px] md:h-[640px] lg:h-[calc(100vh-6rem)]"
           />
           <div className="absolute inset-x-8 bottom-8 rounded-[1.75rem] border border-white/60 bg-slate-950/85 p-6 text-white shadow-xl backdrop-blur">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.25em] text-blue-200">
-                  Delivery Stack
-                </p>
+                    <p className="text-sm uppercase tracking-[0.25em] text-blue-200">
+                      Delivery Stack
+                    </p>
                 <h3 className="mt-2 text-2xl font-bold">
                   Design. Build. Funnel. Rank. Scale.
                 </h3>
@@ -232,8 +232,8 @@ export const About = () => (
         <div className="relative overflow-hidden rounded-[2rem] border border-white/50 bg-white p-4 shadow-2xl shadow-blue-100/60 dark:border-white/10 dark:bg-slate-900">
           <img
             src={TeamImage}
-            alt="Kanel Technologies team"
-            className="h-[420px] w-full rounded-[1.5rem] object-cover"
+            alt="Kanel innovations team"
+            className="w-full rounded-[1.5rem] object-cover h-[360px] sm:h-[420px] md:h-[520px] lg:h-[480px]"
           />
         </div>
       </div>
@@ -247,7 +247,7 @@ export const About = () => (
             A sharper digital presence starts with one connected team.
           </h2>
           <p className="max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-            We are not just a web team or a marketing team. Kanel Technologies
+            We are not just a web team or a marketing team. Kanel innovations
             delivers digital experiences that connect strategy, product design,
             software delivery, funnel creation, content direction, SEO, and
             brand awareness so each part of your online presence reinforces the
@@ -566,14 +566,23 @@ export const Contact = () => {
     ].join('\n');
 
     try {
+      const timestamp = new Date().toLocaleString();
+
       await emailjs.send(
         serviceId,
         templateId,
         {
-          from_name: formData.name,
+          // Match template variable names used in EmailJS
+          name: formData.name,
           from_email: formData.email,
           subject: formData.subject,
-          message: inquiryMessage,
+          message: formData.message,
+          company: formData.company,
+          service: formData.service,
+          timeline: formData.timeline,
+          time: timestamp,
+          // keep a plain-text summary if your template uses it
+          inquiry_message: inquiryMessage,
         },
         { publicKey }
       );

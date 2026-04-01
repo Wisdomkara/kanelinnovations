@@ -16,7 +16,7 @@ export default function BlogNewsPage() {
               Digital growth stories, ideas, and updates.
             </h1>
             <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
-              Full articles and updates from Kanel Technologies on websites,
+              Full articles and updates from Kanel innovations on websites,
               apps, funnels, visibility, and modern digital delivery.
             </p>
           </div>

@@ -1,5 +1,5 @@
 {
-  "name": "kaneltechnologies",
+  "name": "kanelinnovations",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -36,5 +36,5 @@
     "tailwindcss": "^3.4.17",
     "vite": "^6.3.4"
   },
-  "homepage": "https://Wisdomkara.github.io/kaneltechnologies"
+  "homepage": "https://Wisdomkara.github.io/kanelinnovations"
 }
