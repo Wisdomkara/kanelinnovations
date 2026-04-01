@@ -26,24 +26,24 @@ function HomePage({ theme, onToggleTheme }) {
         <Contact />
       </main>
 
-      <footer className="border-t border-slate-200/80 bg-slate-950 px-6 py-14 text-white dark:border-white/10 md:px-12 lg:px-16">
-        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-4">
-          <div className="md:col-span-2">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-300">
+      <footer className="border-t border-slate-200/80 bg-slate-950 px-4 py-10 text-white dark:border-white/10 sm:px-6 sm:py-12 md:px-12 md:py-14 lg:px-16">
+        <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 sm:gap-10 md:grid-cols-4">
+          <div className="sm:col-span-2">
+            <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.3em] text-blue-300">
               Kanel innovations
             </p>
-            <h3 className="mt-4 max-w-xl text-3xl font-black">
+            <h3 className="mt-3 sm:mt-4 max-w-xl text-2xl sm:text-3xl font-black">
               Modern websites, apps, funnels, SEO, and digital growth systems in one team.
             </h3>
-            <p className="mt-4 max-w-2xl leading-7 text-slate-300">
+            <p className="mt-3 sm:mt-4 max-w-2xl text-sm sm:text-base leading-7 text-slate-300">
               We help businesses look sharper, launch better, and convert more
               of the attention they earn online.
             </p>
           </div>
 
           <div>
-            <h4 className="text-lg font-bold text-white">Services</h4>
-            <ul className="mt-4 space-y-3 text-slate-300">
+            <h4 className="text-base sm:text-lg font-bold text-white">Services</h4>
+            <ul className="mt-3 sm:mt-4 space-y-2 sm:space-y-3 text-sm sm:text-base text-slate-300">
               {[
                 'Website design',
                 'App development',
@@ -56,17 +56,17 @@ function HomePage({ theme, onToggleTheme }) {
           </div>
 
           <div>
-            <h4 className="text-lg font-bold text-white">Contact</h4>
-            <ul className="mt-4 space-y-3 text-slate-300">
+            <h4 className="text-base sm:text-lg font-bold text-white">Contact</h4>
+            <ul className="mt-3 sm:mt-4 space-y-2 sm:space-y-3 text-sm sm:text-base text-slate-300">
               <li>Lagos, Nigeria</li>
               <li>+2347084153584</li>
-              <li>kaneltechnology@gmail.com</li>
+              <li className="break-all">kaneltechnology@gmail.com</li>
             </ul>
           </div>
         </div>
 
-        <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 pt-6 text-sm text-slate-400">
-          (c) 2026 Kanel innovations. All rights reserved.
+        <div className="mx-auto mt-8 sm:mt-10 max-w-7xl border-t border-white/10 pt-5 sm:pt-6 text-xs sm:text-sm text-slate-400">
+          &copy; 2026 Kanel innovations. All rights reserved.
         </div>
       </footer>
     </>

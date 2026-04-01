@@ -102,7 +102,7 @@ const inquiryServices = [
 export const Home = () => (
   <AnimatedSection
     id="home"
-    className="relative overflow-hidden px-6 pt-20 pb-12 md:px-12 lg:px-16 lg:pt-24 lg:pb-16 min-h-[calc(100vh-6rem)]">
+    className="relative overflow-hidden px-4 pt-20 pb-10 sm:px-6 md:px-12 lg:px-16 lg:pt-24 lg:pb-16 min-h-[calc(100vh-6rem)]">
     <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.35),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(147,197,253,0.32),_transparent_30%),linear-gradient(180deg,var(--bg-primary),var(--bg-secondary))]" />
     <div className="hidden lg:block absolute right-[-8rem] top-24 -z-10 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
     <div className="hidden lg:block absolute left-[-6rem] bottom-6 -z-10 h-72 w-72 rounded-full bg-sky-300/20 blur-3xl" />
@@ -112,18 +112,18 @@ export const Home = () => (
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="space-y-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-3 py-2 text-sm font-semibold text-blue-800 shadow-lg shadow-blue-200/30 backdrop-blur dark:border-white/10 dark:bg-white/10 dark:text-blue-100 ">
+        className="space-y-6 sm:space-y-8">
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-3 py-2 text-xs sm:text-sm font-semibold text-blue-800 shadow-lg shadow-blue-200/30 backdrop-blur dark:border-white/10 dark:bg-white/10 dark:text-blue-100 ">
           <ShieldCheck className="h-4 w-4" />
           Modern digital services provider for ambitious brands
         </div>
 
-        <div className="space-y-5">
-          <h1 className="max-w-3xl text-4xl font-black leading-[1.02] text-slate-950 dark:text-white md:text-5xl lg:text-6xl">
+        <div className="space-y-4 sm:space-y-5">
+          <h1 className="max-w-3xl text-3xl font-black leading-[1.05] text-slate-950 dark:text-white sm:text-4xl md:text-5xl lg:text-6xl">
             We build the websites, apps, funnels, and digital growth systems
             that make brands impossible to ignore.
           </h1>
-          <p className="max-w-2xl text-base md:text-lg leading-7 text-slate-700 dark:text-slate-300">
+          <p className="max-w-2xl text-sm sm:text-base md:text-lg leading-7 text-slate-700 dark:text-slate-300">
             Kanel innovations combines design, development, funnel strategy,
             SEO, awareness campaigns, and optimisation into one brilliant
             delivery team. We help businesses launch sharper, look more
@@ -131,13 +131,13 @@ export const Home = () => (
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-3 sm:gap-4">
           <ScrollLink
             to="contact"
             smooth={true}
             duration={500}
             offset={-90}
-            className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-blue-600 px-7 py-4 text-base font-semibold text-white shadow-[0_20px_50px_-20px_rgba(37,99,235,0.9)] transition hover:bg-blue-700">
+            className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-blue-600 px-5 py-3 sm:px-7 sm:py-4 text-sm sm:text-base font-semibold text-white shadow-[0_20px_50px_-20px_rgba(37,99,235,0.9)] transition hover:bg-blue-700">
             Start Your Project
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
           </ScrollLink>
@@ -146,7 +146,7 @@ export const Home = () => (
             smooth={true}
             duration={500}
             offset={-90}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-blue-200 bg-white px-7 py-4 text-base font-semibold text-blue-700 transition hover:border-blue-300 hover:bg-blue-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10">
+            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-blue-200 bg-white px-5 py-3 sm:px-7 sm:py-4 text-sm sm:text-base font-semibold text-blue-700 transition hover:border-blue-300 hover:bg-blue-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10">
             Explore Our Services
           </ScrollLink>
         </div>
@@ -176,34 +176,34 @@ export const Home = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.7, ease: 'easeOut' }}
         className="relative">
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-white p-4 shadow-[0_40px_120px_-40px_rgba(37,99,235,0.65)] dark:border-white/10 dark:bg-slate-900/80">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-white p-2 sm:p-4 shadow-[0_40px_120px_-40px_rgba(37,99,235,0.65)] dark:border-white/10 dark:bg-slate-900/80">
               <img
                 src={HeroCom}
                 alt="Kanel innovations digital services"
-                className="w-full rounded-[1.5rem] object-cover h-[300px] sm:h-[420px] md:h-[520px] lg:h-[calc(100vh-6rem)]"
+                className="w-full rounded-[1.25rem] sm:rounded-[1.5rem] object-cover h-[240px] sm:h-[380px] md:h-[480px] lg:h-[calc(100vh-6rem)]"
               />
-          <div className="absolute inset-x-8 bottom-8 rounded-[1.75rem] border border-white/60 bg-slate-950/85 p-6 text-white shadow-xl backdrop-blur">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                    <p className="text-sm uppercase tracking-[0.25em] text-blue-200">
+          <div className="absolute inset-x-3 bottom-3 sm:inset-x-6 sm:bottom-6 rounded-2xl sm:rounded-[1.75rem] border border-white/60 bg-slate-950/85 p-3 sm:p-5 text-white shadow-xl backdrop-blur">
+            <div className="flex items-center justify-between gap-2 sm:gap-4">
+              <div className="min-w-0">
+                    <p className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-blue-200 truncate">
                       Delivery Stack
                     </p>
-                <h3 className="mt-2 text-2xl font-bold">
+                <h3 className="mt-1 sm:mt-2 text-base sm:text-xl font-bold leading-tight">
                   Design. Build. Funnel. Rank. Scale.
                 </h3>
               </div>
-              <div className="rounded-2xl bg-blue-500/20 p-3 text-blue-100">
-                <Sparkles className="h-8 w-8" />
+              <div className="flex-shrink-0 rounded-xl sm:rounded-2xl bg-blue-500/20 p-2 sm:p-3 text-blue-100">
+                <Sparkles className="h-5 w-5 sm:h-7 sm:w-7" />
               </div>
             </div>
-            <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-blue-50/90">
+            <div className="mt-3 sm:mt-5 grid grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-sm text-blue-50/90">
               {[
                 'Web & mobile products',
                 'Sales funnels & automations',
                 'SEO & digital awareness',
                 'Ongoing optimisation',
               ].map((item) => (
-                <div key={item} className="rounded-2xl bg-white/10 px-4 py-3">
+                <div key={item} className="rounded-xl sm:rounded-2xl bg-white/10 px-2 py-2 sm:px-4 sm:py-3 leading-snug">
                   {item}
                 </div>
               ))}
@@ -225,8 +225,8 @@ export const Home = () => (
 );
 
 export const About = () => (
-  <AnimatedSection id="about" className="px-6 py-24 md:px-12 lg:px-16">
-    <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+  <AnimatedSection id="about" className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-16">
+    <div className="mx-auto grid max-w-7xl gap-10 lg:gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
       <div className="relative">
         <div className="absolute -left-4 -top-4 h-40 w-40 rounded-full bg-blue-200/40 blur-3xl dark:bg-blue-500/20" />
         <div className="relative overflow-hidden rounded-[2rem] border border-white/50 bg-white p-4 shadow-2xl shadow-blue-100/60 dark:border-white/10 dark:bg-slate-900">
@@ -238,12 +238,12 @@ export const About = () => (
         </div>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-6 sm:space-y-8">
         <div className="space-y-4">
           <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
             About Our Studio
           </div>
-          <h2 className="text-4xl font-black text-slate-950 dark:text-white md:text-5xl">
+          <h2 className="text-3xl font-black text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
             A sharper digital presence starts with one connected team.
           </h2>
           <p className="max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
@@ -280,16 +280,16 @@ export const About = () => (
 export const Team = () => (
   <AnimatedSection
     id="team"
-    className="bg-[linear-gradient(180deg,var(--bg-secondary),var(--bg-primary))] px-6 py-24 md:px-12 lg:px-16">
+    className="bg-[linear-gradient(180deg,var(--bg-secondary),var(--bg-primary))] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-16">
     <div className="mx-auto max-w-7xl">
       <div className="mx-auto max-w-3xl text-center">
         <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
           Core Capabilities
         </div>
-        <h2 className="mt-5 text-4xl font-black text-slate-950 dark:text-white md:text-5xl">
+        <h2 className="mt-4 text-3xl font-black text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
           Everything your digital service brand needs to launch and grow.
         </h2>
-        <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
+        <p className="mt-4 sm:mt-5 text-base sm:text-lg leading-7 sm:leading-8 text-slate-600 dark:text-slate-300">
           We help businesses present better, perform better, and get found
           faster with a tightly connected mix of product, marketing, and growth
           services.
@@ -326,17 +326,17 @@ export const Team = () => (
 );
 
 export const Projects = () => (
-  <AnimatedSection id="projects" className="px-6 py-24 md:px-12 lg:px-16">
+  <AnimatedSection id="projects" className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-16">
     <div className="mx-auto max-w-7xl">
-      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <div className="grid gap-8 sm:gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div className="space-y-6">
           <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
             What We Build
           </div>
-          <h2 className="text-4xl font-black text-slate-950 dark:text-white md:text-5xl">
+          <h2 className="text-3xl font-black text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
             Designed to look premium. Structured to win attention and inquiries.
           </h2>
-          <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
+          <p className="text-base sm:text-lg leading-7 sm:leading-8 text-slate-600 dark:text-slate-300">
             Whether you need a high-performing company website, an app-based
             service, a funnel for lead generation, or stronger search presence,
             we shape each project around clarity, trust, and measurable
@@ -386,23 +386,23 @@ export const Projects = () => (
 export const Testimonials = () => (
   <AnimatedSection
     id="testimonials"
-    className="bg-[linear-gradient(180deg,var(--bg-primary),var(--bg-secondary))] px-6 py-24 md:px-12 lg:px-16">
+    className="bg-[linear-gradient(180deg,var(--bg-primary),var(--bg-secondary))] px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-16">
     <div className="mx-auto max-w-7xl">
       <div className="mx-auto max-w-3xl text-center">
         <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
           Delivery Process
         </div>
-        <h2 className="mt-5 text-4xl font-black text-slate-950 dark:text-white md:text-5xl">
+        <h2 className="mt-4 text-3xl font-black text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
           We make modern digital delivery feel clear, focused, and high-touch.
         </h2>
-        <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
+        <p className="mt-4 sm:mt-5 text-base sm:text-lg leading-7 sm:leading-8 text-slate-600 dark:text-slate-300">
           Strategy first, then design, then implementation, then growth. That
           order is how we build digital products and service experiences that
           still make sense months after launch.
         </p>
       </div>
 
-      <div className="mt-14 grid gap-6 lg:grid-cols-4">
+      <div className="mt-10 sm:mt-14 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {processSteps.map((step, index) => {
           const [title, description, Icon] = step;
 
@@ -431,7 +431,7 @@ export const Testimonials = () => (
         })}
       </div>
 
-      <div className="mt-14 grid gap-6 lg:grid-cols-3">
+      <div className="mt-10 sm:mt-14 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {testimonialCards.map(([quote, name, company], index) => (
           <Motion.div
             key={`${name}-${company}`}
@@ -458,17 +458,17 @@ export const Testimonials = () => (
 );
 
 export const Blog = () => (
-  <AnimatedSection id="blog" className="px-6 py-24 md:px-12 lg:px-16">
+  <AnimatedSection id="blog" className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-16">
     <div className="mx-auto max-w-7xl">
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl">
           <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
             Insights & News
           </div>
-          <h2 className="mt-5 text-4xl font-black text-slate-950 dark:text-white md:text-5xl">
+          <h2 className="mt-4 sm:mt-5 text-3xl font-black text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
             Smart digital ideas for brands that want better reach and stronger systems.
           </h2>
-          <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
+          <p className="mt-4 sm:mt-5 text-base sm:text-lg leading-7 sm:leading-8 text-slate-600 dark:text-slate-300">
             Explore articles, updates, and strategy notes from our world of web
             products, digital visibility, and modern service delivery.
           </p>
@@ -481,7 +481,7 @@ export const Blog = () => (
         </RouterLink>
       </div>
 
-      <div className="mt-14 grid gap-6 md:grid-cols-3">
+      <div className="mt-10 sm:mt-14 grid gap-5 sm:gap-6 sm:grid-cols-2 md:grid-cols-3">
         {blogPosts.slice(0, 3).map((post, index) => (
           <Motion.article
             key={post.id}
@@ -623,25 +623,25 @@ export const Contact = () => {
   ];
 
   return (
-    <AnimatedSection id="contact" className="px-6 py-24 md:px-12 lg:px-16">
+    <AnimatedSection id="contact" className="px-4 py-16 sm:px-6 sm:py-20 md:px-12 md:py-24 lg:px-16">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
             Inquiry Form
           </div>
-          <h2 className="mt-5 text-4xl font-black text-slate-950 dark:text-white md:text-5xl">
+          <h2 className="mt-4 sm:mt-5 text-3xl font-black text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
             Let&apos;s turn your next digital idea into a polished growth asset.
           </h2>
-          <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
+          <p className="mt-4 sm:mt-5 text-base sm:text-lg leading-7 sm:leading-8 text-slate-600 dark:text-slate-300">
             Tell us what you want to build, improve, or launch. This form is
             already wired to collect inquiries through your existing EmailJS
             setup.
           </p>
         </div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-2xl shadow-blue-100/40 dark:border-white/10 dark:bg-slate-900/85 dark:shadow-none">
-            <form className="space-y-6" onSubmit={handleSubmit}>
+        <div className="mt-10 sm:mt-14 grid gap-7 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-5 sm:p-8 shadow-2xl shadow-blue-100/40 dark:border-white/10 dark:bg-slate-900/85 dark:shadow-none">
+            <form className="space-y-5 sm:space-y-6" onSubmit={handleSubmit}>
               <div className="grid gap-6 md:grid-cols-2">
                 {[
                   ['name', 'Full Name', 'text', 'Your full name'],
