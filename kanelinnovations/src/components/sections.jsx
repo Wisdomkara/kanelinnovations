@@ -148,11 +148,11 @@ export const Home = () => (
         className="space-y-8">
         <div className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-3 py-2 text-sm font-semibold text-blue-800 shadow-lg shadow-blue-200/30 backdrop-blur dark:border-white/10 dark:bg-white/10 dark:text-blue-100">
           <ShieldCheck className="h-4 w-4 flex-shrink-0" />
-          <span>Modern digital services provider for ambitious brands</span>
+          <span className="text-xs sm:text-sm">Modern digital services provider for ambitious brands</span>
         </div>
 
         <div className="space-y-5">
-          <h1 className="text-4xl font-black leading-[1.05] text-slate-950 dark:text-white sm:text-5xl lg:text-6xl">
+          <h1 className="text-2xl font-black leading-[1.08] text-slate-950 dark:text-white sm:text-3xl lg:text-4xl xl:text-5xl">
             We build the websites, apps, funnels, and digital growth systems
             that make brands impossible to ignore.
           </h1>
