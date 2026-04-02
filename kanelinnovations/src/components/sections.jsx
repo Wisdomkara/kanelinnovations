@@ -176,7 +176,7 @@ export const Home = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.7, ease: 'easeOut' }}
         className="relative">
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-white p-4 shadow-[0_40px_120px_-40px_rgba(37,99,235,0.65)] dark:border-white/10 dark:bg-slate-900/80">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-white p-4 shadow-[0_40px_120px_-40px_rgba(37,99,235,0.65)] dark:border-white/10 dark:bg-slate-900/80 glow-border">
               <img
                 src={HeroCom}
                 alt="Kanel innovations digital services"
@@ -229,7 +229,7 @@ export const About = () => (
     <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
       <div className="relative">
         <div className="absolute -left-4 -top-4 h-40 w-40 rounded-full bg-blue-200/40 blur-3xl dark:bg-blue-500/20" />
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/50 bg-white p-4 shadow-2xl shadow-blue-100/60 dark:border-white/10 dark:bg-slate-900">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/50 bg-white p-4 shadow-2xl shadow-blue-100/60 dark:border-white/10 dark:bg-slate-900 glow-border">
             <img
               src={TeamImage}
               alt="Kanel innovations team"
@@ -307,7 +307,7 @@ export const Team = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.55, delay: index * 0.08 }}
-            className="group rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/50 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-400/30 dark:hover:shadow-none">
+            className="group rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/50 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-400/30 dark:hover:shadow-none glow-border">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
               {React.createElement(Icon, { className: 'h-7 w-7' })}
             </div>
@@ -342,7 +342,7 @@ export const Projects = () => (
             we shape each project around clarity, trust, and measurable
             business movement.
           </p>
-          <div className="rounded-[2rem] border border-blue-200 bg-blue-600 p-8 text-white shadow-2xl shadow-blue-600/20 dark:border-blue-400/20">
+          <div className="rounded-[2rem] border border-blue-200 bg-blue-600 p-8 text-white shadow-2xl shadow-blue-600/20 dark:border-blue-400/20 glow-border">
             <div className="flex items-center gap-3">
               <Megaphone className="h-6 w-6" />
               <p className="font-semibold uppercase tracking-[0.2em] text-blue-100">
@@ -365,7 +365,7 @@ export const Projects = () => (
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/5">
+              className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/5 glow-border">
               <div className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700 dark:text-blue-200">
                 0{index + 1}
               </div>
@@ -413,7 +413,7 @@ export const Testimonials = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.55, delay: index * 0.08 }}
-            className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/5">
+            className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/5 glow-border">
             <div className="flex items-center justify-between">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
                 {React.createElement(Icon, { className: 'h-7 w-7' })}
@@ -489,7 +489,7 @@ export const Blog = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.55, delay: index * 0.08 }}
-            className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-100/40 dark:border-white/10 dark:bg-white/5 dark:hover:shadow-none">
+            className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-100/40 dark:border-white/10 dark:bg-white/5 dark:hover:shadow-none glow-border">
             <img src={post.image} alt={post.title} className="h-56 w-full object-cover" />
             <div className="p-7">
               <div className="flex flex-wrap items-center gap-3 text-sm">
@@ -640,7 +640,7 @@ export const Contact = () => {
         </div>
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-2xl shadow-blue-100/40 dark:border-white/10 dark:bg-slate-900/85 dark:shadow-none">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-2xl shadow-blue-100/40 dark:border-white/10 dark:bg-slate-900/85 dark:shadow-none glow-border">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid gap-6 md:grid-cols-2">
                 {[
@@ -759,7 +759,7 @@ export const Contact = () => {
               return (
               <div
                 key={title}
-                className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5">
+                className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 glow-border">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
                   {React.createElement(Icon, { className: 'h-6 w-6' })}
                 </div>
