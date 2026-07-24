@@ -164,3 +164,14 @@ h6 {
 .dark {
   background: linear-gradient(160deg, #020c1b 0%, #071428 50%, #030e20 100%);
 }
+
+/* Hero text: tech blue color with soft glow */
+.hero-tech-blue {
+  color: #1d4ed8;
+  text-shadow: 0 10px 30px rgba(125,211,252,0.12), 0 0 40px rgba(125,211,252,0.08);
+}
+
+.dark .hero-tech-blue {
+  color: #60a5fa;
+  text-shadow: 0 10px 30px rgba(96,165,250,0.16), 0 0 40px rgba(96,165,250,0.12);
+}

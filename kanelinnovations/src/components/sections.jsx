@@ -24,7 +24,6 @@ import {
   Star,
   Workflow,
 } from 'lucide-react';
-import HeroCom from '../assets/images/company.jpg';
 import TeamImage from '../assets/images/team.jpeg';
 import { blogPosts } from '../data/blogPosts';
 
@@ -51,9 +50,8 @@ const AnimatedSection = ({ children, className = '', id }) => {
     <section
       id={id}
       ref={sectionRef}
-      className={`${className} scroll-mt-28 transition-all duration-700 ${
-        visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-      }`}>
+      className={`${className} scroll-mt-28 transition-all duration-700 ${visible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}>
       {children}
     </section>
   );
@@ -99,13 +97,91 @@ const inquiryServices = [
   'Full Digital Growth Partner',
 ];
 
+const HeroWebsiteMockup = () => {
+  const bars = [24, 38, 32, 52, 44, 68, 58, 78];
+
+  return (
+    <div className="relative rounded-[2rem] bg-slate-950 p-3 shadow-[0_34px_90px_-36px_rgba(2,6,23,0.95)] ring-1 ring-white/20">
+      <div className="absolute inset-x-12 -top-1 h-1 rounded-full bg-white/25" />
+      <div className="relative overflow-hidden rounded-[1.4rem] border border-blue-400/25 bg-[linear-gradient(180deg,rgba(3,20,44,0.6),rgba(2,10,30,0.8))] px-5 py-5 text-white sm:px-8 sm:py-7 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_22%,rgba(37,99,235,0.6),transparent_28%),radial-gradient(circle_at_22%_82%,rgba(14,165,233,0.45),transparent_24%)]" />
+        <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(59,130,246,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.18)_1px,transparent_1px)] [background-size:40px_40px]" />
+
+        <div className="relative z-10 flex items-center justify-between gap-4">
+          <span className="text-sm font-black italic tracking-wide sm:text-base">
+            KANEL
+          </span>
+          <div className="hidden items-center gap-5 text-[0.68rem] font-semibold text-slate-200 sm:flex">
+            {['Home', 'Services', 'About', 'Work', 'Blog', 'Contact'].map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative z-10 mt-10 grid gap-8 lg:grid-cols-[0.78fr_1fr] lg:items-center">
+          <div>
+            <h3 className="max-w-sm text-3xl font-black italic leading-tight text-white sm:text-4xl">
+              We build digital systems that grow{' '}
+              <span className="text-blue-400">businesses.</span>
+            </h3>
+            <p className="mt-5 max-w-xs text-sm leading-6 text-slate-300">
+              Web development, SEO, UI/UX and digital strategy focused on
+              measurable results.
+            </p>
+            <button
+              type="button"
+              className="mt-6 inline-flex items-center gap-2 rounded-md bg-blue-600 px-4 py-3 text-xs font-bold text-white shadow-lg shadow-blue-700/30 transition hover:bg-blue-500">
+              Let&apos;s Work Together
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          <div className="relative min-h-[250px]">
+            <div className="absolute right-2 top-0 h-48 w-72 rotate-[-7deg] rounded-2xl border border-blue-400/60 bg-blue-950/35 shadow-[0_0_60px_rgba(37,99,235,0.32)] sm:h-56 sm:w-80" />
+            <div className="relative ml-auto mt-6 w-full max-w-sm rotate-[3deg] rounded-2xl border border-blue-400/50 bg-[#071b3d]/95 p-5 shadow-[0_30px_80px_-35px_rgba(29,78,216,0.9)]">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-blue-700 to-sky-400/30 p-2">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/6">
+                      <MessageSquareMore className="h-6 w-6 text-white/95" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <span className="block h-2 w-24 rounded-full bg-white/20" />
+                    <span className="block h-2 w-32 rounded-full bg-white/10" />
+                    <span className="block h-2 w-20 rounded-full bg-white/8" />
+                  </div>
+                </div>
+                <span className="h-8 w-16 rounded-md border border-blue-400/25 bg-blue-900/35" />
+              </div>
+
+              <div className="mt-7 flex h-28 items-end gap-3 border-b border-l border-blue-300/20 px-2" style={{ mixBlendMode: 'overlay' }}>
+                {bars.map((height, index) => (
+                  <span
+                    key={`${height}-${index}`}
+                    className="w-full rounded-t-xl bg-gradient-to-t from-blue-700 to-sky-300 shadow-[0_10px_30px_-12px_rgba(59,130,246,0.45)]"
+                    style={{ height: `${height}%` }}
+                  />
+                ))}
+              </div>
+              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(135deg,transparent_0%,rgba(125,211,252,0.12)_45%,transparent_70%)]" style={{ mixBlendMode: 'overlay' }} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto h-4 w-[88%] rounded-b-2xl bg-gradient-to-b from-slate-800 to-slate-950 shadow-xl" />
+    </div>
+  );
+};
+
 export const Home = () => (
   <AnimatedSection
     id="home"
     className="relative overflow-hidden px-6 pt-20 pb-12 md:px-12 lg:px-16 lg:pt-24 lg:pb-16 min-h-[calc(100vh-6rem)]">
-    <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.35),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(147,197,253,0.32),_transparent_30%),linear-gradient(180deg,var(--bg-primary),var(--bg-secondary))]" />
-    <div className="hidden lg:block absolute right-[-8rem] top-24 -z-10 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
-    <div className="hidden lg:block absolute left-[-6rem] bottom-6 -z-10 h-72 w-72 rounded-full bg-sky-300/20 blur-3xl" />
+    <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(37,99,235,0.55),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(14,165,233,0.45),_transparent_30%),linear-gradient(180deg,var(--bg-primary),var(--bg-secondary))]" />
+    <div className="hidden lg:block absolute right-[-8rem] top-24 -z-10 h-72 w-72 rounded-full bg-blue-600/25 blur-3xl" />
+    <div className="hidden lg:block absolute left-[-6rem] bottom-6 -z-10 h-72 w-72 rounded-full bg-sky-400/25 blur-3xl" />
 
     <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
       <Motion.div
@@ -119,7 +195,7 @@ export const Home = () => (
         </div>
 
         <div className="space-y-5">
-          <h1 className="max-w-3xl text-4xl font-black leading-[1.02] text-slate-950 dark:text-white md:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-2xl font-black leading-[1.02] hero-tech-blue md:text-3xl lg:text-3xl">
             We build the websites, apps, funnels, and digital growth systems
             that make brands impossible to ignore.
           </h1>
@@ -176,39 +252,8 @@ export const Home = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.7, ease: 'easeOut' }}
         className="relative">
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/60 bg-white p-4 shadow-[0_40px_120px_-40px_rgba(37,99,235,0.65)] dark:border-white/10 dark:bg-slate-900/80 glow-border">
-              <img
-                src={HeroCom}
-                alt="Kanel innovations digital services"
-                className="w-full rounded-[1.5rem] object-cover h-[300px] sm:h-[420px] md:h-[520px] lg:h-[calc(100vh-6rem)]"
-              />
-          <div className="absolute inset-x-8 bottom-8 rounded-[1.75rem] border border-white/60 bg-slate-950/85 p-6 text-white shadow-xl backdrop-blur">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                    <p className="text-sm uppercase tracking-[0.25em] text-blue-200">
-                      Delivery Stack
-                    </p>
-                <h3 className="mt-2 text-2xl font-bold">
-                  Design. Build. Funnel. Rank. Scale.
-                </h3>
-              </div>
-              <div className="rounded-2xl bg-blue-500/20 p-3 text-blue-100">
-                <Sparkles className="h-8 w-8" />
-              </div>
-            </div>
-            <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-blue-50/90">
-              {[
-                'Web & mobile products',
-                'Sales funnels & automations',
-                'SEO & digital awareness',
-                'Ongoing optimisation',
-              ].map((item) => (
-                <div key={item} className="rounded-2xl bg-white/10 px-4 py-3">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="relative rounded-[2.25rem] border border-white/60 bg-white/80 p-3 shadow-[0_40px_120px_-40px_rgba(37,99,235,0.7)] backdrop-blur dark:border-white/10 dark:bg-slate-900/75 glow-border sm:p-5">
+          <HeroWebsiteMockup />
         </div>
 
         <div className="absolute -left-6 top-8 hidden rounded-3xl border border-white/60 bg-white/85 px-5 py-4 shadow-xl backdrop-blur dark:border-white/10 dark:bg-slate-900/85 lg:block">
@@ -230,11 +275,11 @@ export const About = () => (
       <div className="relative">
         <div className="absolute -left-4 -top-4 h-40 w-40 rounded-full bg-blue-200/40 blur-3xl dark:bg-blue-500/20" />
         <div className="relative overflow-hidden rounded-[2rem] border border-white/50 bg-white p-4 shadow-2xl shadow-blue-100/60 dark:border-white/10 dark:bg-slate-900 glow-border">
-            <img
-              src={TeamImage}
-              alt="Kanel innovations team"
-              className="w-full rounded-[1.5rem] object-cover h-[260px] sm:h-[360px] md:h-[420px] lg:h-[480px]"
-            />
+          <img
+            src={TeamImage}
+            alt="Kanel innovations team"
+            className="w-full rounded-[1.5rem] object-cover h-[260px] sm:h-[360px] md:h-[420px] lg:h-[480px]"
+          />
         </div>
       </div>
 
@@ -301,23 +346,23 @@ export const Team = () => (
           const [title, description, Icon] = card;
 
           return (
-          <Motion.div
-            key={title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55, delay: index * 0.08 }}
-            className="group rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/50 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-400/30 dark:hover:shadow-none glow-border">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
-              {React.createElement(Icon, { className: 'h-7 w-7' })}
-            </div>
-            <h3 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">
-              {title}
-            </h3>
-            <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">
-              {description}
-            </p>
-          </Motion.div>
+            <Motion.div
+              key={title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.55, delay: index * 0.08 }}
+              className="group rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/50 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-400/30 dark:hover:shadow-none glow-border">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
+                {React.createElement(Icon, { className: 'h-7 w-7' })}
+              </div>
+              <h3 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">
+                {title}
+              </h3>
+              <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">
+                {description}
+              </p>
+            </Motion.div>
           );
         })}
       </div>
@@ -407,26 +452,26 @@ export const Testimonials = () => (
           const [title, description, Icon] = step;
 
           return (
-          <Motion.div
-            key={title}
-            initial={{ opacity: 0, y: 26 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.55, delay: index * 0.08 }}
-            className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/5 glow-border">
-            <div className="flex items-center justify-between">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
-                {React.createElement(Icon, { className: 'h-7 w-7' })}
+            <Motion.div
+              key={title}
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.55, delay: index * 0.08 }}
+              className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm dark:border-white/10 dark:bg-white/5 glow-border">
+              <div className="flex items-center justify-between">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
+                  {React.createElement(Icon, { className: 'h-7 w-7' })}
+                </div>
+                <span className="text-sm font-bold text-slate-400">0{index + 1}</span>
               </div>
-              <span className="text-sm font-bold text-slate-400">0{index + 1}</span>
-            </div>
-            <h3 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">
-              {title}
-            </h3>
-            <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">
-              {description}
-            </p>
-          </Motion.div>
+              <h3 className="mt-6 text-2xl font-bold text-slate-900 dark:text-white">
+                {title}
+              </h3>
+              <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">
+                {description}
+              </p>
+            </Motion.div>
           );
         })}
       </div>
@@ -720,9 +765,8 @@ export const Contact = () => {
               <button
                 type="submit"
                 disabled={formStatus.isSubmitting || formStatus.isSubmitted}
-                className={`inline-flex w-full items-center justify-center rounded-2xl px-6 py-4 text-base font-semibold text-white transition ${
-                  formStatus.isSubmitted ? 'bg-emerald-600' : 'bg-blue-600 hover:bg-blue-700'
-                } disabled:cursor-not-allowed disabled:opacity-80`}>
+                className={`inline-flex w-full items-center justify-center rounded-2xl px-6 py-4 text-base font-semibold text-white transition ${formStatus.isSubmitted ? 'bg-emerald-600' : 'bg-blue-600 hover:bg-blue-700'
+                  } disabled:cursor-not-allowed disabled:opacity-80`}>
                 {formStatus.isSubmitting
                   ? 'Sending inquiry...'
                   : formStatus.isSubmitted
@@ -757,21 +801,21 @@ export const Contact = () => {
               const [title, lines, Icon] = card;
 
               return (
-              <div
-                key={title}
-                className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 glow-border">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
-                  {React.createElement(Icon, { className: 'h-6 w-6' })}
+                <div
+                  key={title}
+                  className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 glow-border">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
+                    {React.createElement(Icon, { className: 'h-6 w-6' })}
+                  </div>
+                  <h4 className="mt-4 text-xl font-bold text-slate-900 dark:text-white">
+                    {title}
+                  </h4>
+                  {lines.map((line) => (
+                    <p key={line} className="mt-2 leading-7 text-slate-600 dark:text-slate-300">
+                      {line}
+                    </p>
+                  ))}
                 </div>
-                <h4 className="mt-4 text-xl font-bold text-slate-900 dark:text-white">
-                  {title}
-                </h4>
-                {lines.map((line) => (
-                  <p key={line} className="mt-2 leading-7 text-slate-600 dark:text-slate-300">
-                    {line}
-                  </p>
-                ))}
-              </div>
               );
             })}
           </div>
