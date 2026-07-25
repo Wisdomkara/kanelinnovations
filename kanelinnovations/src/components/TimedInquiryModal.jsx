@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { AnimatePresence, motion as Motion } from 'framer-motion';
 import { ArrowRight, Mail, X } from 'lucide-react';
+import { sendOwnerEmail } from '../utils/mail.js';
 
 const services = [
   'Website Design',
@@ -50,18 +51,20 @@ export default function TimedInquiryModal({ isOpen, onClose, onSubmitted }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const subject = encodeURIComponent(`Website enquiry from ${formData.name}`);
-    const body = encodeURIComponent(
-      [
+    void sendOwnerEmail({
+      subject: `Website enquiry from ${formData.name}`,
+      lines: [
         `Name: ${formData.name}`,
         `Email: ${formData.email}`,
         `Service needed: ${formData.service}`,
         '',
         `Message: ${formData.message || 'No extra message provided.'}`,
-      ].join('\n')
-    );
-
-    window.location.href = `mailto:wiskara1@gmail.com?subject=${subject}&body=${body}`;
+      ],
+      name: formData.name,
+      fromEmail: formData.email,
+      service: formData.service,
+      message: formData.message,
+    });
     setFormData(initialForm);
     onSubmitted();
   };
@@ -104,8 +107,8 @@ export default function TimedInquiryModal({ isOpen, onClose, onSubmitted }) {
               Tell us how we can help
             </h2>
             <p id={messageId} className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-              Share your details and the service you need. Your email app will open
-              with the enquiry addressed to us.
+              Share your details and the service you need. The enquiry will be
+              addressed to our team immediately.
             </p>
 
             <form className="mt-5 space-y-3" onSubmit={handleSubmit}>

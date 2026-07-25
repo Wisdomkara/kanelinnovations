@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion as Motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
 import {
@@ -37,6 +36,7 @@ import SuccessModal from './SuccessModal.jsx';
 import HeroDigitalPresenceImage from '../assets/images/hero-digital-presence.webp';
 import TeamImage from '../assets/images/team-digital-project.jpg';
 import { blogPosts } from '../data/blogPosts';
+import { sendOwnerEmail } from '../utils/mail.js';
 
 const AnimatedSection = ({ children, className = '', id }) => {
   const [visible, setVisible] = useState(false);
@@ -604,50 +604,20 @@ export const Contact = () => {
     });
     setFormData(initialInquiryData);
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-    if (!serviceId || !templateId || !publicKey) {
-      return;
-    }
-
-    const inquiryMessage = [
-      `Requested service: ${submittedData.service}`,
-      '',
-      submittedData.message || 'No extra message provided.',
-    ].join('\n');
-
-    try {
-      const timestamp = new Date().toLocaleString();
-
-      emailjs.send(
-        serviceId,
-        templateId,
-        {
-          name: submittedData.name,
-          from_email: submittedData.email,
-          subject: `${submittedData.service} enquiry`,
-          message: submittedData.message || inquiryMessage,
-          company: '',
-          service: submittedData.service,
-          timeline: '',
-          time: timestamp,
-          inquiry_message: inquiryMessage,
-        },
-        publicKey
-      ).catch(() => {
-        setFormStatus({
-          error:
-            'Your enquiry was captured on screen, but email delivery could not be confirmed. Please use WhatsApp if it is urgent.',
-        });
-      });
-    } catch {
-      setFormStatus({
-        error:
-          'Your enquiry was captured on screen, but email delivery could not be confirmed. Please use WhatsApp if it is urgent.',
-      });
-    }
+    void sendOwnerEmail({
+      subject: `${submittedData.service} enquiry from ${submittedData.name}`,
+      lines: [
+        `Name: ${submittedData.name}`,
+        `Email: ${submittedData.email}`,
+        `Service needed: ${submittedData.service}`,
+        '',
+        `Message: ${submittedData.message || 'No extra message provided.'}`,
+      ],
+      name: submittedData.name,
+      fromEmail: submittedData.email,
+      service: submittedData.service,
+      message: submittedData.message,
+    });
   };
 
   const contactCards = [

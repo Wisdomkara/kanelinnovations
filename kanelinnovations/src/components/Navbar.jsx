@@ -42,19 +42,15 @@ export default function Navbar({ theme, onToggleTheme }) {
 
   const linkClass = (to) =>
     activeSection === to
-      ? scrolled
-        ? 'text-slate-950 dark:text-white'
-        : 'text-white'
-      : scrolled
-        ? 'text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white'
-        : 'text-white/72 hover:text-white';
+      ? 'text-white'
+      : 'text-white/75 hover:text-white';
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-8">
       <div
         className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-5 py-3 transition-all duration-300 ${
           scrolled
-            ? 'border-white/60 bg-white/88 shadow-xl shadow-blue-100/50 backdrop-blur dark:border-white/10 dark:bg-slate-950/85 dark:shadow-none'
+            ? 'border-white/15 bg-slate-950/85 shadow-xl shadow-slate-950/20 backdrop-blur dark:border-white/10 dark:bg-slate-950/85 dark:shadow-none'
             : 'border-white/25 bg-white/8 shadow-2xl shadow-slate-950/15 backdrop-blur'
         }`}>
         <Link
@@ -62,9 +58,9 @@ export default function Navbar({ theme, onToggleTheme }) {
           smooth={true}
           duration={500}
           className={`cursor-pointer text-xl font-black tracking-tight transition md:text-2xl ${
-            scrolled ? 'text-slate-950 dark:text-white' : 'text-white'
+            scrolled ? 'text-white' : 'text-white'
           }`}>
-          Kanel <span className={scrolled ? 'text-blue-600 dark:text-blue-300' : 'text-blue-200'}>innovations</span>
+          Kanel <span className="text-blue-200">innovations</span>
         </Link>
 
         <div className="hidden items-center gap-6 lg:flex">
@@ -114,7 +110,7 @@ export default function Navbar({ theme, onToggleTheme }) {
       </div>
 
       {isOpen && (
-        <div className="mx-auto mt-3 max-w-7xl rounded-[2rem] border border-white/60 bg-white/95 p-5 shadow-2xl shadow-blue-100/50 backdrop-blur dark:border-white/10 dark:bg-slate-950/95 dark:shadow-none lg:hidden">
+        <div className="mx-auto mt-3 max-w-7xl rounded-[2rem] border border-white/10 bg-slate-950/95 p-5 shadow-2xl shadow-slate-950/25 backdrop-blur dark:border-white/10 dark:bg-slate-950/95 dark:shadow-none lg:hidden">
           <div className="flex flex-col gap-3">
             {links.map(({ name, to, isButton }) => (
               <Link
@@ -128,7 +124,7 @@ export default function Navbar({ theme, onToggleTheme }) {
                 className={`cursor-pointer rounded-2xl px-4 py-3 text-sm font-semibold transition ${
                   isButton
                     ? 'bg-blue-600 text-white'
-                    : `${activeSection === to ? 'text-blue-700 dark:text-blue-200' : 'text-slate-700 hover:text-blue-700 dark:text-slate-200 dark:hover:text-blue-200'} bg-slate-50 dark:bg-white/5`
+                    : `${activeSection === to ? 'text-white' : 'text-white/75 hover:text-white'} bg-white/5`
                 }`}>
                 {name}
               </Link>

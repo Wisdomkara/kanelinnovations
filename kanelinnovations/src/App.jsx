@@ -5,6 +5,7 @@ import Navbar from './components/Navbar.jsx';
 import SuccessModal from './components/SuccessModal.jsx';
 import TimedInquiryModal from './components/TimedInquiryModal.jsx';
 import BlogNewsPage from './pages/BlogNewsPage.jsx';
+import { sendOwnerEmail } from './utils/mail.js';
 import {
   About,
   Blog,
@@ -42,6 +43,17 @@ function HomePage({ theme, onToggleTheme }) {
 
   const handleNewsletterSubmit = (event) => {
     event.preventDefault();
+    void sendOwnerEmail({
+      subject: 'Newsletter subscription request',
+      lines: [
+        'A visitor subscribed to email updates.',
+        '',
+        `Email: ${newsletterEmail}`,
+      ],
+      name: 'Newsletter subscriber',
+      fromEmail: newsletterEmail,
+      service: 'Newsletter',
+    });
     setFooterModal({
       isOpen: true,
       title: 'You are on the list',
@@ -159,7 +171,7 @@ function HomePage({ theme, onToggleTheme }) {
           setFooterModal({
             isOpen: true,
             title: 'Enquiry ready',
-            message: 'Your email app has been opened with the enquiry addressed to Kanel innovations.',
+            message: 'Your enquiry has been prepared for delivery to Kanel innovations.',
           });
         }}
       />
