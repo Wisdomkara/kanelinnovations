@@ -230,22 +230,30 @@ export const About = () => (
         </p>
       </div>
 
-      <div className={`${contentGap} grid gap-5 md:grid-cols-2 xl:grid-cols-4`}>
-        {digitalPresenceReasons.map(([title, detail, Icon]) => (
-          <div
-            key={title}
-            className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl hover:shadow-blue-100/50 dark:glass-panel dark:hover:shadow-blue-500/20">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
-              {React.createElement(Icon, { className: 'h-6 w-6' })}
+      <div className={`${contentGap} grid gap-5 md:grid-cols-2 lg:grid-cols-3`}>
+        {digitalPresenceReasons.map(([title, detail, Icon], index) => {
+          let bentoClass = '';
+          if (index === 0) bentoClass = 'md:col-span-2 lg:col-span-2 lg:row-span-2 flex flex-col justify-center';
+          else if (index === 3) bentoClass = 'md:col-span-2 lg:col-span-3 sm:flex sm:items-center sm:gap-6';
+
+          return (
+            <div
+              key={title}
+              className={`group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-100/50 dark:glass-panel dark:hover:shadow-blue-500/20 sm:p-8 ${bentoClass}`}>
+              <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200 ${index === 0 ? 'lg:h-20 lg:w-20 lg:rounded-3xl' : ''}`}>
+                {React.createElement(Icon, { className: index === 0 ? 'h-7 w-7 lg:h-10 lg:w-10' : 'h-7 w-7' })}
+              </div>
+              <div className={index === 3 ? 'mt-5 sm:mt-0 sm:flex-1' : ''}>
+                <h3 className={`mt-5 text-xl font-black text-slate-950 dark:text-white ${index === 0 ? 'lg:text-3xl lg:mt-8' : index === 3 ? 'sm:mt-0 sm:text-2xl' : ''}`}>
+                  {title}
+                </h3>
+                <p className={`mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300 ${index === 0 ? 'lg:mt-5 lg:text-base lg:leading-8' : index === 3 ? 'sm:text-base' : ''}`}>
+                  {detail}
+                </p>
+              </div>
             </div>
-            <h3 className="mt-5 text-xl font-black text-slate-950 dark:text-white">
-              {title}
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-              {detail}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="mt-20 overflow-hidden rounded-3xl border border-slate-200 bg-white dark:glass-panel lg:mt-24">
