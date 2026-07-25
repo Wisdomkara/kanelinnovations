@@ -7,7 +7,7 @@ const links = [
   { name: 'About', to: 'about' },
   { name: 'Services', to: 'team' },
   { name: 'Work', to: 'projects' },
-  { name: 'Process', to: 'testimonials' },
+  { name: 'Process', to: 'process' },
   { name: 'Insights', to: 'blog' },
   { name: 'Contact', to: 'contact', isButton: true },
 ];
@@ -19,7 +19,12 @@ export default function Navbar({ theme, onToggleTheme }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      const heroSection = document.getElementById('home');
+      const heroBottom = heroSection
+        ? heroSection.offsetTop + heroSection.offsetHeight - 120
+        : 40;
+
+      setScrolled(window.scrollY > heroBottom);
       const sections = document.querySelectorAll('section[id]');
       sections.forEach((section) => {
         const top = section.offsetTop - 120;
@@ -37,8 +42,12 @@ export default function Navbar({ theme, onToggleTheme }) {
 
   const linkClass = (to) =>
     activeSection === to
-      ? 'text-blue-700 dark:text-blue-200'
-      : 'text-slate-700 hover:text-blue-700 dark:text-slate-200 dark:hover:text-blue-200';
+      ? scrolled
+        ? 'text-slate-950 dark:text-white'
+        : 'text-white'
+      : scrolled
+        ? 'text-slate-700 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white'
+        : 'text-white/72 hover:text-white';
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-8">
@@ -46,14 +55,16 @@ export default function Navbar({ theme, onToggleTheme }) {
         className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-5 py-3 transition-all duration-300 ${
           scrolled
             ? 'border-white/60 bg-white/88 shadow-xl shadow-blue-100/50 backdrop-blur dark:border-white/10 dark:bg-slate-950/85 dark:shadow-none'
-            : 'border-white/60 bg-white/72 backdrop-blur dark:border-white/10 dark:bg-slate-950/70'
+            : 'border-white/25 bg-white/8 shadow-2xl shadow-slate-950/15 backdrop-blur'
         }`}>
         <Link
           to="home"
           smooth={true}
           duration={500}
-          className="cursor-pointer text-xl font-black tracking-tight text-slate-950 dark:text-white md:text-2xl">
-          Kanel <span className="text-blue-600 dark:text-blue-300">innovations</span>
+          className={`cursor-pointer text-xl font-black tracking-tight transition md:text-2xl ${
+            scrolled ? 'text-slate-950 dark:text-white' : 'text-white'
+          }`}>
+          Kanel <span className={scrolled ? 'text-blue-600 dark:text-blue-300' : 'text-blue-200'}>innovations</span>
         </Link>
 
         <div className="hidden items-center gap-6 lg:flex">
@@ -79,7 +90,11 @@ export default function Navbar({ theme, onToggleTheme }) {
           <button
             type="button"
             onClick={onToggleTheme}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:border-blue-200 hover:text-blue-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-blue-400/30 dark:hover:text-blue-200"
+            className={`inline-flex h-11 w-11 items-center justify-center rounded-full border transition ${
+              scrolled
+                ? 'border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:text-blue-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-blue-400/30 dark:hover:text-blue-200'
+                : 'border-white/25 bg-white text-slate-800 hover:bg-blue-50'
+            }`}
             aria-label="Toggle light and dark mode">
             {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </button>
@@ -87,7 +102,11 @@ export default function Navbar({ theme, onToggleTheme }) {
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 lg:hidden dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+            className={`inline-flex h-11 w-11 items-center justify-center rounded-full border lg:hidden ${
+              scrolled
+                ? 'border-slate-200 bg-white text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200'
+                : 'border-white/25 bg-white text-slate-800'
+            }`}
             aria-label="Toggle menu">
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -109,7 +128,7 @@ export default function Navbar({ theme, onToggleTheme }) {
                 className={`cursor-pointer rounded-2xl px-4 py-3 text-sm font-semibold transition ${
                   isButton
                     ? 'bg-blue-600 text-white'
-                    : `${linkClass(to)} bg-slate-50 dark:bg-white/5`
+                    : `${activeSection === to ? 'text-blue-700 dark:text-blue-200' : 'text-slate-700 hover:text-blue-700 dark:text-slate-200 dark:hover:text-blue-200'} bg-slate-50 dark:bg-white/5`
                 }`}>
                 {name}
               </Link>

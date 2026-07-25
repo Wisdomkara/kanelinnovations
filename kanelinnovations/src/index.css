@@ -6,8 +6,8 @@
 
 :root {
   color-scheme: light;
-  --bg-primary: #f8fbff;
-  --bg-secondary: #eaf3ff;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
   --text-primary: #081120;
 }
 
@@ -22,12 +22,25 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at top, rgba(59, 130, 246, 0.12), transparent 30%),
-    linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+  background: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Manrope', sans-serif;
 }
