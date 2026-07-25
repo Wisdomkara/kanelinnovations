@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-scroll';
 import { Menu, Moon, Sun, X } from 'lucide-react';
+import { motion as Motion } from 'framer-motion';
 
 const links = [
   { name: 'Home', to: 'home' },
@@ -50,36 +51,54 @@ export default function Navbar({ theme, onToggleTheme }) {
       <div
         className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-5 py-3 transition-all duration-300 ${
           scrolled
-            ? 'border-white/15 bg-slate-950/85 shadow-xl shadow-slate-950/20 backdrop-blur dark:border-white/10 dark:bg-slate-950/85 dark:shadow-none'
-            : 'border-white/25 bg-white/8 shadow-2xl shadow-slate-950/15 backdrop-blur'
+            ? 'glass-panel shadow-xl shadow-slate-950/20 dark:shadow-none'
+            : 'border-white/25 bg-white/10 shadow-2xl shadow-slate-950/15 backdrop-blur'
         }`}>
         <Link
           to="home"
           smooth={true}
           duration={500}
           className={`cursor-pointer text-xl font-black tracking-tight transition md:text-2xl ${
-            scrolled ? 'text-white' : 'text-white'
+            scrolled ? 'text-slate-900 dark:text-white' : 'text-white'
           }`}>
-          Kanel <span className="text-blue-200">innovations</span>
+          Kanel <span className="text-blue-600 dark:text-blue-200">innovations</span>
         </Link>
 
-        <div className="hidden items-center gap-6 lg:flex">
-          {links.map(({ name, to, isButton }) => (
-            <Link
-              key={to}
-              to={to}
-              spy={true}
-              smooth={true}
-              duration={500}
-              offset={-90}
-              className={`cursor-pointer text-sm font-semibold transition ${
-                isButton
-                  ? 'rounded-full bg-blue-600 px-5 py-3 text-white hover:bg-blue-700'
-                  : linkClass(to)
-              }`}>
-              {name}
-            </Link>
-          ))}
+        <div className="hidden items-center gap-2 lg:flex">
+          {links.map(({ name, to, isButton }) => {
+            const isActive = activeSection === to;
+            return (
+              <Link
+                key={to}
+                to={to}
+                spy={true}
+                smooth={true}
+                duration={500}
+                offset={-90}
+                className={`relative cursor-pointer px-4 py-2 text-sm font-semibold transition-colors ${
+                  isButton
+                    ? 'rounded-full bg-blue-600 text-white shadow-lg shadow-blue-500/30 transition-transform hover:scale-105 hover:bg-blue-700 ml-4'
+                    : scrolled
+                      ? isActive
+                        ? 'text-blue-600 dark:text-white'
+                        : 'text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-white'
+                      : isActive
+                        ? 'text-white'
+                        : 'text-white/75 hover:text-white'
+                }`}>
+                {isActive && !isButton && (
+                  <Motion.div
+                    layoutId="navbar-active-pill"
+                    className={`absolute inset-0 rounded-full -z-10 ${
+                      scrolled ? 'bg-blue-100 dark:bg-white/10' : 'bg-white/20'
+                    }`}
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{name}</span>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-3">
@@ -110,8 +129,13 @@ export default function Navbar({ theme, onToggleTheme }) {
       </div>
 
       {isOpen && (
-        <div className="mx-auto mt-3 max-w-7xl rounded-[2rem] border border-white/10 bg-slate-950/95 p-5 shadow-2xl shadow-slate-950/25 backdrop-blur dark:border-white/10 dark:bg-slate-950/95 dark:shadow-none lg:hidden">
-          <div className="flex flex-col gap-3">
+        <Motion.div 
+          initial={{ opacity: 0, y: -20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -20, scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+          className="mx-auto mt-3 max-w-7xl rounded-[2rem] glass-panel p-5 shadow-2xl dark:shadow-none lg:hidden">
+          <div className="flex flex-col gap-2">
             {links.map(({ name, to, isButton }) => (
               <Link
                 key={to}
@@ -123,14 +147,14 @@ export default function Navbar({ theme, onToggleTheme }) {
                 onClick={() => setIsOpen(false)}
                 className={`cursor-pointer rounded-2xl px-4 py-3 text-sm font-semibold transition ${
                   isButton
-                    ? 'bg-blue-600 text-white'
-                    : `${activeSection === to ? 'text-white' : 'text-white/75 hover:text-white'} bg-white/5`
+                    ? 'bg-blue-600 text-white mt-2'
+                    : `${activeSection === to ? 'bg-blue-100 text-blue-700 dark:bg-white/10 dark:text-white' : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/5'}`
                 }`}>
                 {name}
               </Link>
             ))}
           </div>
-        </div>
+        </Motion.div>
       )}
     </nav>
   );

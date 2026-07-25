@@ -156,6 +156,12 @@ export const Home = () => (
     />
     <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.88)_0%,rgba(2,6,23,0.64)_42%,rgba(2,6,23,0.12)_100%)]" />
     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04),rgba(2,6,23,0.45))]" />
+    
+    {/* Animated Blobs */}
+    <div className="absolute left-1/4 top-1/4 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/30 mix-blend-screen filter blur-[100px] animate-blob" />
+    <div className="absolute right-1/4 top-1/3 h-96 w-96 -translate-y-1/2 rounded-full bg-purple-600/20 mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000" />
+    <div className="absolute left-1/2 bottom-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-600/20 mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000" />
+
     <div className={`${containerClass} relative flex w-full items-center`}>
       <Motion.div
         initial={{ opacity: 0, y: 32 }}
@@ -169,7 +175,7 @@ export const Home = () => (
 
         <div className="space-y-5">
           <h1 className="max-w-3xl text-3xl font-black leading-tight text-white sm:text-4xl lg:text-5xl">
-            Your Digital Growth Partner <br />
+            Your <span className="text-gradient-primary">Digital Growth</span> Partner <br />
             Building visible, credible, <br /> and scalable brands.
           </h1>
           <p className="max-w-2xl text-sm leading-7 text-slate-200 sm:text-base">
@@ -228,7 +234,7 @@ export const About = () => (
         {digitalPresenceReasons.map(([title, detail, Icon]) => (
           <div
             key={title}
-            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl hover:shadow-blue-100/50 dark:border-white/10 dark:bg-slate-950 dark:hover:shadow-none">
+            className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:shadow-xl hover:shadow-blue-100/50 dark:glass-panel dark:hover:shadow-blue-500/20">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
               {React.createElement(Icon, { className: 'h-6 w-6' })}
             </div>
@@ -242,7 +248,7 @@ export const About = () => (
         ))}
       </div>
 
-      <div className="mt-20 overflow-hidden rounded-3xl border border-slate-200 bg-white dark:border-white/10 dark:bg-slate-950 lg:mt-24">
+      <div className="mt-20 overflow-hidden rounded-3xl border border-slate-200 bg-white dark:glass-panel lg:mt-24">
         <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
           <img
             src={TeamImage}
@@ -319,7 +325,7 @@ export const Team = () => (
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
-              className="rounded-3xl border border-slate-200 bg-slate-50 p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-2xl hover:shadow-blue-100/40 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:shadow-none sm:p-6">
+              className="group rounded-3xl border border-slate-200 bg-slate-50 p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-2xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:bg-white/5 dark:hover:shadow-blue-500/20 sm:p-6">
               <div className={`flex h-14 w-14 items-center justify-center rounded-2xl ${toneClass}`}>
                 {React.createElement(Icon, { className: 'h-7 w-7' })}
               </div>
@@ -337,7 +343,7 @@ export const Team = () => (
         })}
       </div>
 
-      <div className="mt-8 grid gap-5 rounded-3xl bg-slate-950 p-6 text-white sm:grid-cols-3 sm:p-8 lg:mt-10">
+      <div className="mt-8 grid gap-5 rounded-3xl bg-slate-950 p-6 text-white dark:glass-panel sm:grid-cols-3 sm:p-8 lg:mt-10">
         {[
           ['Website + SEO', 'Get found and trusted'],
           ['Funnel + CRM', 'Capture and follow up'],
@@ -387,7 +393,7 @@ export const Projects = () => (
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.06 }}
-              className="grid gap-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-100/45 dark:border-white/10 dark:bg-slate-950 dark:hover:shadow-none sm:grid-cols-[64px_1fr]">
+              className="group grid gap-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-100/45 dark:glass-panel dark:hover:shadow-blue-500/20 sm:grid-cols-[64px_1fr]">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-950 text-white dark:bg-blue-600">
                 {React.createElement(Icon, { className: 'h-6 w-6' })}
               </div>
@@ -439,7 +445,7 @@ export const Testimonials = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.55, delay: index * 0.08 }}
-            className="flex min-h-full flex-col rounded-3xl bg-slate-950 p-6 text-white shadow-2xl shadow-slate-900/20 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] dark:bg-blue-950">
+            className="group flex min-h-full flex-col rounded-3xl bg-slate-950 p-6 text-white shadow-2xl shadow-slate-900/20 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] dark:glass-panel dark:hover:shadow-blue-500/20">
             <div className="flex gap-1 text-blue-300">
               {Array.from({ length: 5 }).map((_, starIndex) => (
                 <Star key={starIndex} className="h-4 w-4 fill-current" />
@@ -489,7 +495,7 @@ export const Process = () => (
                 whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
-              className="grid gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-white hover:shadow-xl hover:shadow-blue-100/40 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:shadow-none sm:grid-cols-[56px_1fr_44px] sm:items-center">
+              className="group grid gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-white hover:shadow-xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:bg-white/5 dark:hover:shadow-blue-500/20 sm:grid-cols-[56px_1fr_44px] sm:items-center">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-blue-700 shadow-sm dark:bg-slate-950 dark:text-blue-300">
                 {React.createElement(Icon, { className: 'h-6 w-6' })}
               </div>
@@ -546,7 +552,7 @@ export const Blog = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.55, delay: index * 0.08 }}
-            className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-xl hover:shadow-blue-100/40 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:shadow-none">
+            className="group overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:shadow-blue-500/20">
             <img src={post.image} alt={post.title} className="h-56 w-full object-cover" />
             <div className="p-7">
               <div className="flex flex-wrap items-center gap-3 text-sm">

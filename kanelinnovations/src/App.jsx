@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, Mail } from 'lucide-react';
 import { Route, Routes } from 'react-router-dom';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
 import SuccessModal from './components/SuccessModal.jsx';
 import TimedInquiryModal from './components/TimedInquiryModal.jsx';
@@ -196,19 +197,38 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-500">
-      {loading && (
-        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-[var(--bg-primary)] transition-opacity duration-500">
-          <div className="flex flex-col items-center">
-            <div className="h-16 w-16 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600" />
-            <h2 className="mt-5 text-2xl font-black text-blue-700 dark:text-blue-300">
-              Kanel innovations
-            </h2>
-            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-              Building premium digital experiences...
-            </p>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {loading && (
+          <Motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-[999] flex items-center justify-center bg-[var(--bg-primary)]">
+            <div className="flex flex-col items-center">
+              <Motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+                className="h-16 w-16 rounded-full border-4 border-blue-200 border-t-blue-600"
+              />
+              <Motion.h2
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="mt-5 text-2xl font-black text-blue-700 dark:text-blue-300">
+                Kanel innovations
+              </Motion.h2>
+              <Motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                Building premium digital experiences...
+              </Motion.p>
+            </div>
+          </Motion.div>
+        )}
+      </AnimatePresence>
 
       <div className={`transition-opacity duration-700 ${loading ? 'opacity-0' : 'opacity-100'}`}>
         <Routes>
