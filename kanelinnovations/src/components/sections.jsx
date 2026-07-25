@@ -95,27 +95,27 @@ const showcaseItems = [
 const testimonialCards = [
   [
     'Strengthened our digital presence and delivered a web application that made Exploits Energy stand out with a more professional, credible online experience.',
-    'CEO / Managing Director',
+    'CEO / Managing Director Kingsley Kalu',
     'Exploits Energy',
-    'Digital presence + web app',
+    '',
   ],
   [
     'They helped Insight Academy improve its digital visibility by 110% while giving our brand a clearer, stronger, and more trusted online presence.',
     'Victory Idoko',
     'Founder, Insight Academy',
-    '110% visibility growth',
+    '',
   ],
   [
     'Built a web application that helped Amaechi Homes present its property services with better structure, usability, and client confidence.',
     'Leadership Team',
     'Amaechi Homes',
-    'Real estate web app',
+    '',
   ],
   [
     'Built the complete digital healthcare infrastructure and online presence, giving Healinton a stronger foundation for modern healthcare delivery.',
     'CEO / Founder Wisdom Kara',
     'Healinton',
-    'Healthcare infrastructure',
+    '',
   ],
 ];
 
@@ -212,48 +212,34 @@ export const Home = () => (
 export const About = () => (
   <AnimatedSection id="about" className={`bg-slate-50 dark:bg-slate-900 ${sectionSpacing}`}>
     <div className={containerClass}>
-      <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
-        <div>
-          <div className="inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-blue-700 shadow-sm dark:bg-white/5 dark:text-blue-200">
-            Why It Matters
-          </div>
-          <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
-            A weak online presence now costs businesses trust, visibility, and
-            speed.
-          </h2>
+      <div className="max-w-3xl">
+        <div className="inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-blue-700 shadow-sm dark:bg-white/5 dark:text-blue-200">
+          Why It Matters
         </div>
-        <p className="text-base leading-8 text-slate-700 dark:text-slate-300 md:text-lg">
-          Buyers research before they call. They compare websites, scan reviews,
-          ask AI tools, check social pages, and judge credibility quickly. Your
-          digital presence needs to answer clearly, load fast, and guide them to
-          the next action.
-        </p>
+        <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
+          A weak online presence now costs businesses trust, visibility, and
+          speed.
+        </h2>
       </div>
 
-      <div className={`${contentGap} grid gap-5 md:grid-cols-2 lg:grid-cols-3`}>
-        {digitalPresenceReasons.map(([title, detail, Icon], index) => {
-          let bentoClass = '';
-          if (index === 0) bentoClass = 'md:col-span-2 lg:col-span-2 lg:row-span-2 flex flex-col justify-center';
-          else if (index === 3) bentoClass = 'md:col-span-2 lg:col-span-3 sm:flex sm:items-center sm:gap-6';
-
-          return (
-            <div
-              key={title}
-              className={`group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-100/50 dark:glass-panel dark:hover:shadow-blue-500/20 sm:p-8 ${bentoClass}`}>
-              <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200 ${index === 0 ? 'lg:h-20 lg:w-20 lg:rounded-3xl' : ''}`}>
-                {React.createElement(Icon, { className: index === 0 ? 'h-7 w-7 lg:h-10 lg:w-10' : 'h-7 w-7' })}
-              </div>
-              <div className={index === 3 ? 'mt-5 sm:mt-0 sm:flex-1' : ''}>
-                <h3 className={`mt-5 text-xl font-black text-slate-950 dark:text-white ${index === 0 ? 'lg:text-3xl lg:mt-8' : index === 3 ? 'sm:mt-0 sm:text-2xl' : ''}`}>
-                  {title}
-                </h3>
-                <p className={`mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300 ${index === 0 ? 'lg:mt-5 lg:text-base lg:leading-8' : index === 3 ? 'sm:text-base' : ''}`}>
-                  {detail}
-                </p>
-              </div>
+      <div className={`${contentGap} grid gap-6 lg:grid-cols-2`}>
+        {digitalPresenceReasons.map(([title, detail, Icon]) => (
+          <div
+            key={title}
+            className="glass-shine-sweep group flex flex-col gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-100/50 dark:glass-panel dark:hover:shadow-blue-500/10 sm:flex-row sm:items-start">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-700 transition-colors group-hover:bg-blue-600 group-hover:text-white dark:bg-white/5 dark:text-blue-300 dark:group-hover:bg-blue-500 dark:group-hover:text-white">
+              {React.createElement(Icon, { className: 'h-8 w-8' })}
             </div>
-          );
-        })}
+            <div>
+              <h3 className="text-xl font-black text-slate-950 dark:text-white">
+                {title}
+              </h3>
+              <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">
+                {detail}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="mt-20 overflow-hidden rounded-3xl border border-slate-200 bg-white dark:glass-panel lg:mt-24">
@@ -453,17 +439,21 @@ export const Testimonials = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.55, delay: index * 0.08 }}
-            className="group flex min-h-full flex-col rounded-3xl bg-slate-950 p-6 text-white shadow-2xl shadow-slate-900/20 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] dark:glass-panel dark:hover:shadow-blue-500/20">
-            <div className="flex gap-1 text-blue-300">
+            className="glass-shine-sweep group flex min-h-full flex-col rounded-3xl bg-slate-950 p-6 text-white shadow-2xl shadow-slate-900/20 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] dark:glass-panel dark:hover:shadow-blue-500/20">
+            <div className="flex gap-1 text-amber-400">
               {Array.from({ length: 5 }).map((_, starIndex) => (
                 <Star key={starIndex} className="h-4 w-4 fill-current" />
               ))}
             </div>
             <p className="mt-5 flex-1 text-sm leading-7 text-slate-100">{quote}</p>
             <div className="mt-7 border-t border-white/10 pt-5">
-              <span className="rounded-full bg-blue-400/15 px-3 py-1 text-xs font-semibold text-blue-200">
-                {result}
-              </span>
+              {result && (
+                <div className="mb-3">
+                  <span className="rounded-full bg-blue-400/15 px-3 py-1 text-xs font-semibold text-blue-200">
+                    {result}
+                  </span>
+                </div>
+              )}
               <p className="font-bold">{name}</p>
               <p className="mt-1 text-sm text-blue-200">{company}</p>
             </div>
