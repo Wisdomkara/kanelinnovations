@@ -111,7 +111,7 @@ function HomePage({ theme, onToggleTheme }) {
             <ul className="mt-4 space-y-3 text-sm text-slate-300 sm:text-base">
               <li>Lagos, Nigeria</li>
               <li>+2347084153584</li>
-              <li className="break-all">kaneltechnology@gmail.com</li>
+              <li className="break-all">wiskara1@gmail.com</li>
             </ul>
           </div>
 
