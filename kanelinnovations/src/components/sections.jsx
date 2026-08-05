@@ -147,7 +147,7 @@ const initialInquiryData = {
 export const Home = () => (
   <AnimatedSection
     id="home"
-    className="relative flex min-h-[100svh] overflow-hidden bg-slate-950 px-5 pb-16 pt-28 text-white sm:px-6 md:px-10 md:pb-20 md:pt-32 lg:px-16">
+    className="relative flex min-h-[100svh] overflow-hidden bg-slate-950 px-5 pb-14 pt-24 text-white sm:px-6 md:px-10 md:pb-20 md:pt-32 lg:px-16">
     <img
       src={HeroDigitalPresenceImage}
       alt=""
@@ -156,42 +156,42 @@ export const Home = () => (
     />
     <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.88)_0%,rgba(2,6,23,0.64)_42%,rgba(2,6,23,0.12)_100%)]" />
     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04),rgba(2,6,23,0.45))]" />
-    
+
     {/* Animated Blobs */}
     <div className="absolute left-1/4 top-1/4 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/30 mix-blend-screen filter blur-[100px] animate-blob" />
     <div className="absolute right-1/4 top-1/3 h-96 w-96 -translate-y-1/2 rounded-full bg-purple-600/20 mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000" />
     <div className="absolute left-1/2 bottom-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-600/20 mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000" />
 
-    <div className={`${containerClass} relative flex w-full items-center`}>
+    <div className={`${containerClass} relative flex w-full flex-col items-center justify-center text-center sm:flex-row sm:items-center sm:justify-start sm:text-left`}>
       <Motion.div
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="max-w-3xl space-y-7">
+        className="mx-auto max-w-2xl space-y-7 sm:max-w-3xl">
         <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-100 shadow-sm backdrop-blur">
           <ShieldCheck className="h-4 w-4 shrink-0" />
           <span>Digital service partner for growing brands</span>
         </div>
 
         <div className="space-y-5">
-          <h1 className="max-w-3xl text-3xl font-black leading-tight text-white sm:text-4xl lg:text-5xl">
+          <h1 className="mx-auto max-w-xl text-2xl font-black leading-tight text-white sm:max-w-full sm:text-4xl lg:text-5xl">
             Your <span className="text-gradient-primary">Digital Growth</span> Partner <br />
             Building visible, credible, <br /> and scalable brands.
           </h1>
-          <p className="max-w-2xl text-sm leading-7 text-slate-200 sm:text-base">
+          <p className="mx-auto max-w-xl text-sm leading-7 text-slate-200 sm:text-base">
             We design websites, apps, funnels, SEO structures, and automation
             systems that help business owners show up professionally and turn
             online attention into qualified conversations.
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           <ScrollLink
             to="contact"
             smooth={true}
             duration={500}
             offset={-90}
-            className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-blue-600 px-7 py-4 text-base font-semibold text-white shadow-[0_20px_50px_-20px_rgba(37,99,235,0.9)] transition hover:bg-blue-700">
+            className="group inline-flex min-w-[11rem] items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_20px_50px_-20px_rgba(37,99,235,0.9)] transition hover:bg-blue-700 sm:px-7 sm:py-4 sm:text-base">
             Build My Presence
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
           </ScrollLink>
@@ -200,7 +200,7 @@ export const Home = () => (
             smooth={true}
             duration={500}
             offset={-90}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/20 bg-white/10 px-7 py-4 text-base font-semibold text-white backdrop-blur transition hover:bg-white/15">
+            className="inline-flex min-w-[11rem] items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15 sm:px-7 sm:py-4 sm:text-base">
             View Services
           </ScrollLink>
         </div>
@@ -489,8 +489,8 @@ export const Process = () => (
           return (
             <Motion.div
               key={title}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
               className="group grid gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-white hover:shadow-xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:bg-white/5 dark:hover:shadow-blue-500/20 sm:grid-cols-[56px_1fr_44px] sm:items-center">
@@ -631,8 +631,8 @@ export const Contact = () => {
   ];
 
   return (
-  <AnimatedSection
-    id="contact"
+    <AnimatedSection
+      id="contact"
       className={`bg-slate-50 dark:bg-slate-900 ${sectionSpacing}`}>
       <div className={containerClass}>
         <div className="mx-auto max-w-2xl text-center">
