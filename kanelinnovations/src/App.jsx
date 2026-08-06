@@ -149,8 +149,15 @@ function HomePage({ theme, onToggleTheme }) {
           </div>
         </div>
 
-        <div className={`${containerClass} ${contentGap} border-t border-white/10 pt-6 text-xs text-slate-400 sm:text-sm`}>
-          &copy; 2026 Kanel innovations. All rights reserved.
+        <div className={`${containerClass} ${contentGap} flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:text-sm`}>
+          <p>&copy; 2026 Kanel innovations. All rights reserved.</p>
+          <a
+            href="/privacy-policy.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-slate-300 transition hover:text-white">
+            Privacy Policy
+          </a>
         </div>
       </footer>
 

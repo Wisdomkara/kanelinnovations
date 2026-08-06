@@ -167,7 +167,7 @@ export const Home = () => (
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="mx-auto max-w-2xl space-y-7 sm:max-w-3xl">
+        className="mx-auto max-w-2xl space-y-7 text-center sm:mx-0 sm:max-w-3xl sm:text-left">
         <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-100 shadow-sm backdrop-blur">
           <ShieldCheck className="h-4 w-4 shrink-0" />
           <span>Digital service partner for growing brands</span>
@@ -185,7 +185,7 @@ export const Home = () => (
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4 sm:justify-start">
           <ScrollLink
             to="contact"
             smooth={true}
