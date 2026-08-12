@@ -76,6 +76,7 @@ const serviceCards = [
   ['Digital Presence', 'Websites, landing pages, and brand systems that make your business look credible fast.', Globe2, 'blue'],
   ['Product Build', 'Web apps, portals, dashboards, and mobile experiences built around real workflows.', MonitorSmartphone, 'emerald'],
   ['Growth Engine', 'Funnels, SEO, content structure, automation, and analytics connected into one system.', Funnel, 'amber'],
+  ['AI & Automations', 'AI-powered answers, content, and workflow automation that lets your website work harder for you.', Sparkles, 'blue'],
 ];
 
 const processSteps = [
@@ -133,6 +134,7 @@ const inquiryServices = [
   'Sales Funnel Creation',
   'SEO & Awareness Campaign',
   'Branding & Creative',
+  'AI & Automation Systems',
   'Automation & CRM Setup',
   'Full Digital Growth Partner',
 ];
@@ -293,12 +295,12 @@ export const Team = () => (
           </div>
         </div>
         <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl lg:text-5xl">
-          Three connected services. One stronger digital engine.
+          Connected services. One stronger digital engine.
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg sm:leading-8">
           We avoid disconnected deliverables. Your website, product, funnel,
-          content, analytics, and follow-up should support the same business
-          goal.
+          AI, automation, analytics, and follow-up should support the same
+          business goal.
         </p>
       </div>
 
