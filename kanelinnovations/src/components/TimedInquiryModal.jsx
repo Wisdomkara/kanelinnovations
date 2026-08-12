@@ -9,7 +9,9 @@ const services = [
   'Mobile App Development',
   'Sales Funnel Creation',
   'SEO & Digital Presence',
+  'AI & Automation Systems',
   'Automation & CRM Setup',
+  'Business Process Automation',
 ];
 
 const initialForm = {
@@ -107,8 +109,9 @@ export default function TimedInquiryModal({ isOpen, onClose, onSubmitted }) {
               Tell us how we can help
             </h2>
             <p id={messageId} className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-              Share your details and the service you need. The enquiry will be
-              addressed to our team immediately.
+              Share your details and the service you need, including websites,
+              apps, funnels, CRM setup, or business automations. The enquiry
+              will be addressed to our team immediately.
             </p>
 
             <form className="mt-5 space-y-3" onSubmit={handleSubmit}>

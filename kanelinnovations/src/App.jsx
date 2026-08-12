@@ -6,6 +6,7 @@ import Navbar from './components/Navbar.jsx';
 import SuccessModal from './components/SuccessModal.jsx';
 import TimedInquiryModal from './components/TimedInquiryModal.jsx';
 import BlogNewsPage from './pages/BlogNewsPage.jsx';
+import BusinessAutomationsPage from './pages/BusinessAutomationsPage.jsx';
 import { sendOwnerEmail } from './utils/mail.js';
 import {
   About,
@@ -84,11 +85,12 @@ function HomePage({ theme, onToggleTheme }) {
               Kanel innovations
             </p>
             <h3 className="mt-4 max-w-xl text-2xl font-black sm:text-3xl">
-              Modern websites, apps, funnels, SEO, and digital growth systems in one team.
+              Modern websites, apps, funnels, SEO, automations, and digital growth systems in one team.
             </h3>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
               We help businesses look sharper, launch better, and convert more
-              of the attention they earn online.
+              of the attention they earn online while automating repetitive
+              follow-up, CRM, reporting, and admin workflows.
             </p>
           </div>
 
@@ -100,6 +102,7 @@ function HomePage({ theme, onToggleTheme }) {
                 'App development',
                 'Funnel creation',
                 'SEO and awareness',
+                'Business automations',
               ].map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -118,7 +121,7 @@ function HomePage({ theme, onToggleTheme }) {
           <div className="sm:col-span-2 lg:col-span-1">
             <h4 className="text-base font-bold text-white sm:text-lg">Email updates</h4>
             <p className="mt-3 text-sm leading-6 text-slate-300">
-              Get short notes on websites, funnels, SEO, and digital growth.
+              Get short notes on websites, funnels, SEO, automation, and digital growth.
             </p>
             <form className="mt-4 space-y-3" onSubmit={handleNewsletterSubmit}>
               <label htmlFor="footer-email" className="sr-only">
@@ -244,6 +247,7 @@ function App() {
             element={<HomePage theme={theme} onToggleTheme={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))} />}
           />
           <Route path="/blog-news" element={<BlogNewsPage />} />
+          <Route path="/business-automations" element={<BusinessAutomationsPage />} />
         </Routes>
       </div>
     </div>

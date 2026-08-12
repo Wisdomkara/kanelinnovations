@@ -75,22 +75,29 @@ const contentGap = 'mt-10 lg:mt-12';
 const serviceCards = [
   ['Digital Presence', 'Websites, landing pages, and brand systems that make your business look credible fast.', Globe2, 'blue'],
   ['Product Build', 'Web apps, portals, dashboards, and mobile experiences built around real workflows.', MonitorSmartphone, 'emerald'],
-  ['Growth Engine', 'Funnels, SEO, content structure, automation, and analytics connected into one system.', Funnel, 'amber'],
-  ['AI & Automations', 'AI-powered answers, content, and workflow automation that lets your website work harder for you.', Sparkles, 'blue'],
+  ['Growth Engine', 'Funnels, SEO, content structure, automations, and analytics connected into one system.', Funnel, 'amber'],
+  ['AI & Business Automations', 'CRM flows, lead follow-up, reporting, and AI-assisted workflows that reduce manual admin work.', Sparkles, 'blue'],
 ];
 
 const processSteps = [
-  ['Audit', 'We review your offer, website, visibility, lead flow, and digital gaps.', Compass],
-  ['Blueprint', 'We map pages, content, automations, data capture, and conversion paths.', Layers3],
+  ['Audit', 'We review your offer, website, visibility, lead flow, admin tasks, and digital gaps.', Compass],
+  ['Blueprint', 'We map pages, content, automations, CRM stages, data capture, and conversion paths.', Layers3],
   ['Build', 'We design and develop the experience with clean UI, speed, and responsive behavior.', Code2],
-  ['Grow', 'We improve SEO, campaigns, analytics, and follow-up systems after launch.', Workflow],
+  ['Grow', 'We improve SEO, campaigns, analytics, automations, and follow-up systems after launch.', Workflow],
 ];
 
 const showcaseItems = [
   ['Website that sells trust', 'Clear messaging, fast pages, proof, service pages, and mobile-first conversion paths.', Globe2],
   ['Search visibility system', 'Content clusters, technical SEO, schema-ready structure, and AI-search friendly answers.', Search],
   ['Lead capture funnel', 'Landing pages, forms, WhatsApp paths, email follow-up, and tracking for every campaign.', Target],
-  ['Business app or portal', 'Dashboards, booking tools, customer portals, and internal workflows that remove manual work.', MonitorSmartphone],
+  ['Business automation system', 'CRM setup, booking flows, dashboards, reminders, customer portals, and internal workflows that remove manual work.', MonitorSmartphone],
+];
+
+const automationHighlights = [
+  ['Lead routing', 'Send enquiries from your website, ads, or WhatsApp into the right follow-up flow.', Funnel],
+  ['CRM and reminders', 'Track prospects, automate next steps, and reduce missed calls, quotes, and check-ins.', MessageSquareMore],
+  ['Operations workflows', 'Connect forms, approvals, bookings, reports, and internal handoffs around how your team works.', Workflow],
+  ['AI support systems', 'Use AI for first responses, content drafts, summaries, and routine customer or admin tasks.', Bot],
 ];
 
 const testimonialCards = [
@@ -170,10 +177,7 @@ export const Home = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="mx-auto max-w-2xl space-y-7 text-center sm:mx-0 sm:max-w-3xl sm:text-left">
-        <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-100 shadow-sm backdrop-blur">
-          <ShieldCheck className="h-4 w-4 shrink-0" />
-          <span>Digital service partner for growing brands</span>
-        </div>
+
 
         <div className="space-y-5">
           <h1 className="mx-auto max-w-xl text-2xl font-black leading-tight text-white sm:max-w-full sm:text-4xl lg:text-5xl">
@@ -181,9 +185,10 @@ export const Home = () => (
             Building visible, credible, <br /> and scalable brands.
           </h1>
           <p className="mx-auto max-w-xl text-sm leading-7 text-slate-200 sm:text-base">
-            We design websites, apps, funnels, SEO structures, and automation
-            systems that help business owners show up professionally and turn
-            online attention into qualified conversations.
+            We design websites, apps, funnels, SEO structures, and business
+            automation systems that help owners show up professionally, reduce
+            repetitive work, and turn online attention into qualified
+            conversations.
           </p>
         </div>
 
@@ -266,7 +271,7 @@ export const About = () => (
                 'Clear service positioning',
                 'Lead capture and WhatsApp paths',
                 'Search-ready page structure',
-                'Automation and analytics setup',
+                'Business automation and analytics setup',
               ].map((point) => (
                 <div key={point} className="flex gap-3">
                   <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-300" />
@@ -299,20 +304,22 @@ export const Team = () => (
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg sm:leading-8">
           We avoid disconnected deliverables. Your website, product, funnel,
-          AI, automation, analytics, and follow-up should support the same
-          business goal.
+          AI, automation, analytics, CRM, and follow-up should support the same
+          business goal, from first enquiry to repeat customer.
         </p>
       </div>
 
-      <div className={`${contentGap} grid gap-5 sm:grid-cols-2 lg:grid-cols-3`}>
+      <div className={`${contentGap} grid gap-5 sm:grid-cols-2 xl:grid-cols-4`}>
         {serviceCards.map((card, index) => {
           const [title, description, Icon, tone] = card;
+          const isAutomation = title === 'AI & Business Automations';
           const toneClass =
             tone === 'emerald'
               ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-400/15 dark:text-emerald-300'
               : tone === 'amber'
                 ? 'bg-amber-100 text-amber-700 dark:bg-amber-400/15 dark:text-amber-300'
                 : 'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200';
+          const cardClass = 'group rounded-3xl border border-slate-200 bg-slate-50 p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-2xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:bg-white/5 dark:hover:shadow-blue-500/20 sm:p-6';
 
           return (
             <Motion.div
@@ -321,11 +328,13 @@ export const Team = () => (
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
-              className="group rounded-3xl border border-slate-200 bg-slate-50 p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-2xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:bg-white/5 dark:hover:shadow-blue-500/20 sm:p-6">
-              <div className={`flex h-14 w-14 items-center justify-center rounded-2xl ${toneClass}`}>
-                {React.createElement(Icon, { className: 'h-7 w-7' })}
-              </div>
-              <p className="mt-7 text-sm font-bold uppercase tracking-[0.18em] text-slate-400">
+              className={cardClass}>
+              {!isAutomation && (
+                <div className={`flex h-14 w-14 items-center justify-center rounded-2xl ${toneClass}`}>
+                  {React.createElement(Icon, { className: 'h-7 w-7' })}
+                </div>
+              )}
+              <p className={`${isAutomation ? 'mt-0' : 'mt-7'} text-sm font-bold uppercase tracking-[0.18em] text-slate-400`}>
                 0{index + 1}
               </p>
               <h3 className="mt-3 text-xl font-black text-slate-950 dark:text-white sm:text-2xl">
@@ -334,16 +343,58 @@ export const Team = () => (
               <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">
                 {description}
               </p>
+              {isAutomation && (
+                <RouterLink
+                  to="/business-automations"
+                  className="mt-6 inline-flex min-h-11 items-center rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-500/20">
+                  Full Details
+                </RouterLink>
+              )}
             </Motion.div>
           );
         })}
       </div>
 
+      <div className="mt-8 rounded-3xl border border-blue-100 bg-blue-50 p-6 dark:border-blue-400/20 dark:bg-blue-500/10 sm:p-8 lg:mt-10">
+        <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-blue-700 shadow-sm dark:bg-white/10 dark:text-blue-200">
+              <Workflow className="h-4 w-4" />
+              Business Automations
+            </div>
+            <h3 className="mt-4 text-2xl font-black leading-tight text-slate-950 dark:text-white md:text-3xl">
+              We also automate the repetitive work behind the website.
+            </h3>
+            <p className="mt-4 leading-7 text-slate-700 dark:text-slate-300">
+              Beyond design and development, we help businesses connect the
+              tools they already use so leads, bookings, reminders, reports,
+              and customer updates move with less manual chasing.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {automationHighlights.map(([title, detail, Icon]) => (
+              <div key={title} className="rounded-2xl bg-white p-5 shadow-sm dark:bg-white/5">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
+                  {React.createElement(Icon, { className: 'h-5 w-5' })}
+                </div>
+                <h4 className="mt-4 font-black text-slate-950 dark:text-white">
+                  {title}
+                </h4>
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  {detail}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="mt-8 grid gap-5 rounded-3xl bg-slate-950 p-6 text-white dark:glass-panel sm:grid-cols-3 sm:p-8 lg:mt-10">
         {[
           ['Website + SEO', 'Get found and trusted'],
-          ['Funnel + CRM', 'Capture and follow up'],
-          ['Analytics + Growth', 'Measure what works'],
+          ['Funnel + CRM', 'Capture, route, and follow up'],
+          ['Automation + Analytics', 'Save time and measure what works'],
         ].map(([title, detail]) => (
           <div key={title} className="border-white/10 sm:border-l sm:pl-6 first:sm:border-l-0 first:sm:pl-0">
             <p className="font-black">{title}</p>
@@ -368,7 +419,8 @@ export const Projects = () => (
           </h2>
           <p className="mt-5 text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
             We can start small or build the full system. The layout, content,
-            forms, and tracking are planned around action, not decoration.
+            forms, automations, CRM setup, and tracking are planned around
+            action, not decoration.
           </p>
           <ScrollLink
             to="contact"
@@ -480,7 +532,7 @@ export const Process = () => (
         </h2>
         <p className="mt-4 text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
           We start with business clarity, then move into structure, design,
-          development, and measurable growth support.
+          development, automation setup, and measurable growth support.
         </p>
       </div>
 

@@ -41,11 +41,6 @@ export default function Navbar({ theme, onToggleTheme }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const linkClass = (to) =>
-    activeSection === to
-      ? 'text-white'
-      : 'text-white/75 hover:text-white';
-
   return (
     <nav className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-8">
       <div
