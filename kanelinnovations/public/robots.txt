@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wisdomkara.github.io/kanelinnovations/sitemap.xml
+Sitemap: https://kanelinnovations.vercel.app/sitemap.xml

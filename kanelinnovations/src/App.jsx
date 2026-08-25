@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Mail } from 'lucide-react';
+import { ArrowRight, LoaderCircle, Mail } from 'lucide-react';
 import { Route, Routes } from 'react-router-dom';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
@@ -113,9 +113,17 @@ function WireframeLoader() {
           </Motion.div>
         </div>
 
-        <p className="pb-5 text-center text-sm font-semibold text-slate-500 dark:text-slate-400">
-          Kanel innovations is preparing your digital experience...
-        </p>
+        <div className="flex justify-center pb-5">
+          <div className="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-slate-300">
+            <Motion.span
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+              className="inline-flex text-blue-600 dark:text-blue-300">
+              <LoaderCircle className="h-5 w-5" />
+            </Motion.span>
+            <span>Kanel innovations is preparing your digital experience...</span>
+          </div>
+        </div>
       </div>
     </Motion.div>
   );
