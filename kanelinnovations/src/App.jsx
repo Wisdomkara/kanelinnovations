@@ -23,6 +23,104 @@ const sectionSpacing = 'px-5 py-16 sm:px-6 sm:py-20 md:px-10 lg:px-16 lg:py-24';
 const containerClass = 'mx-auto max-w-7xl';
 const contentGap = 'mt-10 lg:mt-12';
 
+function WireframeLoader() {
+  const navItems = ['w-12', 'w-16', 'w-14', 'w-20'];
+  const serviceCards = ['w-2/3', 'w-1/2', 'w-3/5'];
+
+  return (
+    <Motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 1.02 }}
+      transition={{ duration: 0.45 }}
+      className="fixed inset-0 z-[999] overflow-hidden bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-white"
+      role="status"
+      aria-live="polite"
+      aria-label="Loading Kanel innovations">
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-cyan-400 to-emerald-400">
+        <Motion.div
+          className="h-full w-1/3 bg-white/70"
+          animate={{ x: ['-100%', '320%'] }}
+          transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
+        />
+      </div>
+
+      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-5 py-6 sm:px-6 md:px-10 lg:px-16">
+        <div className="flex items-center justify-between rounded-full border border-slate-200 bg-white px-5 py-3 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <div className="h-4 w-36 rounded-full bg-slate-300 dark:bg-white/20" />
+          <div className="hidden items-center gap-3 md:flex">
+            {navItems.map((widthClass, index) => (
+              <div
+                key={`${widthClass}-${index}`}
+                className={`h-3 rounded-full bg-slate-200 dark:bg-white/15 ${widthClass}`}
+              />
+            ))}
+          </div>
+          <div className="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-500/20" />
+        </div>
+
+        <div className="grid flex-1 items-center gap-10 py-10 lg:grid-cols-[0.92fr_1.08fr] lg:py-14">
+          <Motion.div
+            className="space-y-6"
+            animate={{ opacity: [0.65, 1, 0.65] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}>
+            <div className="h-8 w-40 rounded-full bg-blue-100 dark:bg-blue-500/20" />
+            <div className="space-y-4">
+              <div className="h-10 w-full max-w-xl rounded-xl bg-slate-300 dark:bg-white/20 sm:h-12" />
+              <div className="h-10 w-11/12 max-w-lg rounded-xl bg-slate-300 dark:bg-white/20 sm:h-12" />
+              <div className="h-10 w-3/4 max-w-md rounded-xl bg-slate-300 dark:bg-white/20 sm:h-12" />
+            </div>
+            <div className="space-y-3">
+              <div className="h-4 w-full max-w-lg rounded-full bg-slate-200 dark:bg-white/15" />
+              <div className="h-4 w-5/6 max-w-md rounded-full bg-slate-200 dark:bg-white/15" />
+              <div className="h-4 w-2/3 max-w-sm rounded-full bg-slate-200 dark:bg-white/15" />
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <div className="h-12 w-40 rounded-full bg-blue-600" />
+              <div className="h-12 w-36 rounded-full border border-slate-200 bg-white dark:border-white/10 dark:bg-white/10" />
+            </div>
+          </Motion.div>
+
+          <Motion.div
+            className="rounded-3xl border border-slate-200 bg-white p-4 shadow-xl shadow-blue-100/50 dark:border-white/10 dark:bg-white/5 dark:shadow-none sm:p-5"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ repeat: Infinity, duration: 2.4, ease: 'easeInOut' }}>
+            <div className="aspect-[4/3] rounded-2xl bg-slate-100 p-4 dark:bg-slate-900 sm:p-5">
+              <div className="grid h-full grid-rows-[0.7fr_1fr_0.8fr] gap-4">
+                <div className="rounded-2xl bg-slate-300 dark:bg-white/15" />
+                <div className="grid grid-cols-3 gap-4">
+                  {serviceCards.map((widthClass, index) => (
+                    <div key={`${widthClass}-${index}`} className="rounded-2xl bg-white p-3 shadow-sm dark:bg-white/10">
+                      <div className="h-8 w-8 rounded-xl bg-blue-100 dark:bg-blue-500/25" />
+                      <div className={`mt-5 h-3 rounded-full bg-slate-200 dark:bg-white/15 ${widthClass}`} />
+                      <div className="mt-3 h-3 w-full rounded-full bg-slate-100 dark:bg-white/10" />
+                    </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-[1fr_0.72fr] gap-4">
+                  <div className="rounded-2xl bg-white p-4 shadow-sm dark:bg-white/10">
+                    <div className="h-3 w-20 rounded-full bg-slate-200 dark:bg-white/15" />
+                    <div className="mt-4 h-20 rounded-xl bg-slate-200 dark:bg-white/15" />
+                  </div>
+                  <div className="rounded-2xl bg-blue-600/90 p-4">
+                    <div className="h-3 w-16 rounded-full bg-white/45" />
+                    <div className="mt-4 h-8 w-20 rounded-xl bg-white/65" />
+                    <div className="mt-4 h-3 w-full rounded-full bg-white/35" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Motion.div>
+        </div>
+
+        <p className="pb-5 text-center text-sm font-semibold text-slate-500 dark:text-slate-400">
+          Kanel innovations is preparing your digital experience...
+        </p>
+      </div>
+    </Motion.div>
+  );
+}
+
 function HomePage({ theme, onToggleTheme }) {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [footerModal, setFooterModal] = useState({
@@ -208,36 +306,7 @@ function App() {
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-500">
       <AnimatePresence>
-        {loading && (
-          <Motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-[999] flex items-center justify-center bg-[var(--bg-primary)]">
-            <div className="flex flex-col items-center">
-              <Motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
-                className="h-16 w-16 rounded-full border-4 border-blue-200 border-t-blue-600"
-              />
-              <Motion.h2
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="mt-5 text-2xl font-black text-blue-700 dark:text-blue-300">
-                Kanel innovations
-              </Motion.h2>
-              <Motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                Building premium digital experiences...
-              </Motion.p>
-            </div>
-          </Motion.div>
-        )}
+        {loading && <WireframeLoader />}
       </AnimatePresence>
 
       <div className={`transition-opacity duration-700 ${loading ? 'opacity-0' : 'opacity-100'}`}>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wisdomkara.github.io/kanelinnovations/sitemap.xml
