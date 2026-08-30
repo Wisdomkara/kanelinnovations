@@ -11,7 +11,7 @@ export default function BlogNewsPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-950 dark:bg-slate-950 dark:text-white">
-      <section className={`border-b border-slate-200 bg-slate-50 text-slate-950 dark:border-white/10 dark:bg-slate-950 dark:text-white ${sectionSpacing}`}>
+      <section className={`border-b border-slate-200 bg-slate-50 text-slate-950 dark:border-white/10 dark:bg-slate-950 dark:text-white ${sectionSpacing} pt-32`}>
         <div className={containerClass}>
           <Link
             to="/"

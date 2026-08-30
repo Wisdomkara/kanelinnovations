@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -42,7 +42,7 @@ body {
   min-width: 320px;
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Mulish', 'Muli', sans-serif;
 }
 
 h1,
@@ -51,7 +51,14 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Mulish', 'Muli', sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
 * {
@@ -267,6 +274,19 @@ h6 {
 
 .animation-delay-4000 {
   animation-delay: 4s;
+}
+
+@keyframes client-logo-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333%); }
+}
+
+.client-logo-marquee {
+  animation: client-logo-marquee 28s linear infinite;
+}
+
+.client-logo-marquee:hover {
+  animation-play-state: paused;
 }
 
 /* ── Glass Edge Sliding Animation ─────────────────────────── */

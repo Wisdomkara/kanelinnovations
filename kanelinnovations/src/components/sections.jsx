@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion as Motion } from 'framer-motion';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
+import * as THREE from 'three';
 import {
   ArrowRight,
   BarChart3,
   Bot,
-  Building2,
-  CheckCircle2,
   Clock3,
   Code2,
   Compass,
@@ -153,6 +152,254 @@ const initialInquiryData = {
   message: '',
 };
 
+const clientLogos = [
+  {
+    name: 'Healinton',
+    type: 'image',
+    src: `${import.meta.env.BASE_URL}client-logos/healinton-logo.png`,
+    className: 'h-12 w-auto sm:h-14',
+  },
+  {
+    name: 'Exploits Energy',
+    type: 'text',
+    className: 'text-xl font-black uppercase tracking-[0.08em] text-white sm:text-2xl',
+  },
+  {
+    name: 'AmaechiHomes',
+    type: 'text',
+    className: 'text-xl font-black tracking-tight text-white sm:text-2xl',
+  },
+  {
+    name: 'Belfon',
+    type: 'image',
+    src: `${import.meta.env.BASE_URL}client-logos/belfon-logo.jpg`,
+    className: 'h-14 w-14 rounded-xl object-cover sm:h-16 sm:w-16',
+  },
+];
+
+const HeroThreeScene = () => {
+  const mountRef = useRef(null);
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount) return undefined;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    camera.position.set(0, 0, 10);
+
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+      preserveDrawingBuffer: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.setClearColor(0x000000, 0);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    Object.assign(renderer.domElement.style, {
+      display: 'block',
+      height: '100%',
+      width: '100%',
+    });
+    mount.appendChild(renderer.domElement);
+
+    const group = new THREE.Group();
+    scene.add(group);
+    const pointer = new THREE.Vector2(0, 0);
+    const targetPointer = new THREE.Vector2(0, 0);
+
+    const particleCount = 150;
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const palette = [
+      new THREE.Color('#60a5fa'),
+      new THREE.Color('#22d3ee'),
+      new THREE.Color('#34d399'),
+      new THREE.Color('#ffffff'),
+    ];
+
+    for (let index = 0; index < particleCount; index += 1) {
+      const offset = index * 3;
+      positions[offset] = THREE.MathUtils.randFloatSpread(12);
+      positions[offset + 1] = THREE.MathUtils.randFloatSpread(7);
+      positions[offset + 2] = THREE.MathUtils.randFloat(-4, 4);
+
+      const color = palette[index % palette.length];
+      colors[offset] = color.r;
+      colors[offset + 1] = color.g;
+      colors[offset + 2] = color.b;
+    }
+
+    const particleGeometry = new THREE.BufferGeometry();
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const particles = new THREE.Points(
+      particleGeometry,
+      new THREE.PointsMaterial({
+        size: 0.055,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        depthWrite: false,
+      })
+    );
+    group.add(particles);
+
+    const linePositions = [];
+    for (let index = 0; index < particleCount; index += 1) {
+      for (let next = index + 1; next < particleCount; next += 1) {
+        const first = index * 3;
+        const second = next * 3;
+        const dx = positions[first] - positions[second];
+        const dy = positions[first + 1] - positions[second + 1];
+        const dz = positions[first + 2] - positions[second + 2];
+        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+        if (distance < 1.45 && linePositions.length < 1260) {
+          linePositions.push(
+            positions[first],
+            positions[first + 1],
+            positions[first + 2],
+            positions[second],
+            positions[second + 1],
+            positions[second + 2]
+          );
+        }
+      }
+    }
+
+    const lineGeometry = new THREE.BufferGeometry();
+    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+    const lines = new THREE.LineSegments(
+      lineGeometry,
+      new THREE.LineBasicMaterial({
+        color: '#7dd3fc',
+        transparent: true,
+        opacity: 0.18,
+        depthWrite: false,
+      })
+    );
+    group.add(lines);
+
+    const wireMaterial = new THREE.MeshBasicMaterial({
+      color: '#38bdf8',
+      transparent: true,
+      opacity: 0.22,
+      wireframe: true,
+      depthWrite: false,
+    });
+    const accentMaterial = new THREE.MeshBasicMaterial({
+      color: '#34d399',
+      transparent: true,
+      opacity: 0.18,
+      wireframe: true,
+      depthWrite: false,
+    });
+
+    const torus = new THREE.Mesh(new THREE.TorusKnotGeometry(1.15, 0.22, 120, 12), wireMaterial);
+    torus.position.set(1.6, 0.65, -0.5);
+    torus.rotation.set(0.7, 0.2, 0.1);
+    group.add(torus);
+
+    const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 2), accentMaterial);
+    sphere.position.set(3.1, -1.7, -1.7);
+    sphere.rotation.set(0.2, 0.6, 0.1);
+    group.add(sphere);
+
+    const grid = new THREE.GridHelper(11, 18, '#38bdf8', '#1d4ed8');
+    grid.material.transparent = true;
+    grid.material.opacity = 0.14;
+    grid.position.set(2.4, -3.1, -1.7);
+    grid.rotation.x = Math.PI * 0.34;
+    group.add(grid);
+
+    const resize = () => {
+      const { clientWidth, clientHeight } = mount;
+      camera.aspect = clientWidth / Math.max(clientHeight, 1);
+      camera.updateProjectionMatrix();
+      renderer.setSize(clientWidth, clientHeight, false);
+    };
+
+    const handlePointerMove = (event) => {
+      const rect = mount.getBoundingClientRect();
+      targetPointer.x = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
+      targetPointer.y = -(((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2);
+    };
+
+    const handlePointerLeave = () => {
+      targetPointer.set(0, 0);
+    };
+
+    const renderScene = (elapsed = 0) => {
+      pointer.lerp(targetPointer, 0.08);
+      group.rotation.x = pointer.y * 0.1;
+      group.rotation.y = elapsed * 0.035 + pointer.x * 0.18;
+      particles.rotation.y = elapsed * 0.025 + pointer.x * 0.06;
+      lines.rotation.y = elapsed * 0.025 + pointer.x * 0.06;
+      torus.position.x = 1.6 + pointer.x * 0.35;
+      torus.position.y = 0.65 + pointer.y * 0.2;
+      torus.rotation.x = 0.7 + elapsed * 0.16 + pointer.y * 0.2;
+      torus.rotation.y = 0.2 + elapsed * 0.24 + pointer.x * 0.35;
+      sphere.position.x = 3.1 - pointer.x * 0.28;
+      sphere.position.y = -1.7 - pointer.y * 0.18;
+      sphere.rotation.y = elapsed * 0.18 + pointer.x * 0.24;
+      sphere.scale.setScalar(1 + Math.sin(elapsed * 1.4) * 0.035);
+      camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 0.55, 0.06);
+      camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 0.32, 0.06);
+      camera.lookAt(0, 0, 0);
+      renderer.render(scene, camera);
+    };
+
+    let animationFrame = null;
+    const clock = new THREE.Clock();
+    const animate = () => {
+      const elapsed = clock.getElapsedTime();
+      renderScene(elapsed);
+      animationFrame = window.requestAnimationFrame(animate);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+    mount.addEventListener('pointermove', handlePointerMove);
+    mount.addEventListener('pointerleave', handlePointerLeave);
+
+    if (prefersReducedMotion) {
+      renderScene(0);
+    } else {
+      animate();
+    }
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      mount.removeEventListener('pointermove', handlePointerMove);
+      mount.removeEventListener('pointerleave', handlePointerLeave);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      particleGeometry.dispose();
+      lineGeometry.dispose();
+      wireMaterial.dispose();
+      accentMaterial.dispose();
+      particles.material.dispose();
+      lines.material.dispose();
+      torus.geometry.dispose();
+      sphere.geometry.dispose();
+      grid.geometry.dispose();
+      grid.material.dispose();
+      renderer.dispose();
+      renderer.domElement.remove();
+    };
+  }, []);
+
+  return (
+    <div
+      ref={mountRef}
+      className="pointer-events-auto absolute inset-y-0 right-0 z-[1] w-[95%] translate-x-[32%] opacity-60 mix-blend-screen [mask-image:linear-gradient(90deg,transparent_0%,black_28%,black_100%)] sm:w-[64%] sm:translate-x-0 sm:opacity-85 lg:w-[58%]"
+      aria-hidden="true"
+    />
+  );
+};
+
 export const Home = () => (
   <AnimatedSection
     id="home"
@@ -165,13 +412,14 @@ export const Home = () => (
     />
     <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.88)_0%,rgba(2,6,23,0.64)_42%,rgba(2,6,23,0.12)_100%)]" />
     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04),rgba(2,6,23,0.45))]" />
+    <HeroThreeScene />
 
     {/* Animated Blobs */}
     <div className="absolute left-1/4 top-1/4 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/30 mix-blend-screen filter blur-[100px] animate-blob" />
     <div className="absolute right-1/4 top-1/3 h-96 w-96 -translate-y-1/2 rounded-full bg-purple-600/20 mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000" />
     <div className="absolute left-1/2 bottom-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-600/20 mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000" />
 
-    <div className={`${containerClass} relative flex w-full flex-col items-center justify-center text-center sm:flex-row sm:items-center sm:justify-start sm:text-left`}>
+    <div className={`${containerClass} relative z-10 flex w-full flex-col items-center justify-center text-center sm:flex-row sm:items-center sm:justify-start sm:text-left`}>
       <Motion.div
         initial={{ opacity: 0, y: 32 }}
         animate={{ opacity: 1, y: 0 }}
@@ -180,11 +428,11 @@ export const Home = () => (
 
 
         <div className="space-y-5">
-          <h1 className="mx-auto max-w-xl text-2xl font-black leading-tight text-white sm:max-w-full sm:text-4xl lg:text-5xl">
+          <h1 className="max-w-xl text-xl font-black leading-tight text-white sm:max-w-full sm:text-3xl lg:text-4xl">
             Your <span className="text-gradient-primary">Digital Growth</span> Partner <br />
             Building visible, credible, <br /> and scalable brands.
           </h1>
-          <p className="mx-auto max-w-xl text-sm leading-7 text-slate-200 sm:text-base">
+          <p className="max-w-xl text-sm leading-7 text-slate-200 sm:text-base">
             We design websites, apps, funnels, SEO structures, and business
             automation systems that help owners show up professionally, reduce
             repetitive work, and turn online attention into qualified
@@ -216,13 +464,121 @@ export const Home = () => (
   </AnimatedSection>
 );
 
+export const ClientLogoMarquee = () => {
+  const marqueeItems = [...clientLogos, ...clientLogos, ...clientLogos];
+
+  return (
+    <AnimatedSection className="relative z-10 bg-slate-50 px-5 py-8 dark:bg-slate-900 sm:px-6 md:px-10 lg:px-16">
+      <div className={containerClass}>
+        <div className="overflow-hidden rounded-3xl border border-blue-400/20 bg-[#03152f] px-5 py-8 shadow-2xl shadow-blue-950/25 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-black uppercase tracking-[0.22em] text-cyan-200">
+              Trusted by growing businesses
+            </p>
+          </div>
+
+          <div className="relative mt-8 overflow-hidden">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#03152f] to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#03152f] to-transparent" />
+
+            <div className="client-logo-marquee flex w-max items-center gap-5">
+              {marqueeItems.map((logo, index) => (
+                <div
+                  key={`${logo.name}-${index}`}
+                  className="flex h-24 min-w-[190px] items-center justify-center rounded-2xl border border-white/10 bg-white/[0.08] px-6 backdrop-blur transition hover:border-cyan-300/50 hover:bg-white/[0.12] sm:min-w-[230px]">
+                  {logo.type === 'image' ? (
+                    <img src={logo.src} alt={`${logo.name} logo`} className={logo.className} />
+                  ) : (
+                    <span className={logo.className}>{logo.name}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+};
+
+export const GrowthPositioning = () => (
+  <AnimatedSection className={`bg-[#fff8df] dark:bg-slate-950 ${sectionSpacing}`}>
+    <div className={`${containerClass} grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center`}>
+      <Motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.55 }}
+        className="max-w-2xl">
+        <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
+          What We Help You Solve
+        </div>
+        <div className="mt-6 space-y-5 text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">
+          <p>
+            At Kanel Innovations, we help businesses overcome the barriers that keep them small,
+            invisible, and disconnected in today's digital economy.
+          </p>
+          <p>
+            Many great businesses struggle to reach the right customers, manage growing demands, or
+            compete beyond their immediate location. We turn those challenges into practical digital
+            systems that make your business easier to find, easier to trust, and easier to grow.
+          </p>
+          <p>
+            From building a strong online presence to improving how your business connects with
+            customers and operates behind the scenes, we create solutions designed around your goals,
+            not generic templates. Our focus is to help you scale with confidence, increase your
+            visibility, and position your brand to compete locally and globally.
+          </p>
+          <p className="font-black text-slate-950 dark:text-white">
+            Kanel Innovations exists to help ambitious businesses move from where they are today to
+            where they deserve to be.
+          </p>
+        </div>
+      </Motion.div>
+
+      <Motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.55, delay: 0.08 }}
+        className="relative">
+        <div className="absolute -inset-4 rounded-[2rem] bg-blue-600/10 blur-2xl dark:bg-cyan-400/10" />
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-2xl shadow-blue-100/50 dark:border-white/10 dark:bg-white/5 dark:shadow-none">
+          <img
+            src={TeamImage}
+            alt="Kanel Innovations team planning a digital project"
+            className="h-[28rem] w-full object-cover"
+          />
+        </div>
+      </Motion.div>
+    </div>
+  </AnimatedSection>
+);
+
+export const BusinessDominanceMarquee = () => (
+  <AnimatedSection className="overflow-hidden bg-[#fff1b8] py-8 dark:bg-slate-950">
+    <div className="relative border-y border-blue-900/10 bg-[#081f4d] py-7 text-white shadow-2xl shadow-blue-950/20">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#081f4d] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#081f4d] to-transparent" />
+      <div className="business-dominance-marquee flex w-max items-center gap-10">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <div key={index} className="flex items-center gap-10">
+            <span className="text-3xl font-black uppercase tracking-wide text-white sm:text-5xl lg:text-6xl">
+              Join the thousand of business dominating the world today using digital means.
+            </span>
+            <span className="h-4 w-4 rounded-full bg-cyan-300 shadow-[0_0_30px_rgba(125,211,252,0.8)]" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </AnimatedSection>
+);
+
 export const About = () => (
   <AnimatedSection id="about" className={`bg-slate-50 dark:bg-slate-900 ${sectionSpacing}`}>
     <div className={containerClass}>
       <div className="max-w-3xl">
-        <div className="inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-blue-700 shadow-sm dark:bg-white/5 dark:text-blue-200">
-          Why It Matters
-        </div>
+        
         <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
           A weak online presence now costs businesses trust, visibility, and
           speed.
@@ -248,42 +604,6 @@ export const About = () => (
           </div>
         ))}
       </div>
-
-      <div className="mt-20 overflow-hidden rounded-3xl border border-slate-200 bg-white dark:glass-panel lg:mt-24">
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
-          <img
-            src={TeamImage}
-            alt="Kanel innovations team planning a digital project"
-            className="h-72 w-full object-cover lg:h-full"
-          />
-          <div className="p-6 sm:p-8 lg:p-10 ">
-            <div className="flex items-center gap-3">
-              <Building2 className="h-6 w-6 text-blue-700 dark:text-blue-300" />
-              <p className="font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">
-                Built for business owners
-              </p>
-            </div>
-            <h3 className="mt-5 text-2xl font-black text-slate-950 dark:text-white md:text-4xl">
-              Not just a beautiful page. A working business asset.
-            </h3>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {[
-                'Clear service positioning',
-                'Lead capture and WhatsApp paths',
-                'Search-ready page structure',
-                'Business automation and analytics setup',
-              ].map((point) => (
-                <div key={point} className="flex gap-3">
-                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-300" />
-                  <p className="leading-7 text-slate-700 dark:text-slate-300">
-                    {point}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </AnimatedSection>
 );
@@ -291,116 +611,91 @@ export const About = () => (
 export const Team = () => (
   <AnimatedSection
     id="team"
-    className={`bg-white dark:bg-slate-950 ${sectionSpacing}`}>
+    className={`bg-[#fff4c8] dark:bg-slate-950 ${sectionSpacing}`}>
     <div className={containerClass}>
       <div className="mx-auto max-w-4xl text-center">
         <div className="flex justify-center">
           <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
-            What We Do
+            Services
           </div>
         </div>
         <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl lg:text-5xl">
-          Connected services. One stronger digital engine.
+          Choose the digital service your business needs next.
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg sm:leading-8">
-          We avoid disconnected deliverables. Your website, product, funnel,
-          AI, automation, analytics, CRM, and follow-up should support the same
-          business goal, from first enquiry to repeat customer.
+          Every card shows the service capability, what makes it unique, and a clear path to learn more or submit an enquiry.
         </p>
       </div>
 
-      <div className={`${contentGap} grid gap-5 sm:grid-cols-2 xl:grid-cols-4`}>
-        {serviceCards.map((card, index) => {
-          const [title, description, Icon, tone] = card;
-          const isAutomation = title === 'AI & Business Automations';
-          const toneClass =
-            tone === 'emerald'
-              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-400/15 dark:text-emerald-300'
-              : tone === 'amber'
-                ? 'bg-amber-100 text-amber-700 dark:bg-amber-400/15 dark:text-amber-300'
-                : 'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200';
-          const cardClass = 'group rounded-3xl border border-slate-200 bg-slate-50 p-5 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-2xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:bg-white/5 dark:hover:shadow-blue-500/20 sm:p-6';
+      <div className={`${contentGap} grid gap-5 md:grid-cols-2 xl:grid-cols-3`}>
+        {servicePageList.map((service, index) => {
+          const Icon = service.icon;
+          const isAutomation = service.slug === 'business-automations';
 
           return (
             <Motion.div
-              key={title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              key={service.slug}
+              initial={{ opacity: 0, y: 34, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
-              className={cardClass}>
-              {!isAutomation && (
-                <div className={`flex h-14 w-14 items-center justify-center rounded-2xl ${toneClass}`}>
+              className={`group flex min-h-full flex-col rounded-3xl border p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-2xl ${
+                isAutomation
+                  ? 'border-emerald-200 bg-emerald-50 hover:shadow-emerald-100/70 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:hover:shadow-none'
+                  : 'border-blue-100 bg-white/80 hover:bg-white hover:shadow-blue-100/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:shadow-none'
+              }`}>
+              <div className="flex items-start justify-between gap-4">
+                <div
+                  className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${
+                    isAutomation
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200'
+                  }`}>
                   {React.createElement(Icon, { className: 'h-7 w-7' })}
                 </div>
-              )}
-              <p className={`${isAutomation ? 'mt-0' : 'mt-7'} text-sm font-bold uppercase tracking-[0.18em] text-slate-400`}>
-                0{index + 1}
-              </p>
-              <h3 className="mt-3 text-xl font-black text-slate-950 dark:text-white sm:text-2xl">
-                {title}
+                <span className="text-sm font-black text-slate-300 dark:text-white/20">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+              <h3 className="mt-7 text-xl font-black text-slate-950 dark:text-white sm:text-2xl">
+                {service.title}
               </h3>
               <p className="mt-4 leading-7 text-slate-600 dark:text-slate-300">
-                {description}
+                {service.summary}
               </p>
-              {isAutomation && (
+              <div className="mt-5 grid gap-3">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-blue-700 dark:text-blue-200">
+                    Capability
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
+                    {service.capability}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-blue-700 dark:text-blue-200">
+                    Uniqueness
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
+                    {service.uniqueness}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-6 flex flex-1 items-end">
                 <RouterLink
-                  to="/business-automations"
-                  className="mt-6 inline-flex min-h-11 items-center rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-500/20">
-                  Full Details
+                  to={`/services/${service.slug}`}
+                  className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition focus:outline-none focus:ring-4 ${
+                    isAutomation
+                      ? 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-100 dark:focus:ring-emerald-400/20'
+                      : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-100 dark:focus:ring-blue-500/20'
+                  }`}>
+                  View More Details
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </RouterLink>
-              )}
+              </div>
             </Motion.div>
           );
         })}
-      </div>
-
-      <div className="mt-8 rounded-3xl border border-blue-100 bg-blue-50 p-6 dark:border-blue-400/20 dark:bg-blue-500/10 sm:p-8 lg:mt-10">
-        <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-blue-700 shadow-sm dark:bg-white/10 dark:text-blue-200">
-              <Workflow className="h-4 w-4" />
-              Business Automations
-            </div>
-            <h3 className="mt-4 text-2xl font-black leading-tight text-slate-950 dark:text-white md:text-3xl">
-              We also automate the repetitive work behind the website.
-            </h3>
-            <p className="mt-4 leading-7 text-slate-700 dark:text-slate-300">
-              Beyond design and development, we help businesses connect the
-              tools they already use so leads, bookings, reminders, reports,
-              and customer updates move with less manual chasing.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {automationHighlights.map(([title, detail, Icon]) => (
-              <div key={title} className="rounded-2xl bg-white p-5 shadow-sm dark:bg-white/5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
-                  {React.createElement(Icon, { className: 'h-5 w-5' })}
-                </div>
-                <h4 className="mt-4 font-black text-slate-950 dark:text-white">
-                  {title}
-                </h4>
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                  {detail}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-8 grid gap-5 rounded-3xl bg-slate-950 p-6 text-white dark:glass-panel sm:grid-cols-3 sm:p-8 lg:mt-10">
-        {[
-          ['Website + SEO', 'Get found and trusted'],
-          ['Funnel + CRM', 'Capture, route, and follow up'],
-          ['Automation + Analytics', 'Save time and measure what works'],
-        ].map(([title, detail]) => (
-          <div key={title} className="border-white/10 sm:border-l sm:pl-6 first:sm:border-l-0 first:sm:pl-0">
-            <p className="font-black">{title}</p>
-            <p className="mt-2 text-sm leading-6 text-slate-300">{detail}</p>
-          </div>
-        ))}
       </div>
     </div>
   </AnimatedSection>

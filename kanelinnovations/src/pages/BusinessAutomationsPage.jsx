@@ -58,7 +58,7 @@ const contactHref = `${import.meta.env.BASE_URL}#contact`;
 export default function BusinessAutomationsPage() {
   return (
     <main className="min-h-screen bg-white text-slate-950 dark:bg-slate-950 dark:text-white">
-      <section className={`relative min-h-[92svh] overflow-hidden bg-slate-950 text-white ${sectionSpacing}`}>
+      <section className={`relative min-h-[92svh] overflow-hidden bg-slate-950 text-white ${sectionSpacing} pt-32`}>
         <video
           className="absolute inset-0 h-full w-full object-cover object-center opacity-75"
           autoPlay

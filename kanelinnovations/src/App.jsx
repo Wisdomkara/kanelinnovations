@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, LoaderCircle, Mail } from 'lucide-react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
 import SuccessModal from './components/SuccessModal.jsx';
 import TimedInquiryModal from './components/TimedInquiryModal.jsx';
 import BlogNewsPage from './pages/BlogNewsPage.jsx';
 import BusinessAutomationsPage from './pages/BusinessAutomationsPage.jsx';
+import ServiceDetailPage from './pages/ServiceDetailPage.jsx';
 import { sendOwnerEmail } from './utils/mail.js';
 import {
   About,
   Blog,
+  BusinessDominanceMarquee,
+  ClientLogoMarquee,
   Contact,
+  GrowthPositioning,
   Home,
   Process,
   Projects,
@@ -129,7 +133,7 @@ function WireframeLoader() {
   );
 }
 
-function HomePage({ theme, onToggleTheme }) {
+function HomePage() {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [footerModal, setFooterModal] = useState({
     isOpen: false,
@@ -172,11 +176,13 @@ function HomePage({ theme, onToggleTheme }) {
 
   return (
     <>
-      <Navbar theme={theme} onToggleTheme={onToggleTheme} />
       <main>
         <Home />
-        <About />
+        <ClientLogoMarquee />
+        <GrowthPositioning />
+        <BusinessDominanceMarquee />
         <Team />
+        <About />
         <Testimonials />
         <Projects />
         <Process />
@@ -296,6 +302,24 @@ function HomePage({ theme, onToggleTheme }) {
   );
 }
 
+function ScrollToHash() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      const target = document.getElementById(location.hash.slice(1));
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, [location.pathname, location.hash]);
+
+  return null;
+}
+
 function App() {
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
@@ -313,18 +337,19 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-500">
+      <ScrollToHash />
+      <Navbar theme={theme} onToggleTheme={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))} />
       <AnimatePresence>
         {loading && <WireframeLoader />}
       </AnimatePresence>
 
       <div className={`transition-opacity duration-700 ${loading ? 'opacity-0' : 'opacity-100'}`}>
         <Routes>
-          <Route
-            path="/"
-            element={<HomePage theme={theme} onToggleTheme={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))} />}
-          />
+          <Route path="/" element={<HomePage />} />
           <Route path="/blog-news" element={<BlogNewsPage />} />
           <Route path="/business-automations" element={<BusinessAutomationsPage />} />
+          <Route path="/services/business-automations" element={<BusinessAutomationsPage />} />
+          <Route path="/services/:slug" element={<ServiceDetailPage />} />
         </Routes>
       </div>
     </div>
