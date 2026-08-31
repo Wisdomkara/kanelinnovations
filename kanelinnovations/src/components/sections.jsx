@@ -54,7 +54,7 @@ const AnimatedSection = ({ children, className = '', id }) => {
     <section
       id={id}
       ref={sectionRef}
-      className={`${className} scroll-mt-28 transform-gpu transition-all duration-1000 ease-out ${visible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'
+      className={`${className} scroll-mt-28 transform-gpu opacity-100 transition-transform duration-700 ease-out ${visible ? 'translate-y-0' : 'translate-y-4 sm:translate-y-8'
         }`}>
       {children}
     </section>
@@ -590,14 +590,14 @@ export const Team = () => (
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
               className={`group flex min-h-full flex-col rounded-3xl border p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-2xl ${isAutomation
-                  ? 'border-emerald-200 bg-emerald-50 hover:shadow-emerald-100/70 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:hover:shadow-none'
-                  : 'border-blue-100 bg-white/80 hover:bg-white hover:shadow-blue-100/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:shadow-none'
+                ? 'border-emerald-200 bg-emerald-50 hover:shadow-emerald-100/70 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:hover:shadow-none'
+                : 'border-blue-100 bg-white/80 hover:bg-white hover:shadow-blue-100/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:shadow-none'
                 }`}>
               <div className="flex items-start justify-between gap-4">
                 <div
                   className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${isAutomation
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200'
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200'
                     }`}>
                   {React.createElement(Icon, { className: 'h-7 w-7' })}
                 </div>
@@ -633,8 +633,8 @@ export const Team = () => (
                 <RouterLink
                   to={`/services/${service.slug}`}
                   className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition focus:outline-none focus:ring-4 ${isAutomation
-                      ? 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-100 dark:focus:ring-emerald-400/20'
-                      : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-100 dark:focus:ring-blue-500/20'
+                    ? 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-100 dark:focus:ring-emerald-400/20'
+                    : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-100 dark:focus:ring-blue-500/20'
                     }`}>
                   View More Details
                   <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -766,7 +766,7 @@ export const Process = () => (
     className={`bg-white dark:bg-slate-950 ${sectionSpacing}`}>
     <div className={`${containerClass} grid gap-8 lg:grid-cols-[0.74fr_1.26fr] lg:items-start`}>
       <div>
-     
+
         <h2 className="mt-4 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
           Clear stages. No confusing handoff.
         </h2>
@@ -815,7 +815,7 @@ export const Blog = () => (
     <div className={containerClass}>
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl">
-        
+
           <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
             Why your digital presence must keep improving.
           </h2>
