@@ -5,5 +5,8 @@ const isVercel = process.env.VERCEL === '1';
 
 export default defineConfig({
   base: isVercel ? '/' : '/kanelinnovations/',
+  build: {
+    chunkSizeWarningLimit: 800,
+  },
   plugins: [react()],
 });

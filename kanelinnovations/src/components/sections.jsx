@@ -2,10 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion as Motion } from 'framer-motion';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
-import * as THREE from 'three';
 import {
   ArrowRight,
-  BarChart3,
   Bot,
   Clock3,
   Code2,
@@ -14,27 +12,23 @@ import {
   Gauge,
   Globe2,
   Layers3,
-  LockKeyhole,
   MapPin,
-  Megaphone,
   MessageSquareMore,
   MonitorSmartphone,
   Newspaper,
   Phone,
-  Rocket,
   Search,
   ShieldCheck,
   ShoppingBag,
-  Sparkles,
   Star,
   Target,
-  UsersRound,
   Workflow,
 } from 'lucide-react';
 import SuccessModal from './SuccessModal.jsx';
 import HeroDigitalPresenceImage from '../assets/images/hero-digital-presence.webp';
 import TeamImage from '../assets/images/team-digital-project.jpg';
 import { blogPosts } from '../data/blogPosts';
+import { servicePageList } from '../data/servicePages';
 import { sendOwnerEmail } from '../utils/mail.js';
 
 const AnimatedSection = ({ children, className = '', id }) => {
@@ -71,13 +65,6 @@ const sectionSpacing = 'px-5 py-16 sm:px-6 sm:py-20 md:px-10 lg:px-16 lg:py-24';
 const containerClass = 'mx-auto max-w-7xl';
 const contentGap = 'mt-10 lg:mt-12';
 
-const serviceCards = [
-  ['Digital Presence', 'Websites, landing pages, and brand systems that make your business look credible fast.', Globe2, 'blue'],
-  ['Product Build', 'Web apps, portals, dashboards, and mobile experiences built around real workflows.', MonitorSmartphone, 'emerald'],
-  ['Growth Engine', 'Funnels, SEO, content structure, automations, and analytics connected into one system.', Funnel, 'amber'],
-  ['AI & Business Automations', 'CRM flows, lead follow-up, reporting, and AI-assisted workflows that reduce manual admin work.', Sparkles, 'blue'],
-];
-
 const processSteps = [
   ['Audit', 'We review your offer, website, visibility, lead flow, admin tasks, and digital gaps.', Compass],
   ['Blueprint', 'We map pages, content, automations, CRM stages, data capture, and conversion paths.', Layers3],
@@ -90,13 +77,6 @@ const showcaseItems = [
   ['Search visibility system', 'Content clusters, technical SEO, schema-ready structure, and AI-search friendly answers.', Search],
   ['Lead capture funnel', 'Landing pages, forms, WhatsApp paths, email follow-up, and tracking for every campaign.', Target],
   ['Business automation system', 'CRM setup, booking flows, dashboards, reminders, customer portals, and internal workflows that remove manual work.', MonitorSmartphone],
-];
-
-const automationHighlights = [
-  ['Lead routing', 'Send enquiries from your website, ads, or WhatsApp into the right follow-up flow.', Funnel],
-  ['CRM and reminders', 'Track prospects, automate next steps, and reduce missed calls, quotes, and check-ins.', MessageSquareMore],
-  ['Operations workflows', 'Connect forms, approvals, bookings, reports, and internal handoffs around how your team works.', Workflow],
-  ['AI support systems', 'Use AI for first responses, content drafts, summaries, and routine customer or admin tasks.', Bot],
 ];
 
 const testimonialCards = [
@@ -184,210 +164,188 @@ const HeroThreeScene = () => {
     const mount = mountRef.current;
     if (!mount) return undefined;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(0, 0, 10);
+    let cancelled = false;
+    let disposeScene = () => {};
 
-    const renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: true,
-      preserveDrawingBuffer: true,
-      powerPreference: 'high-performance',
-    });
-    renderer.setClearColor(0x000000, 0);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
-    Object.assign(renderer.domElement.style, {
-      display: 'block',
-      height: '100%',
-      width: '100%',
-    });
-    mount.appendChild(renderer.domElement);
+    const loadScene = async () => {
+      const THREE = await import('three');
+      if (cancelled || !mount.isConnected) return;
 
-    const group = new THREE.Group();
-    scene.add(group);
-    const pointer = new THREE.Vector2(0, 0);
-    const targetPointer = new THREE.Vector2(0, 0);
-
-    const particleCount = 150;
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    const palette = [
-      new THREE.Color('#60a5fa'),
-      new THREE.Color('#22d3ee'),
-      new THREE.Color('#34d399'),
-      new THREE.Color('#ffffff'),
-    ];
-
-    for (let index = 0; index < particleCount; index += 1) {
-      const offset = index * 3;
-      positions[offset] = THREE.MathUtils.randFloatSpread(12);
-      positions[offset + 1] = THREE.MathUtils.randFloatSpread(7);
-      positions[offset + 2] = THREE.MathUtils.randFloat(-4, 4);
-
-      const color = palette[index % palette.length];
-      colors[offset] = color.r;
-      colors[offset + 1] = color.g;
-      colors[offset + 2] = color.b;
-    }
-
-    const particleGeometry = new THREE.BufferGeometry();
-    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const particles = new THREE.Points(
-      particleGeometry,
-      new THREE.PointsMaterial({
-        size: 0.055,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.9,
-        depthWrite: false,
-      })
-    );
-    group.add(particles);
-
-    const linePositions = [];
-    for (let index = 0; index < particleCount; index += 1) {
-      for (let next = index + 1; next < particleCount; next += 1) {
-        const first = index * 3;
-        const second = next * 3;
-        const dx = positions[first] - positions[second];
-        const dy = positions[first + 1] - positions[second + 1];
-        const dz = positions[first + 2] - positions[second + 2];
-        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-        if (distance < 1.45 && linePositions.length < 1260) {
-          linePositions.push(
-            positions[first],
-            positions[first + 1],
-            positions[first + 2],
-            positions[second],
-            positions[second + 1],
-            positions[second + 2]
-          );
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+      camera.position.set(0, 0, 10);
+  
+      const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+        preserveDrawingBuffer: true,
+        powerPreference: 'high-performance',
+      });
+      renderer.setClearColor(0x000000, 0);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+      Object.assign(renderer.domElement.style, {
+        display: 'block',
+        height: '100%',
+        width: '100%',
+      });
+      mount.appendChild(renderer.domElement);
+  
+      const group = new THREE.Group();
+      scene.add(group);
+      const pointer = new THREE.Vector2(0, 0);
+      const targetPointer = new THREE.Vector2(0, 0);
+  
+      const particleCount = 150;
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+      const palette = [
+        new THREE.Color('#60a5fa'),
+        new THREE.Color('#22d3ee'),
+        new THREE.Color('#34d399'),
+        new THREE.Color('#ffffff'),
+      ];
+  
+      for (let index = 0; index < particleCount; index += 1) {
+        const offset = index * 3;
+        positions[offset] = THREE.MathUtils.randFloatSpread(12);
+        positions[offset + 1] = THREE.MathUtils.randFloatSpread(7);
+        positions[offset + 2] = THREE.MathUtils.randFloat(-4, 4);
+  
+        const color = palette[index % palette.length];
+        colors[offset] = color.r;
+        colors[offset + 1] = color.g;
+        colors[offset + 2] = color.b;
+      }
+  
+      const particleGeometry = new THREE.BufferGeometry();
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  
+      const particles = new THREE.Points(
+        particleGeometry,
+        new THREE.PointsMaterial({
+          size: 0.055,
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.9,
+          depthWrite: false,
+        })
+      );
+      group.add(particles);
+  
+      const linePositions = [];
+      for (let index = 0; index < particleCount; index += 1) {
+        for (let next = index + 1; next < particleCount; next += 1) {
+          const first = index * 3;
+          const second = next * 3;
+          const dx = positions[first] - positions[second];
+          const dy = positions[first + 1] - positions[second + 1];
+          const dz = positions[first + 2] - positions[second + 2];
+          const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+  
+          if (distance < 1.45 && linePositions.length < 1260) {
+            linePositions.push(
+              positions[first],
+              positions[first + 1],
+              positions[first + 2],
+              positions[second],
+              positions[second + 1],
+              positions[second + 2]
+            );
+          }
         }
       }
-    }
-
-    const lineGeometry = new THREE.BufferGeometry();
-    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-    const lines = new THREE.LineSegments(
-      lineGeometry,
-      new THREE.LineBasicMaterial({
-        color: '#7dd3fc',
-        transparent: true,
-        opacity: 0.18,
-        depthWrite: false,
-      })
-    );
-    group.add(lines);
-
-    const wireMaterial = new THREE.MeshBasicMaterial({
-      color: '#38bdf8',
-      transparent: true,
-      opacity: 0.22,
-      wireframe: true,
-      depthWrite: false,
-    });
-    const accentMaterial = new THREE.MeshBasicMaterial({
-      color: '#34d399',
-      transparent: true,
-      opacity: 0.18,
-      wireframe: true,
-      depthWrite: false,
-    });
-
-    const torus = new THREE.Mesh(new THREE.TorusKnotGeometry(1.15, 0.22, 120, 12), wireMaterial);
-    torus.position.set(1.6, 0.65, -0.5);
-    torus.rotation.set(0.7, 0.2, 0.1);
-    group.add(torus);
-
-    const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 2), accentMaterial);
-    sphere.position.set(3.1, -1.7, -1.7);
-    sphere.rotation.set(0.2, 0.6, 0.1);
-    group.add(sphere);
-
-    const grid = new THREE.GridHelper(11, 18, '#38bdf8', '#1d4ed8');
-    grid.material.transparent = true;
-    grid.material.opacity = 0.14;
-    grid.position.set(2.4, -3.1, -1.7);
-    grid.rotation.x = Math.PI * 0.34;
-    group.add(grid);
-
-    const resize = () => {
-      const { clientWidth, clientHeight } = mount;
-      camera.aspect = clientWidth / Math.max(clientHeight, 1);
-      camera.updateProjectionMatrix();
-      renderer.setSize(clientWidth, clientHeight, false);
+  
+      const lineGeometry = new THREE.BufferGeometry();
+      lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+      const lines = new THREE.LineSegments(
+        lineGeometry,
+        new THREE.LineBasicMaterial({
+          color: '#7dd3fc',
+          transparent: true,
+          opacity: 0.18,
+          depthWrite: false,
+        })
+      );
+      group.add(lines);
+  
+      const grid = new THREE.GridHelper(11, 18, '#38bdf8', '#1d4ed8');
+      grid.material.transparent = true;
+      grid.material.opacity = 0.14;
+      grid.position.set(2.4, -3.1, -1.7);
+      grid.rotation.x = Math.PI * 0.34;
+      group.add(grid);
+  
+      const resize = () => {
+        const { clientWidth, clientHeight } = mount;
+        camera.aspect = clientWidth / Math.max(clientHeight, 1);
+        camera.updateProjectionMatrix();
+        renderer.setSize(clientWidth, clientHeight, false);
+      };
+  
+      const handlePointerMove = (event) => {
+        const rect = mount.getBoundingClientRect();
+        targetPointer.x = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
+        targetPointer.y = -(((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2);
+      };
+  
+      const handlePointerLeave = () => {
+        targetPointer.set(0, 0);
+      };
+  
+      const renderScene = (elapsed = 0) => {
+        pointer.lerp(targetPointer, 0.08);
+        group.rotation.x = pointer.y * 0.1;
+        group.rotation.y = elapsed * 0.035 + pointer.x * 0.18;
+        particles.rotation.y = elapsed * 0.025 + pointer.x * 0.06;
+        lines.rotation.y = elapsed * 0.025 + pointer.x * 0.06;
+        camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 0.55, 0.06);
+        camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 0.32, 0.06);
+        camera.lookAt(0, 0, 0);
+        renderer.render(scene, camera);
+      };
+  
+      let animationFrame = null;
+      const clock = new THREE.Clock();
+      const animate = () => {
+        const elapsed = clock.getElapsedTime();
+        renderScene(elapsed);
+        animationFrame = window.requestAnimationFrame(animate);
+      };
+  
+      resize();
+      window.addEventListener('resize', resize);
+      mount.addEventListener('pointermove', handlePointerMove);
+      mount.addEventListener('pointerleave', handlePointerLeave);
+  
+      if (prefersReducedMotion) {
+        renderScene(0);
+      } else {
+        animate();
+      }
+  
+      disposeScene = () => {
+        window.removeEventListener('resize', resize);
+        mount.removeEventListener('pointermove', handlePointerMove);
+        mount.removeEventListener('pointerleave', handlePointerLeave);
+        if (animationFrame) window.cancelAnimationFrame(animationFrame);
+        particleGeometry.dispose();
+        lineGeometry.dispose();
+        particles.material.dispose();
+        lines.material.dispose();
+        grid.geometry.dispose();
+        grid.material.dispose();
+        renderer.dispose();
+        renderer.domElement.remove();
+      };
     };
 
-    const handlePointerMove = (event) => {
-      const rect = mount.getBoundingClientRect();
-      targetPointer.x = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
-      targetPointer.y = -(((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2);
-    };
-
-    const handlePointerLeave = () => {
-      targetPointer.set(0, 0);
-    };
-
-    const renderScene = (elapsed = 0) => {
-      pointer.lerp(targetPointer, 0.08);
-      group.rotation.x = pointer.y * 0.1;
-      group.rotation.y = elapsed * 0.035 + pointer.x * 0.18;
-      particles.rotation.y = elapsed * 0.025 + pointer.x * 0.06;
-      lines.rotation.y = elapsed * 0.025 + pointer.x * 0.06;
-      torus.position.x = 1.6 + pointer.x * 0.35;
-      torus.position.y = 0.65 + pointer.y * 0.2;
-      torus.rotation.x = 0.7 + elapsed * 0.16 + pointer.y * 0.2;
-      torus.rotation.y = 0.2 + elapsed * 0.24 + pointer.x * 0.35;
-      sphere.position.x = 3.1 - pointer.x * 0.28;
-      sphere.position.y = -1.7 - pointer.y * 0.18;
-      sphere.rotation.y = elapsed * 0.18 + pointer.x * 0.24;
-      sphere.scale.setScalar(1 + Math.sin(elapsed * 1.4) * 0.035);
-      camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 0.55, 0.06);
-      camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 0.32, 0.06);
-      camera.lookAt(0, 0, 0);
-      renderer.render(scene, camera);
-    };
-
-    let animationFrame = null;
-    const clock = new THREE.Clock();
-    const animate = () => {
-      const elapsed = clock.getElapsedTime();
-      renderScene(elapsed);
-      animationFrame = window.requestAnimationFrame(animate);
-    };
-
-    resize();
-    window.addEventListener('resize', resize);
-    mount.addEventListener('pointermove', handlePointerMove);
-    mount.addEventListener('pointerleave', handlePointerLeave);
-
-    if (prefersReducedMotion) {
-      renderScene(0);
-    } else {
-      animate();
-    }
+    void loadScene();
 
     return () => {
-      window.removeEventListener('resize', resize);
-      mount.removeEventListener('pointermove', handlePointerMove);
-      mount.removeEventListener('pointerleave', handlePointerLeave);
-      if (animationFrame) window.cancelAnimationFrame(animationFrame);
-      particleGeometry.dispose();
-      lineGeometry.dispose();
-      wireMaterial.dispose();
-      accentMaterial.dispose();
-      particles.material.dispose();
-      lines.material.dispose();
-      torus.geometry.dispose();
-      sphere.geometry.dispose();
-      grid.geometry.dispose();
-      grid.material.dispose();
-      renderer.dispose();
-      renderer.domElement.remove();
+      cancelled = true;
+      disposeScene();
     };
   }, []);
 
@@ -413,11 +371,6 @@ export const Home = () => (
     <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.88)_0%,rgba(2,6,23,0.64)_42%,rgba(2,6,23,0.12)_100%)]" />
     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04),rgba(2,6,23,0.45))]" />
     <HeroThreeScene />
-
-    {/* Animated Blobs */}
-    <div className="absolute left-1/4 top-1/4 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/30 mix-blend-screen filter blur-[100px] animate-blob" />
-    <div className="absolute right-1/4 top-1/3 h-96 w-96 -translate-y-1/2 rounded-full bg-purple-600/20 mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000" />
-    <div className="absolute left-1/2 bottom-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-600/20 mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000" />
 
     <div className={`${containerClass} relative z-10 flex w-full flex-col items-center justify-center text-center sm:flex-row sm:items-center sm:justify-start sm:text-left`}>
       <Motion.div
@@ -564,7 +517,7 @@ export const BusinessDominanceMarquee = () => (
         {Array.from({ length: 8 }).map((_, index) => (
           <div key={index} className="flex items-center gap-10">
             <span className="text-3xl font-black uppercase tracking-wide text-white sm:text-5xl lg:text-6xl">
-              Join the thousand of business dominating the world today using digital means.
+              Join thousands of businesses dominating the world today using digital means.
             </span>
             <span className="h-4 w-4 rounded-full bg-cyan-300 shadow-[0_0_30px_rgba(125,211,252,0.8)]" />
           </div>
