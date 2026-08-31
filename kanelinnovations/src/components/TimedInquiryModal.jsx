@@ -23,6 +23,8 @@ const initialForm = {
 
 export default function TimedInquiryModal({ isOpen, onClose, onSubmitted }) {
   const [formData, setFormData] = useState(initialForm);
+  const [submitError, setSubmitError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const titleId = useId();
   const messageId = useId();
   const closeButtonRef = useRef(null);
@@ -50,25 +52,33 @@ export default function TimedInquiryModal({ isOpen, onClose, onSubmitted }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setSubmitError(null);
+    setIsSubmitting(true);
 
-    void sendOwnerEmail({
-      subject: `Website enquiry from ${formData.name}`,
-      lines: [
-        `Name: ${formData.name}`,
-        `Email: ${formData.email}`,
-        `Service needed: ${formData.service}`,
-        '',
-        `Message: ${formData.message || 'No extra message provided.'}`,
-      ],
-      name: formData.name,
-      fromEmail: formData.email,
-      service: formData.service,
-      message: formData.message,
-    });
-    setFormData(initialForm);
-    onSubmitted();
+    try {
+      await sendOwnerEmail({
+        subject: `Website enquiry from ${formData.name}`,
+        lines: [
+          `Name: ${formData.name}`,
+          `Email: ${formData.email}`,
+          `Service needed: ${formData.service}`,
+          '',
+          `Message: ${formData.message || 'No extra message provided.'}`,
+        ],
+        name: formData.name,
+        fromEmail: formData.email,
+        service: formData.service,
+        message: formData.message,
+      });
+      setFormData(initialForm);
+      onSubmitted();
+    } catch (error) {
+      setSubmitError(error.message || 'Unable to send your enquiry. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -182,10 +192,16 @@ export default function TimedInquiryModal({ isOpen, onClose, onSubmitted }) {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-500/20">
-                Send Enquiry
+                {isSubmitting ? 'Sending...' : 'Send Enquiry'}
                 <ArrowRight className="h-4 w-4" />
               </button>
+              {submitError && (
+                <p className="text-sm font-medium text-amber-700 dark:text-amber-300">
+                  {submitError}
+                </p>
+              )}
             </form>
           </Motion.div>
         </Motion.div>

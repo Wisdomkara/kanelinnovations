@@ -165,7 +165,7 @@ const HeroThreeScene = () => {
     if (!mount) return undefined;
 
     let cancelled = false;
-    let disposeScene = () => {};
+    let disposeScene = () => { };
 
     const loadScene = async () => {
       const THREE = await import('three');
@@ -176,7 +176,7 @@ const HeroThreeScene = () => {
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
       camera.position.set(0, 0, 10);
-  
+
       const renderer = new THREE.WebGLRenderer({
         alpha: true,
         antialias: true,
@@ -191,7 +191,7 @@ const HeroThreeScene = () => {
         width: '100%',
       });
       mount.appendChild(renderer.domElement);
-  
+
       const group = new THREE.Group();
       scene.add(group);
       const pointer = new THREE.Vector2(0, 0);
@@ -199,7 +199,7 @@ const HeroThreeScene = () => {
       const layout = { isCompact: false };
       let hoverAmount = 0;
       let targetHoverAmount = 0;
-  
+
       const particleCount = 150;
       const positions = new Float32Array(particleCount * 3);
       const colors = new Float32Array(particleCount * 3);
@@ -209,23 +209,23 @@ const HeroThreeScene = () => {
         new THREE.Color('#34d399'),
         new THREE.Color('#ffffff'),
       ];
-  
+
       for (let index = 0; index < particleCount; index += 1) {
         const offset = index * 3;
         positions[offset] = THREE.MathUtils.randFloatSpread(12);
         positions[offset + 1] = THREE.MathUtils.randFloatSpread(7);
         positions[offset + 2] = THREE.MathUtils.randFloat(-4, 4);
-  
+
         const color = palette[index % palette.length];
         colors[offset] = color.r;
         colors[offset + 1] = color.g;
         colors[offset + 2] = color.b;
       }
-  
+
       const particleGeometry = new THREE.BufferGeometry();
       particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
       particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-  
+
       const particleMaterial = new THREE.PointsMaterial({
         size: 0.035,
         vertexColors: true,
@@ -235,7 +235,7 @@ const HeroThreeScene = () => {
       });
       const particles = new THREE.Points(particleGeometry, particleMaterial);
       group.add(particles);
-  
+
       const linePositions = [];
       for (let index = 0; index < particleCount; index += 1) {
         for (let next = index + 1; next < particleCount; next += 1) {
@@ -245,7 +245,7 @@ const HeroThreeScene = () => {
           const dy = positions[first + 1] - positions[second + 1];
           const dz = positions[first + 2] - positions[second + 2];
           const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-  
+
           if (distance < 1.45 && linePositions.length < 1260) {
             linePositions.push(
               positions[first],
@@ -258,7 +258,7 @@ const HeroThreeScene = () => {
           }
         }
       }
-  
+
       const lineGeometry = new THREE.BufferGeometry();
       lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
       const lineMaterial = new THREE.LineBasicMaterial({
@@ -269,14 +269,14 @@ const HeroThreeScene = () => {
       });
       const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
       group.add(lines);
-  
+
       const grid = new THREE.GridHelper(11, 18, '#38bdf8', '#1d4ed8');
       grid.material.transparent = true;
       grid.material.opacity = 0.14;
       grid.position.set(2.4, -3.1, -1.7);
       grid.rotation.x = Math.PI * 0.34;
       group.add(grid);
-  
+
       const resize = () => {
         const { clientWidth, clientHeight } = mount;
         layout.isCompact = clientWidth < 640;
@@ -287,19 +287,19 @@ const HeroThreeScene = () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, layout.isCompact ? 1.25 : 1.75));
         renderer.setSize(clientWidth, clientHeight, false);
       };
-  
+
       const handlePointerMove = (event) => {
         const rect = interactionTarget.getBoundingClientRect();
         targetPointer.x = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
         targetPointer.y = -(((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2);
         targetHoverAmount = 1;
       };
-  
+
       const handlePointerLeave = () => {
         targetPointer.set(0, 0);
         targetHoverAmount = 0;
       };
-  
+
       const renderScene = (elapsed = 0) => {
         const entranceProgress = prefersReducedMotion ? 1 : Math.min(elapsed / 1.2, 1);
         const entranceEase = 1 - Math.pow(1 - entranceProgress, 3);
@@ -323,7 +323,7 @@ const HeroThreeScene = () => {
         camera.lookAt(0, 0, 0);
         renderer.render(scene, camera);
       };
-  
+
       let animationFrame = null;
       const clock = new THREE.Clock();
       const animate = () => {
@@ -331,18 +331,18 @@ const HeroThreeScene = () => {
         renderScene(elapsed);
         animationFrame = window.requestAnimationFrame(animate);
       };
-  
+
       resize();
       window.addEventListener('resize', resize);
       interactionTarget.addEventListener('pointermove', handlePointerMove);
       interactionTarget.addEventListener('pointerleave', handlePointerLeave);
-  
+
       if (prefersReducedMotion) {
         renderScene(0);
       } else {
         animate();
       }
-  
+
       disposeScene = () => {
         window.removeEventListener('resize', resize);
         interactionTarget.removeEventListener('pointermove', handlePointerMove);
@@ -530,7 +530,7 @@ export const About = () => (
   <AnimatedSection id="about" className={`bg-slate-50 dark:bg-slate-900 ${sectionSpacing}`}>
     <div className={containerClass}>
       <div className="max-w-3xl">
-        
+
         <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
           A weak online presence now costs businesses trust, visibility, and
           speed.
@@ -567,7 +567,7 @@ export const Team = () => (
     <div className={containerClass}>
       <div className="mx-auto max-w-4xl text-center">
         <div className="flex justify-center">
-        
+
         </div>
         <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl lg:text-5xl">
           Choose the digital service your business needs next.
@@ -589,18 +589,16 @@ export const Team = () => (
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
-              className={`group flex min-h-full flex-col rounded-3xl border p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-2xl ${
-                isAutomation
+              className={`group flex min-h-full flex-col rounded-3xl border p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-2xl ${isAutomation
                   ? 'border-emerald-200 bg-emerald-50 hover:shadow-emerald-100/70 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:hover:shadow-none'
                   : 'border-blue-100 bg-white/80 hover:bg-white hover:shadow-blue-100/70 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:shadow-none'
-              }`}>
+                }`}>
               <div className="flex items-start justify-between gap-4">
                 <div
-                  className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${
-                    isAutomation
+                  className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${isAutomation
                       ? 'bg-emerald-600 text-white'
                       : 'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200'
-                  }`}>
+                    }`}>
                   {React.createElement(Icon, { className: 'h-7 w-7' })}
                 </div>
                 <span className="text-sm font-black text-slate-300 dark:text-white/20">
@@ -634,11 +632,10 @@ export const Team = () => (
               <div className="mt-6 flex flex-1 items-end">
                 <RouterLink
                   to={`/services/${service.slug}`}
-                  className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition focus:outline-none focus:ring-4 ${
-                    isAutomation
+                  className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition focus:outline-none focus:ring-4 ${isAutomation
                       ? 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-100 dark:focus:ring-emerald-400/20'
                       : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-100 dark:focus:ring-blue-500/20'
-                  }`}>
+                    }`}>
                   View More Details
                   <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </RouterLink>
@@ -882,6 +879,7 @@ export const Contact = () => {
   const [formData, setFormData] = useState(initialInquiryData);
   const [formStatus, setFormStatus] = useState({
     error: null,
+    submitting: false,
   });
   const [successModal, setSuccessModal] = useState({
     isOpen: false,
@@ -894,33 +892,42 @@ export const Contact = () => {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const submittedData = { ...formData };
     const firstName = submittedData.name.trim().split(' ')[0] || 'there';
 
-    setFormStatus({ error: null });
-    setSuccessModal({
-      isOpen: true,
-      title: 'Enquiry received',
-      message: `Thanks, ${firstName}. We received your ${submittedData.service.toLowerCase()} enquiry and will contact you shortly.`,
-    });
-    setFormData(initialInquiryData);
+    setFormStatus({ error: null, submitting: true });
 
-    void sendOwnerEmail({
-      subject: `${submittedData.service} enquiry from ${submittedData.name}`,
-      lines: [
-        `Name: ${submittedData.name}`,
-        `Email: ${submittedData.email}`,
-        `Service needed: ${submittedData.service}`,
-        '',
-        `Message: ${submittedData.message || 'No extra message provided.'}`,
-      ],
-      name: submittedData.name,
-      fromEmail: submittedData.email,
-      service: submittedData.service,
-      message: submittedData.message,
-    });
+    try {
+      await sendOwnerEmail({
+        subject: `${submittedData.service} enquiry from ${submittedData.name}`,
+        lines: [
+          `Name: ${submittedData.name}`,
+          `Email: ${submittedData.email}`,
+          `Service needed: ${submittedData.service}`,
+          '',
+          `Message: ${submittedData.message || 'No extra message provided.'}`,
+        ],
+        name: submittedData.name,
+        fromEmail: submittedData.email,
+        service: submittedData.service,
+        message: submittedData.message,
+      });
+      setSuccessModal({
+        isOpen: true,
+        title: 'Enquiry received',
+        message: `Thanks, ${firstName}. We received your ${submittedData.service.toLowerCase()} enquiry and will contact you shortly.`,
+      });
+      setFormData(initialInquiryData);
+    } catch (error) {
+      setFormStatus({
+        error: error.message || 'Unable to send your enquiry. Please try again.',
+        submitting: false,
+      });
+    } finally {
+      setFormStatus((prev) => ({ ...prev, submitting: false }));
+    }
   };
 
   const contactCards = [
@@ -1006,8 +1013,9 @@ export const Contact = () => {
 
               <button
                 type="submit"
+                disabled={formStatus.submitting}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-4 text-base font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-500/20">
-                Send Enquiry
+                {formStatus.submitting ? 'Sending...' : 'Send Enquiry'}
                 <ArrowRight className="h-4 w-4" />
               </button>
 
