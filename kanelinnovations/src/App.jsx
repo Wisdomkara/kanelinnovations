@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, LoaderCircle, Mail } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
@@ -12,7 +13,6 @@ import { sendOwnerEmail } from './utils/mail.js';
 import {
   About,
   Blog,
-  BusinessDominanceMarquee,
   ClientLogoMarquee,
   Contact,
   GrowthPositioning,
@@ -26,6 +26,28 @@ import {
 const sectionSpacing = 'px-5 py-16 sm:px-6 sm:py-20 md:px-10 lg:px-16 lg:py-24';
 const containerClass = 'mx-auto max-w-7xl';
 const contentGap = 'mt-10 lg:mt-12';
+const whatsappUrl =
+  'https://wa.me/2347084153584?text=Hello%20Kanel%20Innovations%2C%20I%20would%20like%20to%20make%20an%20enquiry.';
+
+function FloatingWhatsAppButton() {
+  return (
+    <Motion.a
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with Kanel innovations on WhatsApp"
+      title="Chat on WhatsApp"
+      initial={{ opacity: 0, scale: 0.82, y: 16 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      whileHover={{ y: -4, scale: 1.08 }}
+      whileTap={{ scale: 0.94 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+      className="fixed bottom-5 right-5 z-[80] inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-white shadow-2xl shadow-emerald-950/30 ring-4 ring-white/90 transition-colors hover:bg-[#1ebe5d] focus:outline-none focus:ring-4 focus:ring-emerald-200 dark:ring-slate-950/90 sm:bottom-7 sm:right-7 sm:h-16 sm:w-16">
+      <span className="absolute inset-0 rounded-full bg-[#25d366] opacity-30 motion-safe:animate-ping" aria-hidden="true" />
+      <FaWhatsapp className="relative h-8 w-8 sm:h-9 sm:w-9" aria-hidden="true" />
+    </Motion.a>
+  );
+}
 
 function WireframeLoader() {
   const navItems = ['w-12', 'w-16', 'w-14', 'w-20'];
@@ -180,7 +202,6 @@ function HomePage() {
         <Home />
         <ClientLogoMarquee />
         <GrowthPositioning />
-        <BusinessDominanceMarquee />
         <Team />
         <About />
         <Testimonials />
@@ -352,6 +373,8 @@ function App() {
           <Route path="/services/:slug" element={<ServiceDetailPage />} />
         </Routes>
       </div>
+
+      <FloatingWhatsAppButton />
     </div>
   );
 }

@@ -171,6 +171,7 @@ const HeroThreeScene = () => {
       const THREE = await import('three');
       if (cancelled || !mount.isConnected) return;
 
+      const interactionTarget = mount.closest('section') || mount;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
@@ -195,6 +196,9 @@ const HeroThreeScene = () => {
       scene.add(group);
       const pointer = new THREE.Vector2(0, 0);
       const targetPointer = new THREE.Vector2(0, 0);
+      const layout = { isCompact: false };
+      let hoverAmount = 0;
+      let targetHoverAmount = 0;
   
       const particleCount = 150;
       const positions = new Float32Array(particleCount * 3);
@@ -222,16 +226,14 @@ const HeroThreeScene = () => {
       particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
       particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
   
-      const particles = new THREE.Points(
-        particleGeometry,
-        new THREE.PointsMaterial({
-          size: 0.055,
-          vertexColors: true,
-          transparent: true,
-          opacity: 0.9,
-          depthWrite: false,
-        })
-      );
+      const particleMaterial = new THREE.PointsMaterial({
+        size: 0.035,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0,
+        depthWrite: false,
+      });
+      const particles = new THREE.Points(particleGeometry, particleMaterial);
       group.add(particles);
   
       const linePositions = [];
@@ -259,15 +261,13 @@ const HeroThreeScene = () => {
   
       const lineGeometry = new THREE.BufferGeometry();
       lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-      const lines = new THREE.LineSegments(
-        lineGeometry,
-        new THREE.LineBasicMaterial({
-          color: '#7dd3fc',
-          transparent: true,
-          opacity: 0.18,
-          depthWrite: false,
-        })
-      );
+      const lineMaterial = new THREE.LineBasicMaterial({
+        color: '#7dd3fc',
+        transparent: true,
+        opacity: 0,
+        depthWrite: false,
+      });
+      const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
       group.add(lines);
   
       const grid = new THREE.GridHelper(11, 18, '#38bdf8', '#1d4ed8');
@@ -279,29 +279,47 @@ const HeroThreeScene = () => {
   
       const resize = () => {
         const { clientWidth, clientHeight } = mount;
+        layout.isCompact = clientWidth < 640;
+        camera.fov = layout.isCompact ? 50 : 42;
         camera.aspect = clientWidth / Math.max(clientHeight, 1);
+        camera.position.z = layout.isCompact ? 11.5 : 10;
         camera.updateProjectionMatrix();
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, layout.isCompact ? 1.25 : 1.75));
         renderer.setSize(clientWidth, clientHeight, false);
       };
   
       const handlePointerMove = (event) => {
-        const rect = mount.getBoundingClientRect();
+        const rect = interactionTarget.getBoundingClientRect();
         targetPointer.x = ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2;
         targetPointer.y = -(((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2);
+        targetHoverAmount = 1;
       };
   
       const handlePointerLeave = () => {
         targetPointer.set(0, 0);
+        targetHoverAmount = 0;
       };
   
       const renderScene = (elapsed = 0) => {
+        const entranceProgress = prefersReducedMotion ? 1 : Math.min(elapsed / 1.2, 1);
+        const entranceEase = 1 - Math.pow(1 - entranceProgress, 3);
+        hoverAmount = THREE.MathUtils.lerp(hoverAmount, targetHoverAmount, 0.08);
         pointer.lerp(targetPointer, 0.08);
-        group.rotation.x = pointer.y * 0.1;
-        group.rotation.y = elapsed * 0.035 + pointer.x * 0.18;
+        const responsiveScale = layout.isCompact ? 0.78 : 1;
+        const pointerStrength = layout.isCompact ? 0.55 : 1;
+        group.position.x = layout.isCompact ? 0.7 : 0;
+        group.position.y = (1 - entranceEase) * 0.35 + (layout.isCompact ? -0.45 : 0);
+        group.scale.setScalar((0.9 + entranceEase * 0.1 + hoverAmount * 0.12) * responsiveScale);
+        group.rotation.x = pointer.y * 0.12 * pointerStrength;
+        group.rotation.y = elapsed * (0.035 + hoverAmount * 0.04) + pointer.x * 0.28 * pointerStrength;
         particles.rotation.y = elapsed * 0.025 + pointer.x * 0.06;
         lines.rotation.y = elapsed * 0.025 + pointer.x * 0.06;
-        camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 0.55, 0.06);
-        camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 0.32, 0.06);
+        particleMaterial.size = 0.035 + entranceEase * 0.02 + hoverAmount * 0.035;
+        particleMaterial.opacity = entranceEase * (layout.isCompact ? 0.48 + hoverAmount * 0.32 : 0.7 + hoverAmount * 0.3);
+        lineMaterial.opacity = entranceEase * (layout.isCompact ? 0.08 + hoverAmount * 0.22 : 0.12 + hoverAmount * 0.26);
+        grid.material.opacity = entranceEase * (layout.isCompact ? 0.06 + hoverAmount * 0.16 : 0.1 + hoverAmount * 0.18);
+        camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointer.x * 0.55 * pointerStrength, 0.06);
+        camera.position.y = THREE.MathUtils.lerp(camera.position.y, pointer.y * 0.32 * pointerStrength, 0.06);
         camera.lookAt(0, 0, 0);
         renderer.render(scene, camera);
       };
@@ -316,8 +334,8 @@ const HeroThreeScene = () => {
   
       resize();
       window.addEventListener('resize', resize);
-      mount.addEventListener('pointermove', handlePointerMove);
-      mount.addEventListener('pointerleave', handlePointerLeave);
+      interactionTarget.addEventListener('pointermove', handlePointerMove);
+      interactionTarget.addEventListener('pointerleave', handlePointerLeave);
   
       if (prefersReducedMotion) {
         renderScene(0);
@@ -327,13 +345,13 @@ const HeroThreeScene = () => {
   
       disposeScene = () => {
         window.removeEventListener('resize', resize);
-        mount.removeEventListener('pointermove', handlePointerMove);
-        mount.removeEventListener('pointerleave', handlePointerLeave);
+        interactionTarget.removeEventListener('pointermove', handlePointerMove);
+        interactionTarget.removeEventListener('pointerleave', handlePointerLeave);
         if (animationFrame) window.cancelAnimationFrame(animationFrame);
         particleGeometry.dispose();
         lineGeometry.dispose();
-        particles.material.dispose();
-        lines.material.dispose();
+        particleMaterial.dispose();
+        lineMaterial.dispose();
         grid.geometry.dispose();
         grid.material.dispose();
         renderer.dispose();
@@ -352,7 +370,7 @@ const HeroThreeScene = () => {
   return (
     <div
       ref={mountRef}
-      className="pointer-events-auto absolute inset-y-0 right-0 z-[1] w-[95%] translate-x-[32%] opacity-60 mix-blend-screen [mask-image:linear-gradient(90deg,transparent_0%,black_28%,black_100%)] sm:w-[64%] sm:translate-x-0 sm:opacity-85 lg:w-[58%]"
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[52%] opacity-45 mix-blend-screen [mask-image:linear-gradient(180deg,transparent_0%,black_25%,black_100%)] sm:pointer-events-auto sm:inset-y-0 sm:left-auto sm:h-auto sm:w-[64%] sm:translate-x-0 sm:opacity-85 sm:[mask-image:linear-gradient(90deg,transparent_0%,black_28%,black_100%)] lg:w-[58%]"
       aria-hidden="true"
     />
   );
@@ -508,25 +526,6 @@ export const GrowthPositioning = () => (
   </AnimatedSection>
 );
 
-export const BusinessDominanceMarquee = () => (
-  <AnimatedSection className="overflow-hidden bg-[#fff1b8] py-8 dark:bg-slate-950">
-    <div className="relative border-y border-blue-900/10 bg-[#081f4d] py-7 text-white shadow-2xl shadow-blue-950/20">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#081f4d] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#081f4d] to-transparent" />
-      <div className="business-dominance-marquee flex w-max items-center gap-10">
-        {Array.from({ length: 8 }).map((_, index) => (
-          <div key={index} className="flex items-center gap-10">
-            <span className="text-3xl font-black uppercase tracking-wide text-white sm:text-5xl lg:text-6xl">
-              Join thousands of businesses dominating the world today using digital means.
-            </span>
-            <span className="h-4 w-4 rounded-full bg-cyan-300 shadow-[0_0_30px_rgba(125,211,252,0.8)]" />
-          </div>
-        ))}
-      </div>
-    </div>
-  </AnimatedSection>
-);
-
 export const About = () => (
   <AnimatedSection id="about" className={`bg-slate-50 dark:bg-slate-900 ${sectionSpacing}`}>
     <div className={containerClass}>
@@ -564,13 +563,11 @@ export const About = () => (
 export const Team = () => (
   <AnimatedSection
     id="team"
-    className={`bg-[#fff4c8] dark:bg-slate-950 ${sectionSpacing}`}>
+    className={`bg-white dark:bg-slate-950 ${sectionSpacing}`}>
     <div className={containerClass}>
       <div className="mx-auto max-w-4xl text-center">
         <div className="flex justify-center">
-          <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
-            Services
-          </div>
+        
         </div>
         <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-black leading-tight text-slate-950 dark:text-white sm:text-4xl lg:text-5xl">
           Choose the digital service your business needs next.
