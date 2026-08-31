@@ -9,7 +9,7 @@ import TimedInquiryModal from './components/TimedInquiryModal.jsx';
 import BlogNewsPage from './pages/BlogNewsPage.jsx';
 import BusinessAutomationsPage from './pages/BusinessAutomationsPage.jsx';
 import ServiceDetailPage from './pages/ServiceDetailPage.jsx';
-import { sendOwnerEmail } from './utils/mail.js';
+import { OWNER_EMAIL, sendOwnerEmail } from './utils/mail.js';
 import {
   About,
   Blog,
@@ -247,7 +247,7 @@ function HomePage() {
             <ul className="mt-4 space-y-3 text-sm text-slate-300 sm:text-base">
               <li>Lagos, Nigeria</li>
               <li>+2347084153584</li>
-              <li className="break-all">wiskara1@gmail.com</li>
+              <li className="break-all">{OWNER_EMAIL}</li>
             </ul>
           </div>
 

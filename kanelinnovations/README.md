@@ -7,18 +7,14 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## EmailJS setup for contact form
+## Resend setup for contact forms
 
-1. Copy `.env.example` to `.env`.
-2. Set:
-   - `VITE_EMAILJS_SERVICE_ID`
-   - `VITE_EMAILJS_TEMPLATE_ID`
-   - `VITE_EMAILJS_PUBLIC_KEY`
-3. In your EmailJS template, include these variables:
-   - `from_name`
-   - `from_email`
-   - `subject`
-   - `message`
+1. Verify `kanelinnovations.com` in Resend.
+2. Add Resend's DNS records in the DNS provider that controls the domain.
+3. Add `RESEND_API_KEY` to the Vercel project environment variables.
+4. Deploy the app on Vercel so `/api/send-email` can run as a serverless function.
+
+All website forms should use `sendOwnerEmail` from `src/utils/mail.js`. That helper posts to `/api/send-email`, sends the enquiry to `support@kanelinnovations.com`, and sends an automatic confirmation email to the visitor.
 
 ## Expanding the ESLint configuration
 

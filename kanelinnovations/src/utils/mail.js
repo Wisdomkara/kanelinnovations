@@ -1,6 +1,6 @@
-import emailjs from '@emailjs/browser';
-
-export const OWNER_EMAIL = 'wiskara1@gmail.com';
+export const OWNER_EMAIL = 'support@kanelinnovations.com';
+export const COMPANY_NAME = 'Kanel Innovations';
+export const MAIL_API_URL = import.meta.env.VITE_MAIL_API_URL || '/api/send-email';
 
 export function openOwnerEmailDraft(subject, lines) {
   const encodedSubject = encodeURIComponent(subject);
@@ -17,37 +17,31 @@ export async function sendOwnerEmail({
   service = '',
   message = '',
 }) {
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
   const inquiryMessage = lines.join('\n');
 
-  if (serviceId && templateId && publicKey) {
-    try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          name,
-          to_email: OWNER_EMAIL,
-          from_email: fromEmail,
-          subject,
-          message: message || inquiryMessage,
-          company: '',
-          service,
-          timeline: '',
-          time: new Date().toLocaleString(),
-          inquiry_message: inquiryMessage,
-        },
-        publicKey
-      );
-      return 'emailjs';
-    } catch {
-      openOwnerEmailDraft(subject, lines);
-      return 'mailto';
-    }
-  }
+  try {
+    const response = await fetch(MAIL_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email: fromEmail,
+        subject,
+        message: message || inquiryMessage,
+        inquiryMessage,
+        service,
+      }),
+    });
 
-  openOwnerEmailDraft(subject, lines);
-  return 'mailto';
+    if (!response.ok) {
+      throw new Error('Mail request failed');
+    }
+
+    return 'resend';
+  } catch {
+    openOwnerEmailDraft(subject, lines);
+    return 'mailto';
+  }
 }

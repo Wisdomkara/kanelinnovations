@@ -12,7 +12,6 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "framer-motion": "^12.9.2",
     "lucide-react": "^0.503.0",
     "react": "^19.0.0",
