@@ -1,6 +1,8 @@
 const OWNER_EMAIL = 'support@kanelinnovations.com';
 const COMPANY_NAME = 'Kanel Innovations';
 const RESEND_ENDPOINT = 'https://api.resend.com/emails';
+const SITE_URL = (process.env.SITE_URL || 'https://kanelinnovations.com').replace(/\/$/, '');
+const LOGO_URL = `${SITE_URL}/kanelblack.png`;
 
 function sanitizeText(value, fallback = '') {
   if (typeof value !== 'string') return fallback;
@@ -76,6 +78,7 @@ module.exports = async function handler(request, response) {
       reply_to: email,
       subject,
       html: `
+        <img src="${LOGO_URL}" alt="${COMPANY_NAME}" width="150" style="display:block;margin-bottom:24px;" />
         <h2>New website enquiry</h2>
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
@@ -102,6 +105,7 @@ module.exports = async function handler(request, response) {
       reply_to: OWNER_EMAIL,
       subject: `We received your ${service.toLowerCase()} enquiry`,
       html: `
+        <img src="${LOGO_URL}" alt="${COMPANY_NAME}" width="150" style="display:block;margin-bottom:24px;" />
         <p>Hello ${escapeHtml(name.split(' ')[0] || name)},</p>
         <p>Thank you for contacting ${COMPANY_NAME}.</p>
         <p>We have received your enquiry about <strong>${escapeHtml(service)}</strong>. Our team will review it and get back to you as soon as possible.</p>
