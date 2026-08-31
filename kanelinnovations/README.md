@@ -15,7 +15,7 @@ Currently, two official plugins are available:
 4. Add `SITE_URL=https://kanelinnovations.com` to the Vercel project environment variables.
 5. Deploy the app on Vercel so `/api/send-email` can run as a serverless function.
 
-All website forms should use `sendOwnerEmail` from `src/utils/mail.js`. That helper posts to `/api/send-email`, sends the enquiry to `support@kanelinnovations.com`, and sends an automatic confirmation email to the visitor. The emails include the public logo at `/kanelblack.png`.
+All website forms should use `sendOwnerEmail` from `src/utils/mail.js`. That helper posts to `/api/send-email`, sends the enquiry to `support@kanelinnovations.com`, and sends an automatic confirmation email to the visitor. The visitor confirmation email includes the public logo at `/kanel-email-logo.jpg`.
 
 ## Expanding the ESLint configuration
 
