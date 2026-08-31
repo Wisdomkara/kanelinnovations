@@ -72,7 +72,7 @@ module.exports = async function handler(request, response) {
   });
 
   try {
-    await sendResendEmail({
+    const ownerResult = await sendResendEmail({
       from: `${COMPANY_NAME} Website <support@kanelinnovations.com>`,
       to: [OWNER_EMAIL],
       reply_to: email,
@@ -99,35 +99,47 @@ module.exports = async function handler(request, response) {
       ].join('\n'),
     });
 
-    await sendResendEmail({
-      from: `${COMPANY_NAME} <support@kanelinnovations.com>`,
-      to: [email],
-      reply_to: OWNER_EMAIL,
-      subject: `We received your ${service.toLowerCase()} enquiry`,
-      html: `
-        <img src="${LOGO_URL}" alt="${COMPANY_NAME}" width="150" style="display:block;margin-bottom:24px;" />
-        <p>Hello ${escapeHtml(name.split(' ')[0] || name)},</p>
-        <p>Thank you for contacting ${COMPANY_NAME}.</p>
-        <p>We have received your enquiry about <strong>${escapeHtml(service)}</strong>. Our team will review it and get back to you as soon as possible.</p>
-        <p>If your request is urgent, reply to this email or contact us on WhatsApp.</p>
-        <p>Best regards,<br />${COMPANY_NAME}<br />${OWNER_EMAIL}</p>
-      `,
-      text: [
-        `Hello ${name.split(' ')[0] || name},`,
-        '',
-        `Thank you for contacting ${COMPANY_NAME}.`,
-        '',
-        `We have received your enquiry about ${service}. Our team will review it and get back to you as soon as possible.`,
-        '',
-        'If your request is urgent, reply to this email or contact us on WhatsApp.',
-        '',
-        'Best regards,',
-        COMPANY_NAME,
-        OWNER_EMAIL,
-      ].join('\n'),
-    });
+    try {
+      const autoReplyResult = await sendResendEmail({
+        from: `${COMPANY_NAME} <support@kanelinnovations.com>`,
+        to: [email],
+        reply_to: OWNER_EMAIL,
+        subject: `We received your ${service.toLowerCase()} enquiry`,
+        html: `
+          <img src="${LOGO_URL}" alt="${COMPANY_NAME}" width="150" style="display:block;margin-bottom:24px;" />
+          <p>Hello ${escapeHtml(name.split(' ')[0] || name)},</p>
+          <p>Thank you for contacting ${COMPANY_NAME}.</p>
+          <p>We have received your enquiry about <strong>${escapeHtml(service)}</strong>. Our team will review it and get back to you as soon as possible.</p>
+          <p>If your request is urgent, reply to this email or contact us on WhatsApp.</p>
+          <p>Best regards,<br />${COMPANY_NAME}<br />${OWNER_EMAIL}</p>
+        `,
+        text: [
+          `Hello ${name.split(' ')[0] || name},`,
+          '',
+          `Thank you for contacting ${COMPANY_NAME}.`,
+          '',
+          `We have received your enquiry about ${service}. Our team will review it and get back to you as soon as possible.`,
+          '',
+          'If your request is urgent, reply to this email or contact us on WhatsApp.',
+          '',
+          'Best regards,',
+          COMPANY_NAME,
+          OWNER_EMAIL,
+        ].join('\n'),
+      });
 
-    return response.status(200).json({ ok: true });
+      return response.status(200).json({
+        ok: true,
+        ownerEmailId: ownerResult.id,
+        autoReplyEmailId: autoReplyResult.id,
+      });
+    } catch (autoReplyError) {
+      return response.status(207).json({
+        ok: true,
+        ownerEmailId: ownerResult.id,
+        autoReplyError: autoReplyError.message || 'Auto-reply could not be sent',
+      });
+    }
   } catch (error) {
     return response.status(502).json({ error: error.message || 'Unable to send email' });
   }
