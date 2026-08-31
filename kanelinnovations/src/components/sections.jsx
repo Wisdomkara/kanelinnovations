@@ -766,9 +766,7 @@ export const Process = () => (
     className={`bg-white dark:bg-slate-950 ${sectionSpacing}`}>
     <div className={`${containerClass} grid gap-8 lg:grid-cols-[0.74fr_1.26fr] lg:items-start`}>
       <div>
-        <div className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
-          Delivery Process
-        </div>
+     
         <h2 className="mt-4 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
           Clear stages. No confusing handoff.
         </h2>
