@@ -815,10 +815,7 @@ export const Blog = () => (
     <div className={containerClass}>
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700 dark:bg-white/10 dark:text-blue-200">
-            <Newspaper className="h-4 w-4" />
-            Technology News For Business Owners
-          </div>
+        
           <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
             Why your digital presence must keep improving.
           </h2>

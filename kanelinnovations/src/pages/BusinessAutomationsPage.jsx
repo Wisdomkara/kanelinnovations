@@ -12,6 +12,7 @@ import {
   Layers3,
   MessageSquareMore,
   ShieldCheck,
+  Sparkles,
   Workflow,
 } from 'lucide-react';
 import AutomationHeroImage from '../assets/images/automation-hero.jpg';
@@ -29,14 +30,11 @@ const benefits = [
 ];
 
 const automationAreas = [
-  'Website form to CRM and WhatsApp alerts',
-  'Lead assignment, tagging, and follow-up reminders',
-  'Booking confirmations and appointment reminders',
-  'Quote, invoice, and payment status notifications',
-  'Customer onboarding and service update sequences',
-  'Internal approvals, task routing, and reporting dashboards',
-  'AI-assisted replies, summaries, and content drafts',
-  'Analytics views that show where leads and delays happen',
+  ['Capture demand', 'Website forms, lead routing, CRM records, tagging, and WhatsApp alerts'],
+  ['Keep momentum', 'Follow-up reminders, booking confirmations, appointment reminders, and next steps'],
+  ['Move work forward', 'Quotes, invoices, payment updates, approvals, and internal task routing'],
+  ['Improve the experience', 'Customer onboarding, service updates, AI-assisted replies, and summaries'],
+  ['See what is happening', 'Reporting dashboards and analytics that reveal leads, delays, and drop-offs'],
 ];
 
 const globalReasons = [
@@ -70,7 +68,7 @@ export default function BusinessAutomationsPage() {
         >
           <source src={AutomationHeroVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.94)_0%,rgba(2,6,23,0.78)_45%,rgba(2,6,23,0.35)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.96)_0%,rgba(2,6,23,0.82)_42%,rgba(2,6,23,0.38)_100%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.12)_0%,rgba(2,6,23,0.66)_100%)]" />
 
         <div className={`${containerClass} relative`}>
@@ -81,15 +79,22 @@ export default function BusinessAutomationsPage() {
             Back Home
           </Link>
 
-          <div className={`${contentGap} grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end`}>
-            <div>
-              
-              <h1 className="mt-5 max-w-4xl text-4xl font-black leading-tight md:text-6xl">
+          <div className={`${contentGap} grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end`}>
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm font-bold text-cyan-100">
+                <Sparkles className="h-4 w-4" />
+                Systems that keep work moving
+              </div>
+              <h1 className="mt-5 max-w-4xl text-4xl font-black leading-[1.05] tracking-tight md:text-6xl">
                 Automations that help businesses operate faster anywhere in the world.
               </h1>
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-slate-300">
+                <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-emerald-300" />Less manual follow-up</span>
+                <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-emerald-300" />Fewer missed opportunities</span>
+              </div>
             </div>
-            <div>
-              <p className="text-base leading-8 text-slate-300 md:text-lg">
+            <div className="max-w-xl lg:justify-self-end">
+              <p className="text-base leading-8 text-slate-200 md:text-lg">
                 Kanel innovations builds automation systems that connect your
                 website, CRM, forms, messages, dashboards, and AI support into
                 one practical workflow. The goal is simple: reduce manual work,
@@ -102,6 +107,11 @@ export default function BusinessAutomationsPage() {
                 Start an Automation Plan
                 <ArrowRight className="h-4 w-4" />
               </a>
+              <div className="mt-10 grid max-w-md grid-cols-3 gap-3 border-t border-white/15 pt-5">
+                <div><p className="text-2xl font-black text-white">01</p><p className="mt-1 text-xs leading-5 text-slate-400">Map the process</p></div>
+                <div><p className="text-2xl font-black text-white">02</p><p className="mt-1 text-xs leading-5 text-slate-400">Connect the tools</p></div>
+                <div><p className="text-2xl font-black text-white">03</p><p className="mt-1 text-xs leading-5 text-slate-400">Measure results</p></div>
+              </div>
             </div>
           </div>
         </div>
@@ -143,7 +153,7 @@ export default function BusinessAutomationsPage() {
               What We Automate
             </div>
             <h2 className="mt-5 text-3xl font-black leading-tight md:text-5xl">
-              From first enquiry to repeat customer.
+              Build a clearer path from first enquiry to repeat customer.
             </h2>
             <p className="mt-5 text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
               Automation works best when it is built around the real movement
@@ -154,12 +164,17 @@ export default function BusinessAutomationsPage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            {automationAreas.map((area) => (
+            {automationAreas.map(([title, detail], index) => (
               <div
-                key={area}
-                className="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-white/5">
-                <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-300" />
-                <p className="leading-7 text-slate-700 dark:text-slate-300">{area}</p>
+                key={title}
+                className={`group flex gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white hover:shadow-lg hover:shadow-blue-100/40 dark:border-white/10 dark:bg-white/5 dark:hover:border-blue-400/30 dark:hover:bg-white/10 ${index === automationAreas.length - 1 ? 'sm:col-span-2' : ''}`}>
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-sm font-black text-blue-700 shadow-sm dark:bg-slate-800 dark:text-blue-200">
+                  0{index + 1}
+                </div>
+                <div>
+                  <h3 className="font-black text-slate-950 dark:text-white">{title}</h3>
+                  <p className="mt-1 leading-7 text-slate-600 dark:text-slate-300">{detail}</p>
+                </div>
               </div>
             ))}
           </div>
