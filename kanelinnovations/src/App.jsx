@@ -155,25 +155,13 @@ function WireframeLoader() {
   );
 }
 
-function HomePage() {
+function SiteFooter() {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [footerModal, setFooterModal] = useState({
     isOpen: false,
     title: '',
     message: '',
   });
-  const [timedInquiryOpen, setTimedInquiryOpen] = useState(false);
-  const [timedInquiryDismissed, setTimedInquiryDismissed] = useState(false);
-
-  useEffect(() => {
-    if (timedInquiryDismissed) return undefined;
-
-    const timer = setTimeout(() => {
-      setTimedInquiryOpen(true);
-    }, 10000);
-
-    return () => clearTimeout(timer);
-  }, [timedInquiryDismissed]);
 
   const handleNewsletterSubmit = (event) => {
     event.preventDefault();
@@ -198,19 +186,6 @@ function HomePage() {
 
   return (
     <>
-      <main>
-        <Home />
-        <ClientLogoMarquee />
-        <GrowthPositioning />
-        <Team />
-        <About />
-        <Testimonials />
-        <Projects />
-        <Process />
-        <Blog />
-        <Contact />
-      </main>
-
       <footer className={`border-t border-slate-200/80 bg-slate-950 text-white dark:border-white/10 ${sectionSpacing}`}>
         <div className={`${containerClass} grid gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-[1.2fr_0.7fr_0.7fr_1fr]`}>
           <div className="sm:col-span-2">
@@ -230,13 +205,7 @@ function HomePage() {
           <div>
             <h4 className="text-base font-bold text-white sm:text-lg">Services</h4>
             <ul className="mt-4 space-y-3 text-sm text-slate-300 sm:text-base">
-              {[
-                'Website design',
-                'App development',
-                'Funnel creation',
-                'SEO and awareness',
-                'Business automations',
-              ].map((item) => (
+              {['Website design', 'App development', 'Funnel creation', 'SEO and awareness', 'Business automations'].map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -257,9 +226,7 @@ function HomePage() {
               Get short notes on websites, funnels, SEO, automation, and digital growth.
             </p>
             <form className="mt-4 space-y-3" onSubmit={handleNewsletterSubmit}>
-              <label htmlFor="footer-email" className="sr-only">
-                Email address
-              </label>
+              <label htmlFor="footer-email" className="sr-only">Email address</label>
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -287,15 +254,54 @@ function HomePage() {
 
         <div className={`${containerClass} ${contentGap} flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:text-sm`}>
           <p>&copy; 2026 Kanel innovations. All rights reserved.</p>
-          <a
-            href={`${import.meta.env.BASE_URL}privacy-policy.html`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-slate-300 transition hover:text-white">
+          <a href={`${import.meta.env.BASE_URL}privacy-policy.html`} target="_blank" rel="noopener noreferrer" className="font-semibold text-slate-300 transition hover:text-white">
             Privacy Policy
           </a>
         </div>
       </footer>
+      <SuccessModal
+        isOpen={footerModal.isOpen}
+        title={footerModal.title}
+        message={footerModal.message}
+        onClose={() => setFooterModal((prev) => ({ ...prev, isOpen: false }))}
+      />
+    </>
+  );
+}
+
+function HomePage() {
+  const [footerModal, setFooterModal] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+  });
+  const [timedInquiryOpen, setTimedInquiryOpen] = useState(false);
+  const [timedInquiryDismissed, setTimedInquiryDismissed] = useState(false);
+
+  useEffect(() => {
+    if (timedInquiryDismissed) return undefined;
+
+    const timer = setTimeout(() => {
+      setTimedInquiryOpen(true);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, [timedInquiryDismissed]);
+
+  return (
+    <>
+      <main>
+        <Home />
+        <ClientLogoMarquee />
+        <GrowthPositioning />
+        <Team />
+        <About />
+        <Testimonials />
+        <Projects />
+        <Process />
+        <Blog />
+        <Contact />
+      </main>
 
       <SuccessModal
         isOpen={footerModal.isOpen}
@@ -372,6 +378,7 @@ function App() {
           <Route path="/services/business-automations" element={<BusinessAutomationsPage />} />
           <Route path="/services/:slug" element={<ServiceDetailPage />} />
         </Routes>
+        <SiteFooter />
       </div>
 
       <FloatingWhatsAppButton />
