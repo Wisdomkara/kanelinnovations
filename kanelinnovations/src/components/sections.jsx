@@ -817,12 +817,12 @@ export const Blog = () => (
         <div className="max-w-3xl">
 
           <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
-            Why your digital presence must keep improving.
+            Recent technology news for business owners.
           </h2>
           <p className="mt-5 text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
-            AI search, social commerce, cyber risk, and customer expectations
-            are moving quickly. These updates explain what business owners
-            should do next.
+            Fresh updates on AI search, small-business AI adoption, measurable
+            digital advertising, and cybersecurity trends shaping customer
+            trust.
           </p>
         </div>
         <RouterLink
