@@ -810,65 +810,164 @@ export const Process = () => (
   </AnimatedSection>
 );
 
-export const Blog = () => (
-  <AnimatedSection id="blog" className={`bg-white text-slate-950 dark:bg-slate-950 dark:text-white ${sectionSpacing}`}>
-    <div className={containerClass}>
-      <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-3xl">
+export const Blog = () => {
+  const featuredPost = blogPosts[0];
+  const remainingPosts = blogPosts.slice(1, 4);
 
-          <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 dark:text-white md:text-5xl">
-            Recent technology news for business owners.
-          </h2>
-          <p className="mt-5 text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
-            Fresh updates on AI search, small-business AI adoption, measurable
-            digital advertising, and cybersecurity trends shaping customer
-            trust.
-          </p>
+  return (
+    <AnimatedSection id="blog" className={`bg-white text-slate-950 dark:bg-slate-950 dark:text-white ${sectionSpacing}`}>
+      <div className={containerClass}>
+        <div className="flex flex-col gap-4 sm:gap-5 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-4xl">
+            <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-blue-700 shadow-[0_0_0_1px_rgba(59,130,246,0.1)] dark:bg-blue-500/15 dark:text-blue-200 sm:px-3 sm:text-[10px]">
+              Business Insights
+            </span>
+            <h2 className="mt-3 text-[1.7rem] font-black leading-[0.96] tracking-[-0.05em] text-slate-950 dark:text-white sm:text-4xl md:text-[4rem] md:leading-[0.9]">
+              Bespoke digital insights for owners who want more leads.
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base md:text-lg md:leading-8">
+              Fresh thinking on local visibility, AI-powered growth, digital trust,
+              and strategies that turn attention into action.
+            </p>
+          </div>
+          <RouterLink
+            to="/blog-news"
+            className="inline-flex w-fit items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2.5 text-sm font-semibold text-blue-700 shadow-[0_12px_30px_-18px_rgba(37,99,235,0.8)] transition duration-300 hover:-translate-y-0.5 hover:bg-blue-50 dark:border-white/10 dark:text-slate-950 sm:px-6 sm:py-3 sm:text-base">
+            View all insights
+            <ArrowRight className="h-4 w-4" />
+          </RouterLink>
         </div>
-        <RouterLink
-          to="/blog-news"
-          className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-50 dark:border-white/10 dark:text-slate-950">
-          Open News Room
-          <ArrowRight className="h-4 w-4" />
-        </RouterLink>
-      </div>
 
-      <div className={`${contentGap} grid gap-6 md:grid-cols-3`}>
-        {blogPosts.slice(0, 3).map((post, index) => (
-          <Motion.article
-            key={post.id}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55, delay: index * 0.08 }}
-            className="group overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:shadow-blue-500/20">
-            <img src={post.image} alt={post.title} className="h-56 w-full object-cover" />
-            <div className="p-7">
-              <div className="flex flex-wrap items-center gap-3 text-sm">
-                <span className="rounded-full bg-blue-100 px-3 py-1 font-semibold text-blue-700 dark:bg-blue-400/15 dark:text-blue-200">
-                  {post.category}
+        <Motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className={`${contentGap} overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50 shadow-[0_30px_80px_-36px_rgba(59,130,246,0.35)] ring-1 ring-blue-100/70 dark:border-white/10 dark:bg-white/5 dark:ring-blue-500/20`}>
+          <div className="grid gap-0 lg:grid-cols-[1.18fr_0.82fr]">
+            <Motion.div
+              initial={{ scale: 1.04, opacity: 0.8 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              whileHover={{ scale: 1.02 }}
+              className="relative overflow-hidden"
+            >
+              <img
+                src={featuredPost.image}
+                alt={featuredPost.title}
+                className="h-60 w-full object-cover transition duration-500 sm:h-72 lg:h-full"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-slate-900/10 to-transparent" />
+            </Motion.div>
+            <div className="flex flex-col justify-center p-4 sm:p-6 lg:p-10">
+              <Motion.div
+                initial={{ opacity: 0, x: 18 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="flex flex-wrap items-center gap-2 text-[10px] sm:gap-3 sm:text-sm"
+              >
+                <span className="rounded-full bg-blue-100 px-2.5 py-1 font-semibold text-blue-700 shadow-[0_0_0_1px_rgba(59,130,246,0.12)] dark:bg-blue-400/15 dark:text-blue-200 sm:px-3">
+                  Featured article
                 </span>
-                <span className="text-slate-500 dark:text-slate-400">{post.date}</span>
-              </div>
-              <h3 className="mt-5 text-2xl font-black text-slate-950 dark:text-white">
-                {post.title}
-              </h3>
-              <p className="mt-4 line-clamp-3 leading-7 text-slate-600 dark:text-slate-300">
-                {post.excerpt}
-              </p>
-              <RouterLink
-                to="/blog-news"
-                className="mt-6 inline-flex items-center gap-2 font-semibold text-blue-700 dark:text-blue-200">
-                Read Article
-                <ArrowRight className="h-4 w-4" />
-              </RouterLink>
+                <span className="rounded-full bg-slate-900 px-2.5 py-1 font-semibold text-white shadow-[0_0_24px_rgba(2,6,23,0.3)] dark:bg-white/10 dark:text-slate-200 sm:px-3">
+                  {featuredPost.category}
+                </span>
+                <span className="text-slate-500 dark:text-slate-400">{featuredPost.date}</span>
+              </Motion.div>
+
+              <Motion.h3
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+                className="mt-3 text-[1.45rem] font-black leading-[1.02] tracking-[-0.04em] text-slate-950 dark:text-white sm:text-3xl md:text-[2.6rem]"
+              >
+                {featuredPost.title}
+              </Motion.h3>
+              <Motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mt-2.5 text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base sm:leading-7"
+              >
+                {featuredPost.excerpt}
+              </Motion.p>
+
+              <Motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="mt-4 flex flex-wrap gap-1.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 sm:gap-2 sm:text-[10px]"
+              >
+                <span className="rounded-full border border-slate-200 bg-white px-1.5 py-1 shadow-[0_10px_25px_-18px_rgba(59,130,246,0.9)] dark:border-white/10 dark:bg-white/5 sm:px-2.5 sm:py-1.5">
+                  Local SEO
+                </span>
+                <span className="rounded-full border border-slate-200 bg-white px-1.5 py-1 shadow-[0_10px_25px_-18px_rgba(59,130,246,0.9)] dark:border-white/10 dark:bg-white/5 sm:px-2.5 sm:py-1.5">
+                  Google Maps
+                </span>
+                <span className="rounded-full border border-slate-200 bg-white px-1.5 py-1 shadow-[0_10px_25px_-18px_rgba(59,130,246,0.9)] dark:border-white/10 dark:bg-white/5 sm:px-2.5 sm:py-1.5">
+                  Lead Generation
+                </span>
+              </Motion.div>
+
+              <Motion.div
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <RouterLink
+                  to="/blog-news"
+                  className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-3.5 py-2 text-sm font-semibold text-white shadow-[0_18px_30px_-18px_rgba(37,99,235,0.8)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_36px_-16px_rgba(37,99,235,0.9)] sm:px-5 sm:py-3 sm:text-base">
+                  Read the insight
+                  <ArrowRight className="h-4 w-4" />
+                </RouterLink>
+              </Motion.div>
             </div>
-          </Motion.article>
-        ))}
+          </div>
+        </Motion.div>
+
+        <div className={`${contentGap} grid gap-6 sm:grid-cols-2 lg:grid-cols-3`}>
+          {remainingPosts.map((post, index) => (
+            <Motion.article
+              key={post.id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.55, delay: index * 0.08 }}
+              className="group overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:shadow-blue-500/20">
+              <img src={post.image} alt={post.title} className="h-48 w-full object-cover sm:h-56" />
+              <div className="p-5 sm:p-7">
+                <div className="flex flex-wrap items-center gap-2 text-xs sm:gap-3 sm:text-sm">
+                  <span className="rounded-full bg-blue-100 px-2.5 py-1 font-semibold text-blue-700 dark:bg-blue-400/15 dark:text-blue-200 sm:px-3">
+                    {post.category}
+                  </span>
+                  <span className="text-slate-500 dark:text-slate-400">{post.date}</span>
+                </div>
+                <h3 className="mt-4 text-xl font-black text-slate-950 dark:text-white sm:text-2xl">
+                  {post.title}
+                </h3>
+                <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base sm:leading-7">
+                  {post.excerpt}
+                </p>
+                <RouterLink
+                  to="/blog-news"
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 dark:text-blue-200 sm:text-base">
+                  Read Article
+                  <ArrowRight className="h-4 w-4" />
+                </RouterLink>
+              </div>
+            </Motion.article>
+          ))}
+        </div>
       </div>
-    </div>
-  </AnimatedSection>
-);
+    </AnimatedSection>
+  );
+};
 
 export const Contact = () => {
   const [formData, setFormData] = useState(initialInquiryData);
