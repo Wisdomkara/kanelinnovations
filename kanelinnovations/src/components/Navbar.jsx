@@ -27,6 +27,7 @@ const serviceLinks = [
 
 const resourceLinks = [
   { name: 'Free Ads Training', to: '/free-ads-training' },
+  { name: 'Blog / The Kanel Journal', to: '/blog' },
   { name: 'Technology News', to: '/blog-news' },
   { name: 'Automation Guide', to: '/business-automations', tone: 'automation' },
 ];
@@ -235,7 +236,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             serviceLinks,
             location.pathname.startsWith('/services') || location.pathname === '/business-automations'
           )}
-          {renderDesktopDropdown('resources', 'Resources', resourceLinks, location.pathname === '/blog-news')}
+          {renderDesktopDropdown('resources', 'Resources', resourceLinks, location.pathname.startsWith('/blog'))}
 
           <RouterLink
             to="/#contact"

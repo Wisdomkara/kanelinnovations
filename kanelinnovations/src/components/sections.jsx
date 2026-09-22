@@ -27,7 +27,7 @@ import {
 import SuccessModal from './SuccessModal.jsx';
 import HeroDigitalPresenceImage from '../assets/images/hero-digital-presence.webp';
 import TeamImage from '../assets/images/team-digital-project.jpg';
-import { blogPosts } from '../data/blogPosts';
+import { journalPosts as blogPosts } from '../data/journalPosts';
 import { servicePageList } from '../data/servicePages';
 import { sendOwnerEmail } from '../utils/mail.js';
 
@@ -823,7 +823,7 @@ export const Blog = () => {
               Business Insights
             </span>
             <h2 className="mt-3 text-[1.7rem] font-black leading-[0.96] tracking-[-0.05em] text-slate-950 dark:text-white sm:text-4xl md:text-[4rem] md:leading-[0.9]">
-              Bespoke digital insights for owners who want more leads.
+              From the Kanel Journal.
             </h2>
             <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base md:text-lg md:leading-8">
               Fresh thinking on local visibility, AI-powered growth, digital trust,
@@ -831,7 +831,7 @@ export const Blog = () => {
             </p>
           </div>
           <RouterLink
-            to="/blog-news"
+            to="/blog"
             className="inline-flex w-fit items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2.5 text-sm font-semibold text-blue-700 shadow-[0_12px_30px_-18px_rgba(37,99,235,0.8)] transition duration-300 hover:-translate-y-0.5 hover:bg-blue-50 dark:border-white/10 dark:text-slate-950 sm:px-6 sm:py-3 sm:text-base">
             View all insights
             <ArrowRight className="h-4 w-4" />
@@ -856,7 +856,8 @@ export const Blog = () => {
               <img
                 src={featuredPost.image}
                 alt={featuredPost.title}
-                className="h-60 w-full object-cover transition duration-500 sm:h-72 lg:h-full"
+                loading="lazy"
+                className="h-60 w-full bg-[#030b15] object-contain transition duration-500 sm:h-72 lg:h-full"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-slate-900/10 to-transparent" />
             </Motion.div>
@@ -874,7 +875,7 @@ export const Blog = () => {
                 <span className="rounded-full bg-slate-900 px-2.5 py-1 font-semibold text-white shadow-[0_0_24px_rgba(2,6,23,0.3)] dark:bg-white/10 dark:text-slate-200 sm:px-3">
                   {featuredPost.category}
                 </span>
-                <span className="text-slate-500 dark:text-slate-400">{featuredPost.date}</span>
+                <span className="text-slate-500 dark:text-slate-400">{featuredPost.readTime} min read</span>
               </Motion.div>
 
               <Motion.h3
@@ -904,13 +905,13 @@ export const Blog = () => {
                 className="mt-4 flex flex-wrap gap-1.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400 sm:gap-2 sm:text-[10px]"
               >
                 <span className="rounded-full border border-slate-200 bg-white px-1.5 py-1 shadow-[0_10px_25px_-18px_rgba(59,130,246,0.9)] dark:border-white/10 dark:bg-white/5 sm:px-2.5 sm:py-1.5">
-                  Local SEO
+                  Clear offers
                 </span>
                 <span className="rounded-full border border-slate-200 bg-white px-1.5 py-1 shadow-[0_10px_25px_-18px_rgba(59,130,246,0.9)] dark:border-white/10 dark:bg-white/5 sm:px-2.5 sm:py-1.5">
-                  Google Maps
+                  Customer journeys
                 </span>
                 <span className="rounded-full border border-slate-200 bg-white px-1.5 py-1 shadow-[0_10px_25px_-18px_rgba(59,130,246,0.9)] dark:border-white/10 dark:bg-white/5 sm:px-2.5 sm:py-1.5">
-                  Lead Generation
+                  Follow-up
                 </span>
               </Motion.div>
 
@@ -921,7 +922,7 @@ export const Blog = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
                 <RouterLink
-                  to="/blog-news"
+                  to={`/blog/${featuredPost.id}`}
                   className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-3.5 py-2 text-sm font-semibold text-white shadow-[0_18px_30px_-18px_rgba(37,99,235,0.8)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_36px_-16px_rgba(37,99,235,0.9)] sm:px-5 sm:py-3 sm:text-base">
                   Read the insight
                   <ArrowRight className="h-4 w-4" />
@@ -940,13 +941,13 @@ export const Blog = () => {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
               className="group overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 transition duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-white hover:shadow-xl hover:shadow-blue-100/40 dark:glass-panel dark:hover:shadow-blue-500/20">
-              <img src={post.image} alt={post.title} className="h-48 w-full object-cover sm:h-56" />
+              <img src={post.image} alt={post.title} loading="lazy" className="h-48 w-full bg-[#030b15] object-contain sm:h-56" />
               <div className="p-5 sm:p-7">
                 <div className="flex flex-wrap items-center gap-2 text-xs sm:gap-3 sm:text-sm">
                   <span className="rounded-full bg-blue-100 px-2.5 py-1 font-semibold text-blue-700 dark:bg-blue-400/15 dark:text-blue-200 sm:px-3">
                     {post.category}
                   </span>
-                  <span className="text-slate-500 dark:text-slate-400">{post.date}</span>
+                  <span className="text-slate-500 dark:text-slate-400">{post.readTime} min read</span>
                 </div>
                 <h3 className="mt-4 text-xl font-black text-slate-950 dark:text-white sm:text-2xl">
                   {post.title}
@@ -955,7 +956,7 @@ export const Blog = () => {
                   {post.excerpt}
                 </p>
                 <RouterLink
-                  to="/blog-news"
+                  to={`/blog/${post.id}`}
                   className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 dark:text-blue-200 sm:text-base">
                   Read Article
                   <ArrowRight className="h-4 w-4" />

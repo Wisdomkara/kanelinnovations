@@ -7,6 +7,7 @@ import Navbar from './components/Navbar.jsx';
 import SuccessModal from './components/SuccessModal.jsx';
 import TimedInquiryModal from './components/TimedInquiryModal.jsx';
 import BlogNewsPage from './pages/BlogNewsPage.jsx';
+import JournalPage, { JournalArticlePage } from './pages/JournalPage.jsx';
 import BusinessAutomationsPage from './pages/BusinessAutomationsPage.jsx';
 import ServiceDetailPage from './pages/ServiceDetailPage.jsx';
 import FreeAdsTrainingPage from './pages/FreeAdsTrainingPage.jsx';
@@ -377,6 +378,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/blog-news" element={<BlogNewsPage />} />
+          <Route path="/blog" element={<JournalPage />} />
+          <Route path="/blog/:slug" element={<JournalArticlePage />} />
           <Route path="/free-ads-training" element={<FreeAdsTrainingPage />} />
           <Route path="/business-automations" element={<BusinessAutomationsPage />} />
           <Route path="/services/business-automations" element={<BusinessAutomationsPage />} />
