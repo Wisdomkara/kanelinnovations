@@ -126,6 +126,19 @@ const entries = [
     ],
   },
   {
+    id: 'seo-isnt-magic', category: 'Search', image: 'seo-isnt-magic.png',
+    title: 'SEO is not magic. Make your business easier to find.',
+    excerpt: 'Start with the questions your customers ask, explain what you offer, and give every visitor a clear next step.',
+    takeaway: 'Choose one service page. Can a first-time visitor tell what you offer, where you work, and how to enquire without looking elsewhere?',
+    sections: [
+      ['Start with the customer, not a keyword list', 'Think about the last few enquiries your business received. What did people ask for? Which words did they use to describe their problem? Those conversations are a useful starting point for your website. A customer looking for someone to build an online shop needs a clear explanation of that service, not a page filled with broad promises about digital transformation.'],
+      ['Give each service a useful explanation', 'Describe who the service is for, what is included, and what information you need to get started. Where location matters, explain the areas you actually serve. Add answers to the practical questions that come up before a purchase, such as the process, the scope of the work, and how someone can request a quote. Keep the wording natural and specific.'],
+      ['Make the route through your website clear', 'Use descriptive page titles, clear headings, and links that tell readers where they lead. Help someone move from an overview to the service they need without guessing. Open those pages on your phone and follow the journey yourself: read the offer, check the work examples, and try the contact form. Fix the points where the experience becomes confusing.'],
+      ['Give people something they can check', 'Show relevant work, explain your contribution, and keep your business details accurate. A real example with useful context can answer questions that a slogan cannot. Review older pages when your services change so visitors do not have to reconcile conflicting information before deciding whether to contact you.'],
+      ['Treat visibility as ongoing work', 'Keep a record of the pages you improve and the enquiries they help generate. Ask new customers how they found you and what they needed to know before reaching out. Search positions can change, and no page edit guarantees first place. The practical goal behind this artwork is simpler: help the right people discover your business, understand its value, and take the next step.'],
+    ],
+  },
+  {
     id: 'seo-aeo-and-development', category: 'Search', image: 'seo-aeo.png',
     title: 'Be findable. Be understandable. Be useful.',
     excerpt: 'Our SEO, AEO, and development artwork points to a shared goal: helping people find and understand your business.',
