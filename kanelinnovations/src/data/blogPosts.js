@@ -1,5 +1,25 @@
 export const blogPosts = [
   {
+    id: 'show-up-on-google-maps-local-seo-strategy-2026',
+    title: 'How to Show Up on Google Maps and Win More Local Leads',
+    category: 'Local SEO',
+    date: 'September 22, 2026',
+    sourceName: 'Google Business Profile Help',
+    sourceUrl: 'https://support.google.com/business/answer/3038010?hl=en',
+    excerpt:
+      'If your business serves a specific area, showing up on Google Maps is often the difference between being ignored and being booked. Local SEO is not a trick; it is a trust system.',
+    image:
+      'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=80',
+    content: [
+      'When someone searches for a plumber, salon, dentist, restaurant, or contractor near them, Google Maps is often the first place they look. That makes your Google Business Profile one of the most valuable tools in your marketing stack. If your listing is incomplete, outdated, or unverified, you are effectively handing nearby customers to competitors.',
+      'The first step is to claim and verify your business. This means making sure your name, address, phone number, service area, opening hours, and business category are accurate. A small inconsistency can reduce trust or prevent you from ranking at all in local results.',
+      'Next, build a profile that sells. Add real photos of your storefront, team, work process, and finished results. Include a short, useful business description that explains what you do, where you serve, and why customers choose you. Then add services, FAQs, appointment links, and clear calls to action such as call, WhatsApp, or book now.',
+      'Reviews matter just as much as the profile itself. Ask happy customers to leave recent, detailed reviews that mention the specific problem you solved. Google reads those reviews as signals of trust, and local customers read them before they ever contact you. The businesses that consistently ask for reviews tend to earn more clicks, more calls, and better conversions.',
+      'Local visibility also depends on your website. Your site should match your Google profile, include your area and services, and give users a reason to act quickly. A strong local landing page can connect search intent to conversion by including proof, reviews, pricing context, FAQs, and a simple contact path.',
+      'If you want to win on Google Maps, do not treat it as a one-time setup. Review your profile monthly, update your photos, publish new posts, answer questions, and keep your services aligned with what customers are searching for. Consistency builds trust, and trust drives enquiries.',
+    ],
+  },
+  {
     id: 'google-ai-search-console-insights-august-2026',
     title: 'Google Rolls Out AI Search Insights for Website Owners',
     category: 'AI Search',
