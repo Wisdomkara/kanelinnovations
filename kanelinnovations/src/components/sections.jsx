@@ -436,39 +436,37 @@ export const Home = () => (
 );
 
 export const ClientLogoMarquee = () => {
-  const marqueeItems = [...clientLogos, ...clientLogos, ...clientLogos];
+  const [paused, setPaused] = useState(false);
 
   return (
-    <AnimatedSection className="relative z-10 bg-slate-50 px-5 py-8 dark:bg-slate-900 sm:px-6 md:px-10 lg:px-16">
+    <section className="client-partners" aria-label="Our partners">
       <div className={containerClass}>
-        <div className="overflow-hidden rounded-3xl border border-blue-400/20 bg-[#03152f] px-5 py-8 shadow-2xl shadow-blue-950/25 sm:px-8 lg:px-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-cyan-200">
-              Trusted by growing businesses
-            </p>
-          </div>
-
-          <div className="relative mt-8 overflow-hidden">
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#03152f] to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#03152f] to-transparent" />
-
-            <div className="client-logo-marquee flex w-max items-center gap-5">
-              {marqueeItems.map((logo, index) => (
-                <div
-                  key={`${logo.name}-${index}`}
-                  className="flex h-24 min-w-[190px] items-center justify-center rounded-2xl border border-white/10 bg-white/[0.08] px-6 backdrop-blur transition hover:border-cyan-300/50 hover:bg-white/[0.12] sm:min-w-[230px]">
-                  {logo.type === 'image' ? (
-                    <img src={logo.src} alt={`${logo.name} logo`} className={logo.className} />
-                  ) : (
-                    <span className={logo.className}>{logo.name}</span>
-                  )}
-                </div>
-              ))}
-            </div>
+        <div className="client-partners-heading">
+          <p>Trusted by growing businesses</p>
+          <button type="button" aria-pressed={paused} onClick={() => setPaused(!paused)}>
+            {paused ? 'Resume' : 'Pause'}
+            <span className="sr-only"> partner animation</span>
+          </button>
+        </div>
+        <div className="client-partners-window">
+          <div className="client-logo-marquee" data-paused={paused}>
+            {[0, 1].map((copy) => (
+              <ul className="client-partners-group" key={copy} aria-hidden={copy === 1 ? true : undefined}>
+                {clientLogos.map((logo) => (
+                  <li key={logo.name}>
+                    {logo.type === 'image' ? (
+                      <img src={logo.src} alt={logo.name} width="120" height="36" loading="lazy" />
+                    ) : (
+                      <span>{logo.name}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ))}
           </div>
         </div>
       </div>
-    </AnimatedSection>
+    </section>
   );
 };
 

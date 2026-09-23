@@ -278,15 +278,85 @@ textarea {
 
 @keyframes client-logo-marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-33.333%); }
+  to { transform: translateX(-50%); }
 }
 
 .client-logo-marquee {
+  display: flex;
+  width: max-content;
   animation: client-logo-marquee 28s linear infinite;
 }
 
-.client-logo-marquee:hover {
+.client-partners:hover .client-logo-marquee,
+.client-partners:focus-within .client-logo-marquee,
+.client-logo-marquee[data-paused="true"] {
   animation-play-state: paused;
+}
+.client-partners {
+  padding: 18px 24px 22px;
+  background: #fff;
+  border-block: 1px solid #e2e8f0;
+  color: #334155;
+}
+.dark .client-partners {
+  background: #0f172a;
+  border-color: #263448;
+  color: #e2e8f0;
+}
+.client-partners-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.client-partners-heading p {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.client-partners-heading button {
+  min-height: 44px;
+  padding: 0 8px;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.client-partners-window { overflow: hidden; }
+.client-partners-group {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-around;
+  align-items: center;
+  width: max(100vw, 640px);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.client-partners-group li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 144px;
+  height: 44px;
+}
+.client-partners-group img {
+  width: 120px;
+  height: 36px;
+  object-fit: contain;
+}
+.client-partners-group span {
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .client-logo-marquee { animation: none; width: 100%; }
+  .client-partners-group { width: 100%; flex-wrap: wrap; gap: 16px 0; }
+  .client-partners-group li { width: 50%; }
+  .client-partners-group[aria-hidden="true"],
+  .client-partners-heading button { display: none; }
 }
 
 /* ── Glass Edge Sliding Animation ─────────────────────────── */
