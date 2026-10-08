@@ -21,15 +21,29 @@ export default function DigitalScorePage() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [report, setReport] = useState(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [analysisProgress, setAnalysisProgress] = useState(0);
   const [companyWebsite, setCompanyWebsite] = useState('');
   const pending = useRef(null);
   const heading = useRef(null);
   const inFlight = useRef(false);
   const activeCategories = categories.filter((category) => isApplicable(category, answers));
   const category = activeCategories[step - 1];
+  const showAnalysis = analyzing || (busy && !report);
+  const analysisMessage = analysisProgress < 30 ? 'Checking your business based on your answers…'
+    : analysisProgress < 60 ? 'Identifying gaps in your digital presence…'
+      : analysisProgress < 85 ? 'Finding opportunities for improvement…'
+        : 'Preparing your score and personalized recommendations…';
 
   useEffect(() => { markScoreSession('started'); }, []);
-  useEffect(() => { heading.current?.focus(); }, [step, report]);
+  useEffect(() => { heading.current?.focus(); }, [step, report, showAnalysis]);
+  useEffect(() => {
+    if (!analyzing) return undefined;
+    const started = Date.now();
+    const interval = setInterval(() => setAnalysisProgress(Math.min(95, Math.floor((Date.now() - started) / 100))), 100);
+    const timer = setTimeout(() => { setAnalysisProgress(100); setAnalyzing(false); }, 10000);
+    return () => { clearInterval(interval); clearTimeout(timer); };
+  }, [analyzing]);
 
   function next(event) {
     event.preventDefault();
@@ -58,6 +72,7 @@ export default function DigitalScorePage() {
       pending.current = { version: ASSESSMENT_VERSION, submissionId: crypto.randomUUID(), contact, answers: normalized.answers, companyWebsite };
     }
     inFlight.current = true;
+    if (!report) { setAnalysisProgress(0); setAnalyzing(true); }
     setBusy(true);
     setError('');
     try {
@@ -70,6 +85,7 @@ export default function DigitalScorePage() {
       setReport(data);
       if (data.ok) markScoreSession('completed');
     } catch (failure) {
+      setAnalyzing(false);
       setError(failure.name === 'TimeoutError' ? 'Submission took too long. Please retry.' : failure.message || 'Unable to submit. Please try again.');
     } finally { setBusy(false); inFlight.current = false; }
   }
@@ -82,8 +98,13 @@ export default function DigitalScorePage() {
   return (
     <main className="mx-auto max-w-4xl px-5 pb-20 pt-32 sm:px-8">
       <p className="font-bold uppercase tracking-widest text-blue-600 dark:text-blue-300">Free Digital Business Score</p>
-      <h1 ref={heading} tabIndex={-1} className="mt-3 text-3xl font-black sm:text-5xl">{report ? `Your Overall Digital Business Score: ${report.result.overallScore}%` : 'How strong is your business online?'}</h1>
-      {report ? <>
+      <h1 ref={heading} tabIndex={-1} className="mt-3 text-3xl font-black sm:text-5xl">{showAnalysis ? 'Preparing your Digital Business Score' : report ? `Your Overall Digital Business Score: ${report.result.overallScore}%` : 'How strong is your business online?'}</h1>
+      {showAnalysis ? <div aria-busy="true" className="mt-8 rounded-2xl border border-blue-200 bg-blue-50 p-6 text-center dark:border-blue-800 dark:bg-blue-950/40 sm:p-10">
+        <div aria-hidden="true" className="mx-auto h-14 w-14 rounded-full border-4 border-blue-200 border-t-blue-600 motion-safe:animate-spin dark:border-blue-900 dark:border-t-blue-400" />
+        <progress aria-label="Preparing your assessment results" value={Math.min(analysisProgress, busy ? 95 : 100)} max={100} className="mt-8 h-3 w-full accent-blue-600" />
+        <p role="status" aria-live="polite" className="mt-5 text-lg font-semibold">{analysisMessage}</p>
+        <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">We’re reviewing your responses to prepare your score and improvement plan.</p>
+      </div> : report ? <>
         <p className="mt-4 text-xl font-semibold">{report.result.classification}</p>
         <p className="mt-3 text-slate-600 dark:text-slate-300">Based on your answers; this is not an independent audit.</p>
         <div role="status" className="mt-6 rounded-xl bg-blue-50 p-5 text-blue-950 dark:bg-blue-950 dark:text-blue-100">

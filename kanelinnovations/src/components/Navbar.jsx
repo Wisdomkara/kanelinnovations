@@ -26,6 +26,7 @@ const serviceLinks = [
 ];
 
 const resourceLinks = [
+  { name: 'Free Digital Business Score', to: '/digital-score' },
   { name: 'Free Ads Training', to: '/free-ads-training' },
   { name: 'Blog / The Kanel Journal', to: '/blog' },
   { name: 'Technology News', to: '/blog-news' },
@@ -236,7 +237,7 @@ export default function Navbar({ theme, onToggleTheme }) {
             serviceLinks,
             location.pathname.startsWith('/services') || location.pathname === '/business-automations'
           )}
-          {renderDesktopDropdown('resources', 'Resources', resourceLinks, location.pathname.startsWith('/blog'))}
+          {renderDesktopDropdown('resources', 'Resources', resourceLinks, resourceLinks.some((item) => location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)))}
 
           <RouterLink
             to="/#contact"
