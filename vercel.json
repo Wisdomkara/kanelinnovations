@@ -2,6 +2,12 @@
   "installCommand": "cd kanelinnovations && npm install",
   "buildCommand": "cd kanelinnovations && npm run build",
   "outputDirectory": "kanelinnovations/dist",
+  "functions": {
+    "api/digital-score.js": {
+      "maxDuration": 30,
+      "includeFiles": "kanelinnovations/src/digital-score/**"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",

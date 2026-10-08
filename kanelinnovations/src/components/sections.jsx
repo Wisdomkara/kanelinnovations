@@ -533,6 +533,13 @@ export const About = () => (
           A weak online presence now costs businesses trust, visibility, and
           speed.
         </h2>
+        <p className="mt-5 text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg">
+          Kanel Innovations is officially registered in Nigeria with the Corporate
+          Affairs Commission (CAC).
+        </p>
+        <p className="mt-3 text-sm font-bold tracking-wide text-blue-700 dark:text-blue-300">
+          RC 9918028
+        </p>
       </div>
 
       <div className={`${contentGap} grid gap-6 lg:grid-cols-2`}>

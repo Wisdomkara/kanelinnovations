@@ -6,6 +6,9 @@ import { motion as Motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
 import SuccessModal from './components/SuccessModal.jsx';
 import TimedInquiryModal from './components/TimedInquiryModal.jsx';
+import DigitalScorePromotion from './components/DigitalScorePromotion.jsx';
+import DigitalScorePage from './pages/DigitalScorePage.jsx';
+import { getScoreSession } from './digital-score/session.js';
 import BlogNewsPage from './pages/BlogNewsPage.jsx';
 import JournalPage, { JournalArticlePage } from './pages/JournalPage.jsx';
 import BusinessAutomationsPage from './pages/BusinessAutomationsPage.jsx';
@@ -284,6 +287,7 @@ function HomePage() {
     if (timedInquiryDismissed) return undefined;
 
     const timer = setTimeout(() => {
+      if (getScoreSession() || document.querySelector('dialog[open], [role="dialog"]')) return;
       setTimedInquiryOpen(true);
     }, 10000);
 
@@ -377,6 +381,7 @@ function App() {
       <div className={`transition-opacity duration-700 ${loading && !isTrainingPage ? 'opacity-0' : 'opacity-100'}`}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/digital-score" element={<DigitalScorePage />} />
           <Route path="/blog-news" element={<BlogNewsPage />} />
           <Route path="/blog" element={<JournalPage />} />
           <Route path="/blog/:slug" element={<JournalArticlePage />} />
@@ -389,6 +394,7 @@ function App() {
       </div>
 
       {!isTrainingPage && <FloatingWhatsAppButton />}
+      {!isTrainingPage && <DigitalScorePromotion />}
     </div>
   );
 }
