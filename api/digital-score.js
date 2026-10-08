@@ -58,9 +58,9 @@ module.exports = async function handler(request, response) {
   const scoreLines = result.categoryScores.map((item) => `${item.name}: ${item.score}/${item.maximum}`);
   const reportLines = [
     `Hello ${contact.name},`, '',
-    `Your Digital Business Score for ${contact.businessName}: ${result.overallScore}/100`, result.classification,
+    `Your Overall Digital Business Score for ${contact.businessName}: ${result.overallScore}%`, result.classification,
     'This score is based on your answers and is not an independent audit.', '', 'YOUR SCORE BREAKDOWN', ...scoreLines,
-    '', 'YOUR PRIORITY IMPROVEMENTS',
+    '', 'HOW WE CAN IMPROVE YOUR DIGITAL PRESENCE',
     ...(recommendations.priorities.length ? recommendations.priorities.map((gap) => `${gap.title}: ${gap.why}\nNext step: ${gap.action}\nHow Kanel can help: ${gap.service}`) : ['Your answers indicate strong foundations. We can help you maintain and improve them.']),
     '', 'ALL IDENTIFIED GAPS AND HOW WE CAN HELP',
     ...recommendations.gaps.map((gap) => `${gap.title}\n${gap.action}\nService: ${gap.service}`),
@@ -83,8 +83,8 @@ module.exports = async function handler(request, response) {
   const delivery = { admin: 'failed', client: 'failed' };
   // Stable content and separate keys let a retry recover either failed message.
   for (const [recipient, payload] of [
-    ['admin', { from, to: [ADMIN_EMAIL], reply_to: contact.email, subject: `Digital Business Score: ${contact.businessName} (${result.overallScore}/100)`, text: adminLines.join('\n'), html: html(adminLines) }],
-    ['client', { from, to: [contact.email], reply_to: ADMIN_EMAIL, subject: `Your Kanel Digital Business Score: ${result.overallScore}/100`, text: reportLines.join('\n'), html: html(reportLines) }],
+    ['admin', { from, to: [ADMIN_EMAIL], reply_to: contact.email, subject: `Digital Business Score: ${contact.businessName} (${result.overallScore}%)`, text: adminLines.join('\n'), html: html(adminLines) }],
+    ['client', { from, to: [contact.email], reply_to: ADMIN_EMAIL, subject: `Your Overall Kanel Digital Business Score: ${result.overallScore}%`, text: reportLines.join('\n'), html: html(reportLines) }],
   ]) {
     try { await sendEmail(payload, `${key}/${recipient}`); delivery[recipient] = 'accepted'; }
     catch { /* Do not expose provider errors or customer information. */ }

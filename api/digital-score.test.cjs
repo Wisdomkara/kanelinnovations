@@ -35,7 +35,8 @@ test('server recomputes score and sends complete reports to fixed admin and clie
   assert.match(sent[0].payload.text, /followUpConsent: false/);
   const { scoreServices } = await import('../kanelinnovations/src/digital-score/services.js');
   for (const service of scoreServices) assert.ok(sent[1].payload.text.includes(service.name));
-  assert.match(sent[1].payload.text, /100\/100/);
+  assert.match(sent[1].payload.text, /Overall Digital Business Score for Sample Business: 100%/);
+  assert.match(sent[1].payload.subject, /100%/);
   await invoke(body);
   assert.deepEqual(sent.slice(0, 2), sent.slice(2));
 });

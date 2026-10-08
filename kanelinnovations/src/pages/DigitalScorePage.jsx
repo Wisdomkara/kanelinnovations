@@ -82,7 +82,7 @@ export default function DigitalScorePage() {
   return (
     <main className="mx-auto max-w-4xl px-5 pb-20 pt-32 sm:px-8">
       <p className="font-bold uppercase tracking-widest text-blue-600 dark:text-blue-300">Free Digital Business Score</p>
-      <h1 ref={heading} tabIndex={-1} className="mt-3 text-3xl font-black sm:text-5xl">{report ? `Your score: ${report.result.overallScore}/100` : 'How strong is your business online?'}</h1>
+      <h1 ref={heading} tabIndex={-1} className="mt-3 text-3xl font-black sm:text-5xl">{report ? `Your Overall Digital Business Score: ${report.result.overallScore}%` : 'How strong is your business online?'}</h1>
       {report ? <>
         <p className="mt-4 text-xl font-semibold">{report.result.classification}</p>
         <p className="mt-3 text-slate-600 dark:text-slate-300">Based on your answers; this is not an independent audit.</p>
@@ -93,7 +93,7 @@ export default function DigitalScorePage() {
           </>}
         </div>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">{report.result.categoryScores.map((item) => <li key={item.id} className="rounded-xl border border-slate-200 p-4 dark:border-slate-700"><span>{item.name}</span><strong className="float-right">{item.score}/{item.maximum}</strong></li>)}</ul>
-        <h2 className="mt-10 text-2xl font-bold">Your priority improvements</h2>
+        <h2 className="mt-10 text-2xl font-bold">How We Can Improve Your Digital Presence</h2>
         {report.recommendations.priorities.length ? report.recommendations.priorities.map((gap) => <article key={gap.category} className="mt-4 rounded-xl border border-slate-200 p-5 dark:border-slate-700"><h3 className="text-lg font-bold">{gap.title}</h3><p className="mt-2">{gap.why}</p><p className="mt-2">{gap.action}</p><p className="mt-3 font-semibold">We can help with {gap.service}.</p></article>) : <p className="mt-4">Your answers indicate strong foundations. We can help you maintain and improve them.</p>}
         <h2 className="mt-10 text-2xl font-bold">Services available from Kanel</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">{scoreServices.map((service) => <Link key={service.path} to={service.path} className="rounded-xl border border-slate-200 p-5 hover:border-blue-500 dark:border-slate-700"><h3 className="font-bold">{service.name}</h3><p className="mt-2 text-sm leading-6">{service.description}</p></Link>)}</div>
